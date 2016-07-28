@@ -201,46 +201,7 @@
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/259cb4e37c.js"></script>
 
-    <!-- Change navbar on scroll -->
-    <script type="text/javascript">
-    $(window).scroll(function() {
-      if ($(document).scrollTop() > 100) {
-        $('nav').addClass('shrink');
-      } else {
-        $('nav').removeClass('shrink');
-      }
-    });
-    </script>
-
-    <!-- Rolagem macia -->
-    <script type="text/javascript">
-    $('a').click(function(){
-      $('html, body').animate({
-        scrollTop: $( $(this).attr('href') ).offset().top
-      }, 500);
-      return false;
-    });
-    </script>
-
-    <!-- Scroll to top -->
-    <script type="text/javascript">
-
-      if ($('#back-to-top').length) {
-        var scrollTrigger = 100, // px
-        backToTop = function () {
-          var scrollTop = $(window).scrollTop();
-          if (scrollTop > scrollTrigger) {
-            $('#back-to-top').addClass('show');
-          } else {
-            $('#back-to-top').removeClass('show');
-          }
-        };
-        backToTop();
-        $(window).on('scroll', function () {
-          backToTop();
-        });
-      }
-
-    </script>
+    <!-- Custom JS -->
+    <script type="text/javascript" src="assets/js/master.js"></script>
 
     </html>
