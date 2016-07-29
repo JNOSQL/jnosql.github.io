@@ -1,0 +1,6 @@
+org.apache.diana.api
+org.apache.diana.api.column
+org.apache.diana.api.document
+org.apache.diana.api.key
+org.apache.diana.api.reader
+org.apache.diana.api.writer

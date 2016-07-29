@@ -42,7 +42,7 @@
           <li><a href="#top">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#examples">Examples</a></li>
-          <li><a href="https://docs.oracle.com/javase/7/docs/api/" target="_blank">Docs</a></li>
+          <li><a href="apidocs/index.html" target="_blank">Docs</a></li>
           <li class="visible-sm-block visible-xs-block"><a href="#download">Download</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -112,21 +112,14 @@
       <p>Here you can see some examples of usage of Diana.</p>
       <pre class="language-java">
         <code class="language-java">
-          package org.apache.diana.demo;
-
-          import org.apache.diana.api.document.*;
-          import org.apache.diana.mongodb.document.MongoDBDocumentConfiguration;
-
-          import java.util.List;
-          import java.util.Optional;
-
+          
           public class App {
 
-            public static final String DATABASE = "database";
-            public static final String DOCUMENT_COLLECTION = "person";
+            private static final String DOCUMENT_COLLECTION = "document_collection";
+            private static final String DATABASE = "database";
 
             public static void main(String[] args)  {
-              DocumentConfiguration configuration = new MongoDBDocumentConfiguration();
+              DocumentConfiguration configuration = //any implementation
               try(DocumentCollectionManagerFactory collectionFactory = configuration.getManagerFactory();) {
                 DocumentCollectionManager collectionManager = collectionFactory.getDocumentEntityManager(DATABASE);
 
@@ -135,17 +128,76 @@
                 entity.add(Document.of("age", 26));
 
                 DocumentCollectionEntity entitySaved = collectionManager.save(entity);
-                Optional<Document> id = entitySaved.find("_id");
+                Optional&lt;Document&gt; id = entitySaved.find("_id");
 
                   DocumentQuery query = DocumentQuery.of(DOCUMENT_COLLECTION);
                   query.addCondition(DocumentCondition.eq(id.get()));
-                  List<DocumentCollectionEntity> documentsFound = collectionManager.find(query);
+                  List&lt;DocumentCollectionEntity&gt; documentsFound = collectionManager.find(query);
 
                   }
                 }
               }
             </code>
           </pre>
+          <hr>
+          <pre class="language-java">
+            <code class="language-java">
+
+            public class App {
+
+              private static final String KEY_SPACE = "newKeySpace";
+              private static final String COLUMN_FAMILY = "newColumnFamily";
+
+              public static void main(String[] args) {
+
+              ColumnConfiguration condition = //any implementation
+
+              try(ColumnFamilyManagerFactory managerFactory = condition.getManagerFactory()) {
+              ColumnFamilyManager columnEntityManager = managerFactory.getColumnEntityManager(KEY_SPACE);
+              ColumnFamilyEntity entity = ColumnFamilyEntity.of(COLUMN_FAMILY);
+              Column id = Column.of("id", 10L);
+              entity.add(id);
+              entity.add(Column.of("version", 0.001));
+              entity.add(Column.of("name", "Diana"));
+              entity.add(Column.of("options", Arrays.asList(1, 2, 3)));
+
+              columnEntityManager.save(entity);
+
+              ColumnQuery query = ColumnQuery.of(COLUMN_FAMILY);
+              query.addCondition(ColumnCondition.eq(id));
+              List&lt;ColumnFamilyEntity&gt; entities = columnEntityManager.find(query);
+
+            }
+
+
+          }
+        </code>
+      </pre>
+                <hr>
+          <pre class="language-java">
+            <code class="language-java">
+
+              public class App {
+
+
+              public static void main(String[] args) {
+
+              KeyValueConfiguration configuration = //any implementation
+              try (BucketManagerFactory managerFactory = configuration.getManagerFactory()) {
+              BucketManager bucket = managerFactory.getBucketManager("bucket");
+              List&lt;String&gt; list = managerFactory.getList("bucketList", String.class);
+              Set&lt;String&gt; set = managerFactory.getSet("bucketSet", String.class);
+              Map&lt;String, Integer&gt; map = managerFactory.getMap("bucketList", String.class, Integer.class);
+              Queue&lt;String&gt; queue = managerFactory.getQueue("queueList", String.class);
+              bucket.put("key", "value");
+              Optional&lt;Value&gt; value = bucket.get("key");
+            }
+
+
+          }
+        }
+        </code>
+      </pre>
           <hr>
           <a href="./examples.html" class="btn btn-lg btn-info">See more <i class="fa fa-eye"></i></a>
         </div><!-- /.container -->
