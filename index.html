@@ -117,9 +117,9 @@
 
             private static final String DOCUMENT_COLLECTION = "document_collection";
             private static final String DATABASE = "database";
-            
+
             public static void main(String[] args)  {
-              DocumentConfiguration configuration = //any document driver
+              DocumentConfiguration configuration = //any implementation
               try(DocumentCollectionManagerFactory collectionFactory = configuration.getManagerFactory();) {
                 DocumentCollectionManager collectionManager = collectionFactory.getDocumentEntityManager(DATABASE);
 
@@ -139,6 +139,40 @@
               }
             </code>
           </pre>
+          <hr>
+          <pre class="language-java">
+            <code class="language-java">
+
+            public class App {
+
+              private static final String KEY_SPACE = "newKeySpace";
+              private static final String COLUMN_FAMILY = "newColumnFamily";
+
+              public static void main(String[] args) {
+
+              ColumnConfiguration condition = //any implementation
+
+              try(ColumnFamilyManagerFactory managerFactory = condition.getManagerFactory()) {
+              ColumnFamilyManager columnEntityManager = managerFactory.getColumnEntityManager(KEY_SPACE);
+              ColumnFamilyEntity entity = ColumnFamilyEntity.of(COLUMN_FAMILY);
+              Column id = Column.of("id", 10L);
+              entity.add(id);
+              entity.add(Column.of("version", 0.001));
+              entity.add(Column.of("name", "Diana"));
+              entity.add(Column.of("options", Arrays.asList(1, 2, 3)));
+
+              columnEntityManager.save(entity);
+
+              ColumnQuery query = ColumnQuery.of(COLUMN_FAMILY);
+              query.addCondition(ColumnCondition.eq(id));
+              List&lt;ColumnFamilyEntity&gt; entities = columnEntityManager.find(query);
+
+            }
+
+
+          }
+        </code>
+      </pre>
           <hr>
           <a href="./examples.html" class="btn btn-lg btn-info">See more <i class="fa fa-eye"></i></a>
         </div><!-- /.container -->
