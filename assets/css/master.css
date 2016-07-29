@@ -110,7 +110,7 @@ hr { border-top: 1px solid rgba(157, 157, 157, 0.33); }
 
 .opacity {
   transition: all .3s;
-  max-width: 130px;
+  max-width: 180px;
 }
 
 .opacity:hover { opacity: 0.6; }
@@ -120,11 +120,15 @@ hr { border-top: 1px solid rgba(157, 157, 157, 0.33); }
   margin-bottom: 10px;
 }
 
-.box-logos {
-  background: rgb(240, 246, 245);
-  border: 3px solid #fff;
-  margin-bottom: 5px;
-}
+/* Carousel */
+
+.carousel-inner .active.left { left: -33%; }
+.carousel-inner .next { left:  33%; }
+.carousel-inner .prev { left: -33%; }
+.carousel-control.left,.carousel-control.right {background-image:none;}
+.item:not(.prev) {visibility: visible;}
+.item.right:not(.prev) {visibility: hidden;}
+.rightest{ visibility: visible;}
 
 /* Navbar */
 
