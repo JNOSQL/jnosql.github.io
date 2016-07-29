@@ -182,7 +182,7 @@
 
               public static void main(String[] args) {
 
-              KeyValueConfiguration configuration = new HazelCastKeyValueConfiguration();
+              KeyValueConfiguration configuration = //any implementation
               try (BucketManagerFactory managerFactory = configuration.getManagerFactory()) {
               BucketManager bucket = managerFactory.getBucketManager("bucket");
               List&lt;String&gt; list = managerFactory.getList("bucketList", String.class);
