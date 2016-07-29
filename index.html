@@ -115,7 +115,9 @@
           
           public class App {
 
-
+            private static final String DOCUMENT_COLLECTION = "document_collection";
+            private static final String DATABASE = "database";
+            
             public static void main(String[] args)  {
               DocumentConfiguration configuration = //any document driver
               try(DocumentCollectionManagerFactory collectionFactory = configuration.getManagerFactory();) {
