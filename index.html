@@ -185,12 +185,12 @@
               KeyValueConfiguration configuration = new HazelCastKeyValueConfiguration();
               try (BucketManagerFactory managerFactory = configuration.getManagerFactory()) {
               BucketManager bucket = managerFactory.getBucketManager("bucket");
-              List&lt;Stringgt; list = managerFactory.getList("bucketList", String.class);
-              Set&lt;Stringgt; set = managerFactory.getSet("bucketSet", String.class);
-              Map&lt;String, Integergt; map = managerFactory.getMap("bucketList", String.class, Integer.class);
-              Queue&lt;Stringgt; queue = managerFactory.getQueue("queueList", String.class);
+              List&lt;String&gt; list = managerFactory.getList("bucketList", String.class);
+              Set&lt;String&gt; set = managerFactory.getSet("bucketSet", String.class);
+              Map&lt;String, Integer&gt; map = managerFactory.getMap("bucketList", String.class, Integer.class);
+              Queue&lt;String&gt; queue = managerFactory.getQueue("queueList", String.class);
               bucket.put("key", "value");
-              Optional&lt;Valuegt; value = bucket.get("key");
+              Optional&lt;Value&gt; value = bucket.get("key");
             }
 
 
