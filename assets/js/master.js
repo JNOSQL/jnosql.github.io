@@ -40,7 +40,7 @@
 
     // Logo carousel
     $('#myCarousel').carousel({
-      interval: 40000
+      interval: 3000
     });
 
     $('.carousel .item').each(function(){
