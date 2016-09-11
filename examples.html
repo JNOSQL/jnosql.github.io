@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Diana by JNOSQL</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/logo-small.png" />
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" charset="utf-8">
+
+  <!-- Hover.css -->
+  <link rel="stylesheet" href="assets/css/hover.min.css" charset="utf-8">
+
+  <!-- Custom css -->
+  <link rel="stylesheet" href="assets/css/master.css" charset="utf-8">
+
+  <!-- Responsive -->
+  <link rel="stylesheet" href="assets/css/media-queries.css" charset="utf-8">
+
+  <!-- Sintax highlighter -->
+  <link rel="stylesheet" href="assets/css/prism.css" charset="utf-8">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Molle:400i|Oxygen" rel="stylesheet">
+
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-transparent navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="assets/img/logo-small.png" alt="Diana" /></a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="#examples">Examples</a></li>
+          <li><a href="https://docs.oracle.com/javase/7/docs/api/" target="_blank">Docs</a></li>
+          <li class="visible-sm-block visible-xs-block"><a href="#download">Download</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="visible-lg-block visible-md-block btn-download">
+            <a href="#download" class="btn btn-md btn-default hvr-shadow">
+              View on GitHub <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="title-container" id="top">
+    <div class="col-lg-6 col-lg-offset-3">
+      <h1 class="text-center">Examples</h1>
+
+    </div>
+  </div>
+
+  <section id="examples" class="bg-white">
+    <div class="container">
+
+      <h1>Examples</h1>
+      <hr>
+      <p>Here you can see some examples of usage of Diana.</p>
+      <pre class="language-java">
+        <code class="language-java">
+          package org.apache.diana.demo;
+
+          import org.apache.diana.api.document.*;
+          import org.apache.diana.mongodb.document.MongoDBDocumentConfiguration;
+
+          import java.util.List;
+          import java.util.Optional;
+
+          public class App {
+
+            public static final String DATABASE = "database";
+            public static final String DOCUMENT_COLLECTION = "person";
+
+            public static void main(String[] args)  {
+              DocumentConfiguration configuration = new MongoDBDocumentConfiguration();
+              try(DocumentCollectionManagerFactory collectionFactory = configuration.getManagerFactory();) {
+                DocumentCollectionManager collectionManager = collectionFactory.getDocumentEntityManager(DATABASE);
+
+                DocumentCollectionEntity entity = DocumentCollectionEntity.of(DOCUMENT_COLLECTION);
+                entity.add(Document.of("name", "Daniel Soro"));
+                entity.add(Document.of("age", 26));
+
+                DocumentCollectionEntity entitySaved = collectionManager.save(entity);
+                Optional<Document> id = entitySaved.find("_id");
+
+                  DocumentQuery query = DocumentQuery.of(DOCUMENT_COLLECTION);
+                  query.addCondition(DocumentCondition.eq(id.get()));
+                  List<DocumentCollectionEntity> documentsFound = collectionManager.find(query);
+
+                  }
+                }
+              }
+            </code>
+          </pre>
+        </div><!-- /.container -->
+      </section>
+
+      <section id="download" class="bg-light-gray">
+        <div class="container">
+
+          <h1>Download</h1>
+          <hr>
+          <p>Apache Diana is a flexible and extensible API to connect NoSQL databases. It brings an easy interface to support key-value, column family, document oriented and graph databases as JDBC does for SQL databases.</p>
+          <div class="space"></div>
+          <div class="col-sm-4 row">
+            <a href="https://github.com/JNOSQL/diana-site" class="btn btn-lg btn-info btn-block hvr-shadow">
+              View on GitHub <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+          </div>
+
+        </div><!-- /.container -->
+      </section>
+
+      <footer class="bg-dark">
+        <div class="container">
+
+          <div class="col-md-6">
+            <p class="pull-left">
+              <a href="https://github.com/JNOSQL/diana-site" target="_blank">Diana</a> is maintained by <a href="https://github.com/JNOSQL" target="_blank">JNOSQL.</a>
+            </p>
+          </div>
+
+          <div class="col-md-6">
+            <p class="pull-right">
+              Website Designed by <a href="http://work.blogmachine.com.br" target="_blank">Blog Machine</a>
+            </p>
+          </div>
+
+        </div><!-- /.container -->
+      </footer>
+
+      <a href="#top" id="back-to-top" title="Back to top">&uarr;</a>
+
+
+    </body>
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Sintax highlighter -->
+    <script type="text/javascript" src="assets/js/prism.js"></script>
+
+    <!-- Font Awesome -->
+    <script type="text/javascript" src="https://use.fontawesome.com/259cb4e37c.js"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="assets/js/master.js"></script>
+
+    </html>

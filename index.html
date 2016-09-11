@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Diana by JNOSQL</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/logo-small.png" />
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" charset="utf-8">
+
+  <!-- Hover.css -->
+  <link rel="stylesheet" href="assets/css/hover.min.css" charset="utf-8">
+
+  <!-- Custom css -->
+  <link rel="stylesheet" href="assets/css/master.css" charset="utf-8">
+
+  <!-- Responsive -->
+  <link rel="stylesheet" href="assets/css/media-queries.css" charset="utf-8">
+
+  <!-- Sintax highlighter -->
+  <link rel="stylesheet" href="assets/css/prism.css" charset="utf-8">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Molle:400i|Oxygen" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-transparent navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="assets/img/logo-small.png" alt="Diana" /></a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a class="scroll" href="#top">Home</a></li>
+          <li><a class="scroll" href="#about">About</a></li>
+          <li><a class="scroll" href="#support">Support</a></li>
+          <li><a class="scroll" href="#examples">Examples</a></li>
+          <li><a href="apidocs/index.html" target="_blank">Docs</a></li>
+          <li><a class="scroll" href="#join-us">Join Us</a></li>
+          <li class="visible-sm-block visible-xs-block scroll"><a href="#download">Download</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="visible-lg-block visible-md-block btn-download">
+            <a href="#download" class="btn btn-md btn-default hvr-shadow scroll">
+              View on GitHub <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="wide" id="top">
+    <div class="col-lg-6 col-lg-offset-3">
+      <h1 class="text-center">Diana</h1>
+      <p class="text-center">Diana is a flexible and extensible API to connect NoSQL databases. It brings an easy interface to support key-value, column family, document oriented and graph databases as JDBC does for SQL databases.</p>
+
+      <hr>
+
+      <div class="col-sm-6 col-sm-offset-3">
+        <a href="https://github.com/JNOSQL/" class="btn btn-lg btn-default btn-block hvr-shadow" target="_blank">
+          View on GitHub <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="clearfix"></div>
+
+      <div class="text-center">
+        <a href="#about" class="btn btn-default btn-lg btn-circle btn-down hvr-sink"><i class="fa fa-angle-down"></i></a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <section id="about" class="bg-light-gray">
+    <div class="container">
+
+      <h1>About</h1>
+      <hr>
+      <p>Diana is a flexible and extensible API to connect NoSQL databases. It brings an easy interface to support key-value, column family, document oriented and graph databases as JDBC does for SQL databases.</p>
+
+      <p>The basic building blocks hereby are:</p>
+
+      <ul>
+        <li>A simple API to support Column NoSQL Database</li>
+        <li>A simple API to support Key-value NoSQL Database</li>
+        <li>A simple API to support Graph NoSQL Database</li>
+        <li>A simple API to support Document Database</li>
+        <li>Convention over configuration</li>
+        <li>Support for asynchronous queries</li>
+        <li>Support for asynchronous write operations</li>
+        <li>An easy API to implement, so that NoSQL vendors can comply with it  and test by themselves.</li>
+      </ul>
+
+      <p>The API's focus is on simplicity and ease of use. Developers should only have to know a minimal set of artifacts to work with the solution. The API is built on latest Java 8 features and therefore fit perfectly with the functional features of Java 8. </p>
+
+    </div><!-- /.container -->
+  </section>
+
+  <section id="support" class="bg-white">
+    <div class="container">
+
+      <h1>Support</h1>
+      <hr>
+      <p>Currently, Diana works with the following databases:</p>
+
+      <div class="carousel slide" id="myCarousel">
+        <div class="carousel-inner">
+
+          <!-- Item -->
+          <div class="item active">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="http://cassandra.apache.org/" target="_blank">
+                <img src="assets/img/logos/cassandra.png" alt="Cassandra" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Column</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="http://www.scylladb.com/" target="_blank">
+                <img src="assets/img/logos/scylladb.png" alt="Scylladb" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Column</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="https://hbase.apache.org/" target="_blank">
+                <img src="assets/img/logos/hbase.png" alt="Hbase" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Column</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="https://www.mongodb.com/" target="_blank">
+                <img src="assets/img/logos/mongodb.png" alt="Mongodb" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Document</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="http://www.couchbase.com/" target="_blank">
+                <img src="assets/img/logos/couchbase.png" alt="Couchbase" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Document, Key-value</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="http://orientdb.com/orientdb/" target="_blank">
+                <img src="assets/img/logos/orientdb.png" alt="Orientdb" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Document, Key-value, Graph</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="https://www.arangodb.com" target="_blank">
+                <img src="assets/img/logos/arangodb.png" alt="Arangodb" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Document, Key-value, Graph</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="https://neo4j.com/" target="_blank">
+                <img src="assets/img/logos/neo4j.png" alt="Neo4j" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Graph</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="http://redis.io/" target="_blank">
+                <img src="assets/img/logos/redis.png" alt="Redis" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Key-value</b></p>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="item">
+            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
+              <a href="https://hazelcast.org/" target="_blank">
+                <img src="assets/img/logos/hazelcast.png" alt="Hazelcast" class="center-block opacity"/>
+              </a>
+              <p class="text-center"><b>Key-value</b></p>
+            </div>
+          </div>
+
+        </div>
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+      </div>
+
+
+    </div><!-- /.container -->
+  </section>
+
+  <section id="examples" class="bg-light-gray">
+    <div class="container">
+
+      <h1>Examples</h1>
+      <hr>
+      <p>Here you can see some examples of usage of Diana.</p>
+      <pre class="language-java">
+        <code class="language-java">
+
+          public class AppDocument {
+
+            private static final String DOCUMENT_COLLECTION = "document_collection";
+            private static final String DATABASE = "database";
+
+            public static void main(String[] args)  {
+              DocumentConfiguration configuration = //any implementation
+              try(DocumentCollectionManagerFactory collectionFactory = configuration.getManagerFactory();) {
+                DocumentCollectionManager collectionManager = collectionFactory.getDocumentEntityManager(DATABASE);
+
+                DocumentCollectionEntity entity = DocumentCollectionEntity.of(DOCUMENT_COLLECTION);
+                entity.add(Document.of("name", "Daniel Soro"));
+                entity.add(Document.of("age", 26));
+
+                DocumentCollectionEntity entitySaved = collectionManager.save(entity);
+                Optional&lt;Document&gt; id = entitySaved.find("_id");
+
+                DocumentQuery query = DocumentQuery.of(DOCUMENT_COLLECTION);
+                query.addCondition(DocumentCondition.eq(id.get()));
+                List&lt;DocumentCollectionEntity&gt; documentsFound = collectionManager.find(query);
+
+              }
+            }
+          }
+        </code>
+      </pre>
+      <hr>
+      <pre class="language-java">
+        <code class="language-java">
+
+          public class AppColumn {
+
+            private static final String KEY_SPACE = "newKeySpace";
+            private static final String COLUMN_FAMILY = "newColumnFamily";
+
+            public static void main(String[] args) {
+
+              ColumnConfiguration condition = //any implementation
+
+              try(ColumnFamilyManagerFactory managerFactory = condition.getManagerFactory()) {
+                ColumnFamilyManager columnEntityManager = managerFactory.getColumnEntityManager(KEY_SPACE);
+                ColumnFamilyEntity entity = ColumnFamilyEntity.of(COLUMN_FAMILY);
+                Column id = Column.of("id", 10L);
+                entity.add(id);
+                entity.add(Column.of("version", 0.001));
+                entity.add(Column.of("name", "Diana"));
+                entity.add(Column.of("options", Arrays.asList(1, 2, 3)));
+
+                columnEntityManager.save(entity);
+
+                ColumnQuery query = ColumnQuery.of(COLUMN_FAMILY);
+                query.addCondition(ColumnCondition.eq(id));
+                List&lt;ColumnFamilyEntity&gt; entities = columnEntityManager.find(query);
+
+              }
+
+
+            }
+          </code>
+        </pre>
+        <hr>
+        <pre class="language-java">
+          <code class="language-java">
+
+            public class AppKeyValue {
+
+
+              public static void main(String[] args) {
+
+                KeyValueConfiguration configuration = //any implementation
+                try (BucketManagerFactory managerFactory = configuration.getManagerFactory()) {
+                  BucketManager bucket = managerFactory.getBucketManager("bucket");
+                  List&lt;String&gt; list = managerFactory.getList("bucketList", String.class);
+                  Set&lt;String&gt; set = managerFactory.getSet("bucketSet", String.class);
+                  Map&lt;String, Integer&gt; map = managerFactory.getMap("bucketList", String.class, Integer.class);
+                  Queue&lt;String&gt; queue = managerFactory.getQueue("queueList", String.class);
+                  bucket.put("key", "value");
+                  Optional&lt;Value&gt; value = bucket.get("key");
+                }
+
+
+              }
+            }
+          </code>
+        </pre>
+        <hr>
+        <a href="./examples.html" class="btn btn-lg btn-default">See more <i class="fa fa-eye"></i></a>
+        <a href="https://www.gitbook.com/book/otaviojava/jnosql-book/details" class="btn btn-lg btn-info" target="_blank">
+          Read the JNoSQL book <i class="fa fa-book"></i>
+        </a>
+      </div><!-- /.container -->
+    </section>
+
+    <section id="download" class="bg-white">
+      <div class="container">
+
+        <h1>Download</h1>
+        <hr>
+        <p>Diana is a flexible and extensible API to connect NoSQL databases. It brings an easy interface to support key-value, column family, document oriented and graph databases as JDBC does for SQL databases.</p>
+        <div class="space"></div>
+        <a href="https://github.com/JNOSQL/" class="btn btn-lg btn-info hvr-shadow" target="_blank">
+          View on GitHub <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+
+      </div><!-- /.container -->
+    </section>
+
+    <section id="join-us" class="bg-light-gray">
+      <div class="container">
+
+        <h1>Join Us</h1>
+        <hr>
+        <p>Meet the developers, and stay tunned on the news about Diana development. You may want to become one of us!</p>
+        <div class="space"></div>
+        <a href="https://gitter.im/orgs/JNOSQL/rooms" target="_blank" class="btn btn-lg btn-info hvr-shadow">
+          Join Us <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+
+      </div><!-- /.container -->
+    </section>
+
+    <footer class="bg-dark">
+      <div class="container">
+
+        <div class="col-md-6">
+          <p class="pull-left">
+            <a href="https://github.com/JNOSQL/" target="_blank">JNoSQL</a> is maintained by <a href="https://github.com/JNOSQL" target="_blank">JNOSQL.</a>
+          </p>
+        </div>
+
+        <div class="col-md-6">
+          <p class="pull-right">
+            Website Designed by <a href="http://work.blogmachine.com.br" target="_blank">Blog Machine</a>
+          </p>
+        </div>
+
+      </div><!-- /.container -->
+    </footer>
+
+    <a href="#top" class="scroll" id="back-to-top" title="Back to top">&uarr;</a>
+
+
+  </body>
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+  <!-- Bootstrap -->
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Sintax highlighter -->
+  <script type="text/javascript" src="assets/js/prism.js"></script>
+
+  <!-- Font Awesome -->
+  <script src="https://use.fontawesome.com/259cb4e37c.js"></script>
+
+  <!-- Custom JS -->
+  <script type="text/javascript" src="assets/js/master.js"></script>
+
+  </html>

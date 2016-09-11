@@ -1,0 +1,234 @@
+/* Global */
+
+* { outline: none; }
+
+body,html {
+  height: 100%;
+  font-size: 16px;
+  font-family: 'Oxygen', sans-serif;
+}
+
+p, li {
+  color: #666;
+  line-height: 1.5;
+}
+
+section { padding: 70px 0 90px 0; }
+
+footer {
+  padding: 25px 0 15px 0;
+  font-size: 14px;
+}
+
+footer a, footer a:hover {
+  font-weight: bold;
+  color: #ddd;
+  text-decoration: none;
+}
+
+hr { border-top: 1px solid rgba(157, 157, 157, 0.33); }
+
+/* Hero Image */
+
+.title-container {
+  width:100%;
+  height:15%;
+  background-image:url('../img/bg.jpg');
+  background-attachment: fixed;
+  background-position: top center;
+  background-size: cover;
+  padding: 15% 0;
+}
+
+.title-container h1 {
+  font-size: 55px;
+  font-family: 'Molle', cursive;
+}
+
+.wide {
+  width:100%;
+  height:100%;
+  background-image:url('../img/bg.jpg');
+  background-attachment: fixed;
+  background-position: top center;
+  background-size: cover;
+  padding: 15% 0;
+}
+
+.wide img { width:100%; }
+
+.wide h1 {
+  font-size: 55px;
+  font-family: 'Molle', cursive;
+}
+
+.wide p { font-size: 18px; }
+
+/* Miscellaneous */
+
+.bg-light-gray { background: rgba(243, 246, 250, 0.58); }
+.bg-white { background: #fff; }
+.bg-dark { background: #333; }
+.bg-dark * { color: #999; }
+.bg-black { background: #111; }
+.bg-black * { color: #ddd; }
+
+.pl-0 { padding-left: 0; }
+.pr-0 { padding-right: 0; }
+
+.space {
+  height: 25px;
+  clear: both;
+}
+
+#back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 30px;
+  background: #f5f5f5;
+  color: #444;
+  cursor: pointer;
+  border: 0;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+  opacity: 0;
+}
+
+#back-to-top:hover {
+  background: #e9ebec;
+}
+
+#back-to-top.show {
+  opacity: 1;
+}
+
+.opacity {
+  transition: all .3s;
+  max-width: 180px;
+}
+
+.opacity:hover { opacity: 0.6; }
+
+.no-margin-top {
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+/* Carousel */
+
+.carousel-inner .active.left { left: -33%; }
+.carousel-inner .next { left:  33%; }
+.carousel-inner .prev { left: -33%; }
+.carousel-control.left,.carousel-control.right {background-image:none;}
+.item:not(.prev) {visibility: visible;}
+.item.right:not(.prev) {visibility: hidden;}
+.rightest{ visibility: visible;}
+
+/* Navbar */
+
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #999;
+}
+
+nav.navbar{
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.navbar-inverse .navbar-toggle {
+  border-color: #ccc;
+  border-radius: 2px;
+}
+
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+  background-color: #ffffff;
+}
+
+.navbar-transparent {
+  background: transparent;
+  border-color: transparent;
+  color: #444;
+}
+
+.navbar-transparent .navbar-nav>li>a {
+  color: #8c7676;
+  font-size: 17px;
+}
+
+.navbar-transparent .navbar-nav>li>a:hover, .navbar-nav>li>a:focus, .navbar-nav>li>a:active { color: #444; }
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover { color: #444; }
+
+.navbar-brand>img {
+  display: block;
+  max-height: 118px;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.shrink {
+  background: #f0f6f5;
+  border-color: #ddd;
+}
+
+.shrink .navbar-brand>img {
+  max-height: 55px;
+}
+
+.shrink .navbar-nav>li>a {
+  font-size: 15px;
+}
+
+/* Buttons */
+
+.btn { margin-top: 10px; }
+
+.btn-default {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #bbb;
+  transition: all .2s;
+}
+
+.btn-default:hover, .btn-default:active {
+  background: rgba(255, 255, 255, 0.4);
+  border-color: #aaa;
+}
+
+.btn-default i{
+  color: #aaa;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 7px 16px;
+  font-size: 27px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.btn-down {
+  margin-top: 80px;
+  background: rgba(255, 255, 255, 0.6);
+  color: #555;
+}
+
+.btn-down:hover {
+  background: rgba(255, 255, 255, 0.8);
+  color: #222;
+}
