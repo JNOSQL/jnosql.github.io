@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Diana by JNOSQL</title>
+  <title>JNOSQL</title>
 
   <!-- Favicon -->
   <link rel="icon" href="assets/img/logo-small.png" />
@@ -86,7 +86,12 @@
 
       <h1>About</h1>
       <hr>
-      <p>Diana is a flexible and extensible API to connect NoSQL databases. It brings an easy interface to support key-value, column family, document oriented and graph databases as JDBC does for SQL databases.</p>
+      <p>The JNoSQL is a several tools to make easy an integration between the Java Application with the NoSQL. To solve this problem the project gonna have two layers:</p>
+
+      <ul>
+         <li><b>Communication API:</b> An API just to communicate with the database, exactly what JDBC does to SQL. This API gonna have four specializations, one for each kind of database.</li>
+         <li><b>Abstraction API:</b> An API to do integration and do the best integration with the Java developer. That gonna be annotation drive and gonna have integration with other technologies like Bean Validation, etc. To solve it this layer gonna be a CDI based.</li>
+      </ul>
 
       <p>The basic building blocks hereby are:</p>
 
