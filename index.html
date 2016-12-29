@@ -108,6 +108,25 @@
 
       <p>The API's focus is on simplicity and ease of use. Developers should only have to know a minimal set of artifacts to work with the solution. The API is built on latest Java 8 features and therefore fit perfectly with the functional features of Java 8. </p>
 
+      <h2>Diana</h2>
+
+      <p>The Diana project has as goal just be the low layer, in other words, just the communication layer to NoSQL database. Basically this project gonna work as a database driver. Diana will have four APIs, one for each database type, and its TCK respective. The test compatibility kit affirms if a driver implements an API correctively. So a X database of key-value implements and run all tests correctively that means this X database has support to key-value Diana API.</p>
+
+      <p>The main reason to Diana just works in communication layer are:</p>
+
+      <ul>
+       <li>A developer doesn't want to learn a new API beyond JPA.</li>
+       <li>The abstraction layer makes sense as a JPA extension and not a new one.</li>
+       <li>Be a communication API is good enough to be a project.</li>
+      </ul>
+      <p>Furthermore Diana <b>will not</b> be:</p>
+
+      <ul>
+      <li>A new API to replace JPA</li>
+      <li>A new API to abstraction layer</li>
+      <li>Just one API communication to solve all kind of NoSQL database</li>
+      <li>Be responsible for doing integrations with other technologies such as CDI, EJB, Bean Validation, Spring, etc.</li>
+      </ul>
     </div><!-- /.container -->
   </section>
 
