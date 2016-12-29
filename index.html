@@ -359,6 +359,66 @@
           </code>
         </pre>
         <hr>
+        <h4>Here you can see some examples of usage of Artemis.</h4>
+          <pre class="language-java">
+            <code class="language-java">
+
+                  public class ArtemisColumn {
+
+                      private static final Person PERSON = Person.builder().
+                              withPhones(Arrays.asList("234", "432"))
+                              .withName("Name")
+                              .withId(1)
+                              .withIgnore("Just Ignore").build();
+
+                      public static void main(String[] args) {
+                          Weld weld = new Weld();
+                          try(WeldContainer weldContainer = weld.initialize()) {
+                              ColumnRepository crudOperation = weldContainer.instance().select(ColumnRepository.class).get();
+                              Person saved = crudOperation.save(PERSON);
+                              System.out.println("Person saved" + saved);
+
+                              ColumnQuery query = ColumnQuery.of("Person");
+                              query.addCondition(ColumnCondition.eq(Column.of("id", 1L)));
+
+                              Optional<Person> person = crudOperation.singleResult(query);
+                              System.out.println("Entity found: " + person);
+
+                          }
+                      }
+                  }
+            </code>
+          </pre>
+        <hr>
+        <pre class="language-java">
+            <code class="language-java">
+
+                  public class ArtemisDocument {
+
+                      private static final Person PERSON = Person.builder().
+                              withPhones(Arrays.asList("234", "432"))
+                              .withName("Name")
+                              .withId(1)
+                              .withIgnore("Just Ignore").build();
+
+                      public static void main(String[] args) {
+                          Weld weld = new Weld();
+                          try (WeldContainer weldContainer = weld.initialize()) {
+                              DocumentRepository crudOperation = weldContainer.instance().select(DocumentRepository.class).get();
+                              Person saved = crudOperation.save(PERSON);
+                              System.out.println("Person saved" + saved);
+
+                              DocumentQuery query = DocumentQuery.of("Person");
+                              query.addCondition(DocumentCondition.eq(Document.of("_id", 1L)));
+
+                              Optional<Person> person = crudOperation.singleResult(query);
+                              System.out.println("Entity found: " + person);
+
+                          }
+                      }
+                  }
+            </code>
+          </pre>
         <a href="./examples.html" class="btn btn-lg btn-default">See more <i class="fa fa-eye"></i></a>
         <a href="https://www.gitbook.com/book/otaviojava/jnosql-book/details" class="btn btn-lg btn-info" target="_blank">
           Read the JNoSQL book <i class="fa fa-book"></i>
