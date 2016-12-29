@@ -122,11 +122,26 @@
       <p>Furthermore Diana <b>will not</b> be:</p>
 
       <ul>
-      <li>A new API to replace JPA</li>
-      <li>A new API to abstraction layer</li>
-      <li>Just one API communication to solve all kind of NoSQL database</li>
-      <li>Be responsible for doing integrations with other technologies such as CDI, EJB, Bean Validation, Spring, etc.</li>
+        <li>A new API to replace JPA</li>
+        <li>A new API to abstraction layer</li>
+        <li>Just one API communication to solve all kind of NoSQL database</li>
+        <li>Be responsible for doing integrations with other technologies such as CDI, EJB, Bean Validation, Spring, etc.</li>
       </ul>
+
+      <h2>Artemis</h2>
+
+      <p>Artemis is an integration layer, in other words, it has the goal to communicate with the communication layer, Diana, and it does integrations with other technologies such as Bean Validation. The Artemis engine has CDI. So it formula is really simple:</p>
+
+      <h3>Diana plus CDI equals to Artemis</h3>
+      <p>Look like Diana, it has a different package to each NoSQL database. Using CDI as heart, Artemis is highly customizable also observe events on the persistence flow. Artemis has a nice feature such as:</p>
+
+      <ul>
+        <li>Annotation based</li>
+        <li>Highly customizable \(reflection component, how to save the cache, persistence workflow, etc.\)</li>
+        <li>Listen to an event to each kind of persistence workflow \(it has differents kind of events to each database\).</li>
+        <li>Use interceptors</li>
+      </ul>
+      <p>Using CDI events to add a new feature on Artemis is so easy and you also can it on transparency way, you don't need to change the repositories. E.G: Using events can add bean validation on the workflow, without the DAO layer know.</p>
     </div><!-- /.container -->
   </section>
 
