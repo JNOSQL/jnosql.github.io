@@ -419,6 +419,32 @@
                   }
             </code>
           </pre>
+          <hr>
+          <pre class="language-java">
+              <code class="language-java">
+
+                      public class ArtemisKeyValue {
+
+                          private static final User USER = User.builder().
+                                  withPhones(Arrays.asList("234", "432"))
+                                  .withUsername("username")
+                                  .withName("Name")
+                                  .build();
+
+                          public static void main(String[] args) {
+                              Weld weld = new Weld();
+                              try (WeldContainer weldContainer = weld.initialize()) {
+                                  KeyValueRepository repository = weldContainer.instance().select(KeyValueRepository.class).get();
+                                  User saved = repository.put(USER);
+                                  System.out.println("User saved" + saved);
+                                  Optional<User> person = repository.get("username", User.class);
+                                  System.out.println("Entity found: " + person);
+
+                              }
+                          }
+                      }
+              </code>
+            </pre>
         <a href="./examples.html" class="btn btn-lg btn-default">See more <i class="fa fa-eye"></i></a>
         <a href="https://www.gitbook.com/book/otaviojava/jnosql-book/details" class="btn btn-lg btn-info" target="_blank">
           Read the JNoSQL book <i class="fa fa-book"></i>
