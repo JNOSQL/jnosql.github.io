@@ -91,7 +91,7 @@
 
       <ul>
          <li><b>Communication API:</b> An API just to communicate with the database, exactly what JDBC does to SQL. This API gonna have four specializations, one for each kind of database.</li>
-         <li><b>Abstraction API:</b> An API to do integration and do the best integration with the Java developer. That gonna be annotation drive and gonna have integration with other technologies like Bean Validation, etc. To solve it this layer gonna be a CDI based.</li>
+         <li><b>Mapping API:</b> An API to do integration and do the best integration with the Java developer. That gonna be annotation drive and gonna have integration with other technologies like Bean Validation, etc. To solve it this layer gonna be a CDI based.</li>
       </ul>
 
       <p>The basic building blocks hereby are:</p>
@@ -112,23 +112,7 @@
       <h2>Diana</h2>
 
       <p>The Diana project has as goal just be the low layer, in other words, just the communication layer to NoSQL database. Basically this project gonna work as a database driver. Diana will have four APIs, one for each database type, and its TCK respective. The test compatibility kit affirms if a driver implements an API correctively. So a X database of key-value implements and run all tests correctively that means this X database has support to key-value Diana API.</p>
-
-      <p>The main reason to Diana just works in communication layer are:</p>
-
-      <ul>
-       <li>A developer doesn't want to learn a new API beyond JPA.</li>
-       <li>The abstraction layer makes sense as a JPA extension and not a new one.</li>
-       <li>Be a communication API is good enough to be a project.</li>
-      </ul>
-      <p>Furthermore Diana <b>will not</b> be:</p>
-
-      <ul>
-        <li>A new API to replace JPA</li>
-        <li>A new API to abstraction layer</li>
-        <li>Just one API communication to solve all kind of NoSQL database</li>
-        <li>Be responsible for doing integrations with other technologies such as CDI, EJB, Bean Validation, Spring, etc.</li>
-      </ul>
-
+   
       <h2>Artemis</h2>
 
       <p>Artemis is an integration layer, in other words, it has the goal to communicate with the communication layer, Diana, and it does integrations with other technologies such as Bean Validation. The Artemis engine has CDI. So it formula is really simple:</p>
