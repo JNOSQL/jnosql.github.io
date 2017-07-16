@@ -1,6 +1,8 @@
 org.jnosql.diana.api
 org.jnosql.diana.api.column
+org.jnosql.diana.api.column.query
 org.jnosql.diana.api.document
+org.jnosql.diana.api.document.query
 org.jnosql.diana.api.key
 org.jnosql.diana.api.reader
 org.jnosql.diana.api.writer
