@@ -307,7 +307,7 @@
                 Optional&lt;Document&gt; id = entitySaved.find("_id");
 
 
-                DocumentQuery query = select().from(DOCUMENT_COLLECTION).when(eq(id.get())).build();
+                DocumentQuery query = select().from(DOCUMENT_COLLECTION).where(eq(id.get())).build();
                 List&lt;DocumentCollectionEntity&gt; documentsFound = collectionManager.find(query);
 
               }
@@ -339,7 +339,7 @@
 
                 columnEntityManager.save(entity);
 
-                DocumentQuery query = select().from(COLUMN_FAMILY).when(eq(id)).build();
+                DocumentQuery query = select().from(COLUMN_FAMILY).where(eq(id)).build();
                 List&lt;ColumnFamilyEntity&gt; entities = columnEntityManager.find(query);
 
               }
