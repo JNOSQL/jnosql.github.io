@@ -306,8 +306,8 @@
                 DocumentCollectionEntity entitySaved = collectionManager.save(entity);
                 Optional&lt;Document&gt; id = entitySaved.find("_id");
 
-                DocumentQuery query = DocumentQuery.of(DOCUMENT_COLLECTION);
-                query.and(DocumentCondition.eq(id.get()));
+
+                DocumentQuery query = select().from(DOCUMENT_COLLECTION).when(eq(id.get())).build();
                 List&lt;DocumentCollectionEntity&gt; documentsFound = collectionManager.find(query);
 
               }
@@ -339,8 +339,7 @@
 
                 columnEntityManager.save(entity);
 
-                ColumnQuery query = ColumnQuery.of(COLUMN_FAMILY);
-                query.and(ColumnCondition.eq(id));
+                DocumentQuery query = select().from(COLUMN_FAMILY).when(eq(id)).build();
                 List&lt;ColumnFamilyEntity&gt; entities = columnEntityManager.find(query);
 
               }
