@@ -312,7 +312,7 @@
                 entity.add(Document.of("name", "Daniel Soro"));
                 entity.add(Document.of("age", 26));
 
-                DocumentCollectionEntity entitySaved = collectionManager.save(entity);
+                DocumentCollectionEntity entitySaved = collectionManager.insert(entity);
                 Optional&lt;Document&gt; id = entitySaved.find("_id");
 
 
@@ -346,7 +346,7 @@
                 entity.add(Column.of("name", "Diana"));
                 entity.add(Column.of("options", Arrays.asList(1, 2, 3)));
 
-                columnEntityManager.save(entity);
+                columnEntityManager.insert(entity);
 
                 DocumentQuery query = select().from(COLUMN_FAMILY).where(eq(id)).build();
                 List&lt;ColumnFamilyEntity&gt; entities = columnEntityManager.find(query);
