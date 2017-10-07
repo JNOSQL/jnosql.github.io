@@ -1,6 +1,6 @@
 {
   "name": "JNoSQL",
-  "tagline": "The JNoSQL is a framework whose has the goal to help Java developers to create Java EE applications with NoSQL, thereby they can make scalable application beyond enjoy the polyglot persistence.",
+  "tagline": "The JNoSQL is a framework whose has the goal to help Java developers to create Java EE applications with NoSQL, whereby they can make scalable application beyond enjoy the polyglot persistence.",
   "body": "![JNoSQL Project](https://github.com/JNOSQL/diana-site/blob/master/images/duke-diana.png)\r\n\r\n# JNoSQL\r\n\r\n\r\nEclipse JNoSQL is a flexible and extensible API to connect NoSQL databases. It brings an easy interface to support key-value, column family, document oriented and graph database \r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
