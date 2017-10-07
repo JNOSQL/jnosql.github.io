@@ -1,2 +1,2 @@
-# diana-site
-Diana is a flexible and extensible API to connect NoSQL databases. It brings an easy interface to support key-value, column family, document oriented and graph databases as JDBC is for SQL databases.
+# JNoSQL-site
+The JNoSQL is a framework whose has the goal to help Java developers to create Java EE applications with NoSQL, whereby they can make scalable application beyond enjoy the polyglot persistence.
