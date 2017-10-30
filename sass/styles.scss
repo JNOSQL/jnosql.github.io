@@ -25,7 +25,7 @@ $font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont,
 $font-weight-light: 200 !default;
 $font-weight-normal: 400 !default;
 $font-weight-bold: 700 !default;
-$font-size-sm: ($font-size-base * 0.8) !default;
+$font-size-sm: ($font-size-base * 0.7) !default;
 
 $ns-gutter: 4rem;
 $ns-gutter-sm: 2rem;
@@ -39,6 +39,8 @@ $ns-accent-color: #f6941d; //#b6367d;
 $border-color: rgba($primary-color, 0.2);
 
 $line-height-base: 1.6;
+
+$list-inline-padding: 1rem;
 
 // Imports the parts of Bootstrap we use:
 
@@ -296,7 +298,7 @@ footer {
   }
 
   .footnote {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.8);
     color: rgba(255, 255, 255, 0.6);
     font-weight: $font-weight-light;
     font-size: $font-size-sm;
@@ -306,13 +308,14 @@ footer {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-
+    filter: opacity(.6);
     p {
-      // margin: 0;
       flex: 0 0 auto;
     }
     img {
       width: 120px;
+      display: block;
+      margin-bottom: 1rem;
     }
     a {
       color: rgba(255, 255, 255, 0.9);
