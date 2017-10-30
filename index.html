@@ -1,557 +1,168 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>JNOSQL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JNoSql Project</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico">
 
-  <!-- Favicon -->
-  <link rel="icon" href="assets/img/logo-small.png" />
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" charset="utf-8">
-
-  <!-- Hover.css -->
-  <link rel="stylesheet" href="assets/css/hover.min.css" charset="utf-8">
-
-  <!-- Custom css -->
-  <link rel="stylesheet" href="assets/css/master.css" charset="utf-8">
-
-  <!-- Responsive -->
-  <link rel="stylesheet" href="assets/css/media-queries.css" charset="utf-8">
-
-  <!-- Sintax highlighter -->
-  <link rel="stylesheet" href="assets/css/prism.css" charset="utf-8">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Molle:400i|Oxygen" rel="stylesheet">
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 </head>
 <body>
+  <div class="ns-container">
 
-  <nav class="navbar navbar-inverse navbar-transparent navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#"><img src="assets/img/logo-small.png" alt="JNoSQL" /></a>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><a class="scroll" href="#top">Home</a></li>
-          <li><a class="scroll" href="#about">About</a></li>
-          <li><a class="scroll" href="#support">Support</a></li>
-          <li><a class="scroll" href="#examples">Examples</a></li>
-          <li><a href="apidocs/index.html" target="_blank">Docs</a></li>
-          <li><a class="scroll" href="#join-us">Join Us</a></li>
+    <header>
+      <h1>
+        <span class="logo-image">
+          <img src="img/logo-small.png" alt="Logo os JNoSQL: image of Duke, Java's cartoon mascot, with a bow and arrow pointing to the right">
+        </span>
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 307.4 53.6" style="enable-background:new 0 0 307.4 53.6;" xml:space="preserve">
+        <g>
+          <g>
+            <path d="M0,34h9.2v2.4c0,6.1,3.3,8.1,6.8,8.1s6.6-2.1,6.6-7.7V8.9H9.4v-8h22.5V37c0,11.2-8.1,16-16,16C8,53,0,48,0,37V34z"/>
+            <path d="M49.2,1.6h2.9l28.8,39.6c1.7,2.3,4.1,6.4,4.1,6.4h0.1c0,0-0.4-3.8-0.4-6.4V1.6h3.1v50.5H85L56.2,12.5
+            c-1.7-2.3-4.1-6.4-4.1-6.4h-0.1c0,0,0.4,3.8,0.4,6.4v39.6h-3.1V1.6z"/>
+            <path d="M129.1,0.7c14.1,0,25.6,11.3,25.6,25.8c0,14.9-11.5,26.5-25.6,26.5c-14.1,0-25.6-11.6-25.6-26.5
+            C103.5,12,115,0.7,129.1,0.7z M129.1,50c12.3,0,22.3-10.3,22.3-23.5c0-12.9-10-22.8-22.3-22.8c-12.3,0-22.3,9.9-22.3,22.8
+            C106.8,39.8,116.8,50,129.1,50z"/>
+            <path d="M170.2,39c0,0,5.6,5.4,12.8,5.4c3.9,0,7.4-2,7.4-6.2c0-9.2-24.2-7.6-24.2-23.3c0-8.5,7.4-14.9,17.2-14.9
+            c10.1,0,15.3,5.5,15.3,5.5l-4,7.6c0,0-4.9-4.5-11.3-4.5c-4.3,0-7.7,2.5-7.7,6.1c0,9.1,24.1,6.9,24.1,23.2c0,8.2-6.2,15-16.9,15
+            c-11.4,0-17.7-7-17.7-7L170.2,39z"/>
+            <path d="M235.5,0c15.2,0,26.6,11.5,26.6,26.2c0,6.2-2.2,11.8-5.6,16.2l5.8,5.2l-5.3,5.9l-5.7-5.6c-4.3,3.2-9.7,5.1-15.7,5.1
+            c-15,0-26.4-11.8-26.4-26.8C209.1,11.5,220.5,0,235.5,0z M235.5,44.5c3.1,0,6.5-1,9-2.7l-5.7-5.4l5.3-5.8l5.6,5.6
+            c1.7-2.8,2.8-6.3,2.8-9.9c0-10.2-7.4-17.7-17-17.7c-9.4,0-16.8,7.5-16.8,17.7C218.7,36.7,226.1,44.5,235.5,44.5z"/>
+            <path d="M275.9,0.9h9.3v43.3h22.2v8h-31.5V0.9z"/>
+          </g>
+        </g>
+      </svg>
+
+    </h1>
+
+    <p>The Eclipse JNoSQL is a framework whose has the goal to help Java developers to create Java EE applications with NoSQL, whereby they can make scalable application beyond enjoy the polyglot persistence.</p>
+
+    <a href="#" class="btn btn-outline-light btn-block btn-lg">View on GitHub</a>
+
+  </header> <!-- header -->
+
+  <div class="main">
+    <nav class="ns-nav">
+      <ul class="list-unstyled">
+        <li><a href="#about">About</a></li>
+        <li><a href="#support">Support</a></li>
+        <li><a href="apidocs/index.html">Docs</a></li>
+        <li><a href="#join">Join Us</a></li>
+      </ul>
+    </nav>
+
+
+    <main id="main">
+
+      <section id="about">
+        <h2>What is Eclipse JNoSQL</h2>
+        <p>The Eclipse JNoSQL is a several tools to make easy an integration between the Java Application with the NoSQL. The project has two layers:</p>
+
+        <ul>
+          <li>Communication API: An API just to communicate with the database, exactly what JDBC does to SQL. This API has four specializations, one for each kind of database.</li>
+          <li>Mapping API: An API to do integration and do the best integration with the Java developer. That is annotation and CDI driven have integration with other technologies such as Bean Validation, etc. This layer does what JPA does to relational technology.</li>
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="visible-lg-block visible-md-block btn-download">
-            <a href="#download" class="btn btn-md btn-default hvr-shadow scroll">
-              View on GitHub <i class="fa fa-github" aria-hidden="true"></i>
-            </a>
-          </li>
+        <p>The basic building blocks hereby are:</p>
+        <ul>
+          <li>A simple API to support Column NoSQL Database</li>
+          <li>A simple API to support Key-value NoSQL Database</li>
+          <li>A simple API to support Graph NoSQL Database</li>
+          <li>A simple API to support Document Database</li>
+          <li>Convention over configuration</li>
+          <li>Support for asynchronous queries</li>
+          <li>Support for asynchronous write operations</li>
+          <li>An easy API to implement, so that NoSQL vendors can comply with it and test by themselves.</li>
         </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
+        <p>The API's focus is on simplicity and ease of use. Developers should only have to know a minimal set of artifacts to work with the solution. The API is built on latest Java 8 features and therefore fit perfectly with the functional features of Java 8.</p>
 
-  <div class="wide" id="top">
-    <div class="col-lg-6 col-lg-offset-3">
-      <h1 class="text-center">Eclipse JNoSQL</h1>
-      <p class="text-center">The Eclipse JNoSQL is a framework whose has the goal to help Java developers to create Java EE applications with NoSQL, whereby they can make scalable application beyond enjoy the polyglot persistence.</p>
+        <h3>Diana</h3>
+        <p>The Diana project has as goal just be the low layer, in other words, just the communication layer to NoSQL database. Basically this project works as a database driver. Diana have four APIs, one for each database type, and its TCK respective. The test compatibility kit affirms if a driver implements an API correctively. So a X database of key-value implements and run all tests correctively that means this X database has support to key-value Diana API.</p>
 
-      <hr>
+        <h3>Artemis</h3>
+        <p>Artemis is an integration layer, in other words, it has the goal to communicate with the communication layer, Diana, and it does integrations with other technologies such as Bean Validation. The Artemis engine has CDI. So it formula is really simple:</p>
 
-      <div class="col-sm-6 col-sm-offset-3">
-        <a href="https://github.com/eclipse?q=jnosql" class="btn btn-lg btn-default btn-block hvr-shadow" target="_blank">
-          View on GitHub <i class="fa fa-github" aria-hidden="true"></i>
-        </a>
+        <p><strong>Diana plus CDI equals to Artemis</strong></p>
+
+        <p>Look like Diana, it has a different package to each NoSQL database. Using CDI as heart, Artemis is highly customizable also observe events on the persistence flow. Artemis has a nice feature such as:</p>
+        <ul>
+          <li>Annotation based</li>
+          <li>Highly customizable \(reflection component, how to save the cache, persistence workflow, etc.\)</li>
+          <li>Listen to an event to each kind of persistence workflow \(it has differents kind of events to each database\).</li>
+          <li>Use interceptors</li>
+          <li>Using CDI events to add a new feature on Artemis is so easy and you also can it on transparency way, you don't need to change the repositories. E.G: Using events can add bean validation on the workflow, without the DAO layer know.</li>
+        </ul>
+      </section><!-- ends about -->
+
+      <section id="support">
+        <h2>Support</h2>
+        <p>Currently, JNoSQL works with the following databases:</p>
+
+        <ul class="logo-galery list-unstyled">
+          <li><a href="http://tinkerpop.apache.org/"><img alt="logo tinkerpop" src="img/logos/apache-tinkerpop.png"></a></li>
+          <li><a href="https://www.arangodb.com/"><img alt="logo ArangoDB" src="img/logos/ArangoDB.png"></a></li>
+          <li><a href="https://docs.microsoft.com/en-us/azure/cosmos-db/introduction"><img alt="logo cosmo db" src="img/logos/azure-cosmo-db.jpg"></a></li>
+          <li><a href="http://basho.com/"><img alt="logo basho" src="img/logos/basho.png"></a></li>
+          <li><a href="https://www.blazegraph.com/"><img alt="logo Blazegraph" src="img/logos/Blazegraph.png"></a></li>
+          <li><a href="http://cassandra.apache.org/"><img alt="logo cassandra" src="img/logos/cassandra.png"></a></li>
+          <li><a href="https://www.couchbase.com/"><img alt="logo couchbase" src="img/logos/couchbase.svg"></a></li>
+          <li><a href="https://www.datastax.com/"><img alt="logo DataStax" src="img/logos/DataStax.png"></a></li>
+          <li><a href="https://www.eclipse.org/org/foundation/"><img alt="logo eclipse" src="img/logos/eclipse.png"></a></li>
+          <li><a href="https://www.elastic.co/"><img alt="logo elastic" src="img/logos/elastic.svg"></a></li>
+          <li><a href="https://grakn.ai/"><img alt="logo graknai" src="img/logos/graknai.png"></a></li>
+          <li><a href="https://hazelcast.com/"><img alt="logo hazelcast" src="img/logos/hazelcast.svg"></a></li>
+          <li><a href="https://hbase.apache.org/"><img alt="logo hbase" src="img/logos/hbase.png"></a></li>
+          <li><a href="https://www.ibm.com/us-en/marketplace/graph"><img alt="logo ibmgraph" src="img/logos/ibmgraph.png"></a></li>
+          <li><a href="http://infinispan.org/"><img alt="logo infinispan" src="img/logos/infinispan.svg"></a></li>
+          <li><a href="http://janusgraph.org/"><img alt="logo janusgraph" src="img/logos/janusgraph.png"></a></li>
+          <li><a href="https://cambridge-intelligence.com/keylines/"><img alt="logo keylines" src="img/logos/keylines.png"></a></li>
+          <li><a href="https://linkurio.us/"><img alt="logo linkurios" src="img/logos/linkurios.png"></a></li>
+          <li><a href="https://www.mongodb.com/"><img alt="logo mongodb" src="img/logos/mongodb.png"></a></li>
+          <li><a href="https://neo4j.com/"><img alt="logo neo4j" src="img/logos/neo4j.png"></a></li>
+          <li><a href="https://www.oracle.com/index.html"><img alt="logo oracle" src="img/logos/oracle.png"></a></li>
+          <li><a href="http://orientdb.com/orientdb/"><img alt="logo orientdb" src="img/logos/orientdb.png"></a></li>
+          <li><a href="https://redis.io/"><img alt="logo redis" src="img/logos/redis.png"></a></li>
+          <li><a href="http://basho.com/products/"><img alt="logo riak" src="img/logos/riak.png"></a></li>
+          <li><a href="http://www.scylladb.com/"><img alt="logo scylla" src="img/logos/scylla.svg"></a></li>
+          <li><a href="http://www.stardog.com/"><img alt="logo stardog" src="img/logos/stardog.png"></a></li>
+          <li><a href="http://titan.thinkaurelius.com/"><img alt="logo titan" src="img/logos/titan.png"></a></li>
+          <li><a href="https://www.tomsawyer.com/"><img alt="logo tomsawyer" src="img/logos/tomsawyer.png"></a></li>
+        </ul>
+      </section> <!-- ends support -->
+
+    </main> <!-- col -->
+
+    <footer id="join">
+      <h2>Join Us</h2>
+      <p>Meet the developers, and stay tunned on the news about Eclipse JNoSQL development. You may want to become one of us!</p>
+
+
+      <div class="btn-group" role="group">
+        <a href="https://gitter.im/orgs/JNOSQL/rooms" class="btn btn-outline-light">Join Us</a>
+        <a href="https://dev.eclipse.org/mailman/listinfo/jnosql-dev" class="btn btn-outline-light">Mailing list</a>
+        <a href="https://wiki.eclipse.org/JNoSQL" class="btn btn-outline-light">Wiki</a>
       </div>
 
-      <div class="clearfix"></div>
-
-      <div class="text-center">
-        <a href="#about" class="btn btn-default btn-lg btn-circle btn-down hvr-sink"><i class="fa fa-angle-down"></i></a>
+      <div class="footnote">
+        <p>
+        <a href="https://www.eclipse.org/org/foundation/">
+          <img alt="logo eclipse" src="img/logos/eclipse_logo_white.png">
+        </a>
+      </p>
+      <p>
+        <a href="https://github.com/JNOSQL/">Eclipse JNoSQL</a> is maintained by <a href="https://github.com/JNOSQL/">Eclipse JNoSQL</a>.
+      </p>
       </div>
-
-    </div>
-  </div>
-
-
-  <section id="about" class="bg-light-gray">
-    <div class="container">
-
-      <h1>About</h1>
-      <hr>
-      <p>The Eclipse JNoSQL is a several tools to make easy an integration between the Java Application with the NoSQL. The project has two layers:</p>
-
-      <ul>
-         <li><b>Communication API:</b> An API just to communicate with the database, exactly what JDBC does to SQL. This API has four specializations, one for each kind of database.</li>
-         <li><b>Mapping API:</b> An API to do integration and do the best integration with the Java developer. That is annotation and CDI driven have integration with other technologies such as Bean Validation, etc. This layer does what JPA does to relational technology.</li>
-      </ul>
-
-      <p>The basic building blocks hereby are:</p>
-
-      <ul>
-        <li>A simple API to support Column NoSQL Database</li>
-        <li>A simple API to support Key-value NoSQL Database</li>
-        <li>A simple API to support Graph NoSQL Database</li>
-        <li>A simple API to support Document Database</li>
-        <li>Convention over configuration</li>
-        <li>Support for asynchronous queries</li>
-        <li>Support for asynchronous write operations</li>
-        <li>An easy API to implement, so that NoSQL vendors can comply with it  and test by themselves.</li>
-      </ul>
-
-      <p>The API's focus is on simplicity and ease of use. Developers should only have to know a minimal set of artifacts to work with the solution. The API is built on latest Java 8 features and therefore fit perfectly with the functional features of Java 8. </p>
-
-      <h2>Communication API, Diana</h2>
-
-      <p>The Diana project has as goal just be the low layer, in other words, just the communication layer to NoSQL database. Basically this project works as a database driver. Diana have four APIs, one for each database type, and its TCK respective. The test compatibility kit affirms if a driver implements an API correctively. So a X database of key-value implements and run all tests correctively that means this X database has support to key-value Diana API.</p>
-   
-      <h2>Mapping API, Artemis</h2>
-
-      <p>Artemis is an integration layer, in other words, it has the goal to communicate with the communication layer, Diana, and it does integrations with other technologies such as Bean Validation. The Artemis engine has CDI. So it formula is really simple:</p>
-
-      <h4>Diana plus CDI equals to Artemis</h4>
-      <p>Look like Diana, it has a different package to each NoSQL database. Using CDI as heart, Artemis is highly customizable also observe events on the persistence flow. Artemis has a nice feature such as:</p>
-
-      <ul>
-        <li>Annotation based</li>
-        <li>Highly customizable \(reflection component, how to save the cache, persistence workflow, etc.\)</li>
-        <li>Listen to an event to each kind of persistence workflow \(it has differents kind of events to each database\).</li>
-        <li>Use interceptors</li>
-      </ul>
-      <p>Using CDI events to add a new feature on Artemis is so easy and you also can it on transparency way, you don't need to change the repositories. E.G: Using events can add bean validation on the workflow, without the DAO layer know.</p>
-    </div><!-- /.container -->
-  </section>
-
-  <section id="support" class="bg-white">
-    <div class="container">
-
-      <h1>Support</h1>
-      <hr>
-      <p>Currently, Eclipse JNoSQL works with the following databases:</p>
-
-      <div class="carousel slide" id="myCarousel">
-        <div class="carousel-inner">
-
-          <!-- Item -->
-          <div class="item active">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://cassandra.apache.org/" target="_blank">
-                <img src="assets/img/logos/cassandra.png" alt="Cassandra" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Column</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://www.scylladb.com/" target="_blank">
-                <img src="assets/img/logos/scylladb.png" alt="Scylladb" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Column</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://hbase.apache.org/" target="_blank">
-                <img src="assets/img/logos/hbase.png" alt="Hbase" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Column</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://www.mongodb.com/" target="_blank">
-                <img src="assets/img/logos/mongodb.png" alt="Mongodb" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Document</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://www.couchbase.com/" target="_blank">
-                <img src="assets/img/logos/couchbase.png" alt="Couchbase" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Document, Key-value</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://orientdb.com/orientdb/" target="_blank">
-                <img src="assets/img/logos/orientdb.png" alt="Orientdb" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Document, Key-value, Graph</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://www.arangodb.com" target="_blank">
-                <img src="assets/img/logos/arangodb.png" alt="Arangodb" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Document, Key-value, Graph</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://neo4j.com/" target="_blank">
-                <img src="assets/img/logos/neo4j.png" alt="Neo4j" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://redis.io/" target="_blank">
-                <img src="assets/img/logos/redis.png" alt="Redis" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Key-value</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://basho.com/" target="_blank">
-                <img src="assets/img/logos/riak.png" alt="Riak" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Key-value</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://hazelcast.org/" target="_blank">
-                <img src="assets/img/logos/hazelcast.png" alt="Hazelcast" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Key-value</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://infinispan.org/" target="_blank">
-                <img src="assets/img/logos/infinispan.png" alt="Infinispan" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Key-value</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://www.elastic.co/" target="_blank">
-                <img src="assets/img/logos/elastic.png" alt="Elasticsearch" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Document</b></p>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://www.oracle.com/database/nosql/index.html" target="_blank">
-                <img src="assets/img/logos/oracle.png" alt="Oracle NoSQL" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Key-value</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://tinkerpop.apache.org/" target="_blank">
-                <img src="assets/img/logos/tinkerpop.png" alt="TinkerPop" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://titan.thinkaurelius.com/" target="_blank">
-                <img src="assets/img/logos/titan-logo.png" alt="TitanDB" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://www.tomsawyer.com/products/perspectives/" target="_blank">
-                <img src="assets/img/logos/tomsawyer-logo.png" alt="Tomsawyer" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://www.stardog.com/" target="_blank">
-                <img src="assets/img/logos/stardog-logo.png" alt="stardog" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://linkurio.us/" target="_blank">
-                <img src="assets/img/logos/linkurious-logo.png" alt="Linkurious" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://cambridge-intelligence.com/keylines/" target="_blank">
-                <img src="assets/img/logos/keylines-logo.png" alt="Keylines" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="http://janusgraph.org/" target="_blank">
-                <img src="assets/img/logos/janusgraph-logo.png" alt="Janusgraph" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://www.ibm.com/us-en/marketplace/graph" target="_blank">
-                <img src="assets/img/logos/ibmgraph-logo.png" alt="IBMGraph" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://grakn.ai/" target="_blank">
-                <img src="assets/img/logos/grakn-logo.png" alt="Grakn" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://www.datastax.com/products/datastax-enterprise-graph" target="_blank">
-                <img src="assets/img/logos/datastax-logo.png" alt="Datastax Enterprise Graph" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://docs.microsoft.com/en-us/azure/cosmos-db/graph-introduction" target="_blank">
-                <img src="assets/img/logos/cosmosdb-logo.png" alt="CosmosDB" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="col-lg-4 col-xs-4 col-md-4 col-sm-4">
-              <a href="https://www.blazegraph.com/" target="_blank">
-                <img src="assets/img/logos/blazegraph-logo.png" alt="Blazegraph" class="center-block opacity"/>
-              </a>
-              <p class="text-center"><b>Graph</b></p>
-            </div>
-          </div>
-
-        </div>
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-      </div>
-
-
-    </div><!-- /.container -->
-  </section>
-
-  <section id="examples" class="bg-light-gray">
-    <div class="container">
-
-      <h1>Examples</h1>
-      <hr>
-      <p>Here you can see some examples of usage of Diana.</p>
-      <pre class="language-java">
-        <code class="language-java">
-
-          public class AppDocument {
-
-            private static final String DOCUMENT_COLLECTION = "document_collection";
-            private static final String DATABASE = "database";
-
-            public static void main(String[] args)  {
-              DocumentConfiguration configuration = //any implementation
-              try(DocumentCollectionManagerFactory collectionFactory = configuration.getManagerFactory();) {
-                DocumentCollectionManager collectionManager = collectionFactory.getDocumentEntityManager(DATABASE);
-
-                DocumentCollectionEntity entity = DocumentCollectionEntity.of(DOCUMENT_COLLECTION);
-                entity.add(Document.of("name", "Daniel Soro"));
-                entity.add(Document.of("age", 26));
-
-                DocumentCollectionEntity entitySaved = collectionManager.insert(entity);
-                Optional&lt;Document&gt; id = entitySaved.find("_id");
-
-
-                DocumentQuery query = select().from(DOCUMENT_COLLECTION).where(eq(id.get())).build();
-                List&lt;DocumentCollectionEntity&gt; documentsFound = collectionManager.find(query);
-
-              }
-            }
-          }
-        </code>
-      </pre>
-      <hr>
-      <pre class="language-java">
-        <code class="language-java">
-
-          public class AppColumn {
-
-            private static final String KEY_SPACE = "newKeySpace";
-            private static final String COLUMN_FAMILY = "newColumnFamily";
-
-            public static void main(String[] args) {
-
-              ColumnConfiguration condition = //any implementation
-
-              try(ColumnFamilyManagerFactory managerFactory = condition.getManagerFactory()) {
-                ColumnFamilyManager columnEntityManager = managerFactory.getColumnEntityManager(KEY_SPACE);
-                ColumnFamilyEntity entity = ColumnFamilyEntity.of(COLUMN_FAMILY);
-                Column id = Column.of("id", 10L);
-                entity.add(id);
-                entity.add(Column.of("version", 0.001));
-                entity.add(Column.of("name", "Diana"));
-                entity.add(Column.of("options", Arrays.asList(1, 2, 3)));
-
-                columnEntityManager.insert(entity);
-
-                DocumentQuery query = select().from(COLUMN_FAMILY).where(eq(id)).build();
-                List&lt;ColumnFamilyEntity&gt; entities = columnEntityManager.find(query);
-
-              }
-
-
-            }
-          </code>
-        </pre>
-        <hr>
-        <pre class="language-java">
-          <code class="language-java">
-
-            public class AppKeyValue {
-
-
-              public static void main(String[] args) {
-
-                KeyValueConfiguration configuration = //any implementation
-                try (BucketManagerFactory managerFactory = configuration.getManagerFactory()) {
-                  BucketManager bucket = managerFactory.getBucketManager("bucket");
-                  List&lt;String&gt; list = managerFactory.getList("bucketList", String.class);
-                  Set&lt;String&gt; set = managerFactory.getSet("bucketSet", String.class);
-                  Map&lt;String, Integer&gt; map = managerFactory.getMap("bucketList", String.class, Integer.class);
-                  Queue&lt;String&gt; queue = managerFactory.getQueue("queueList", String.class);
-                  bucket.put("key", "value");
-                  Optional&lt;Value&gt; value = bucket.get("key");
-                }
-
-
-              }
-            }
-          </code>
-        </pre>
-        <a href="./examples.html" class="btn btn-lg btn-default">See more <i class="fa fa-eye"></i></a>
-        <a href="https://www.gitbook.com/book/otaviojava/jnosql-book/details" class="btn btn-lg btn-info" target="_blank">
-          Read the JNoSQL book <i class="fa fa-book"></i>
-        </a>
-      </div><!-- /.container -->
-    </section>
-
-    <section id="join-us" class="bg-light-gray">
-      <div class="container">
-
-        <h1>Join Us</h1>
-        <hr>
-        <p>Meet the developers, and stay tunned on the news about Eclipse JNoSQL development. You may want to become one of us!</p>
-        <div class="space"></div>
-        <a href="https://gitter.im/orgs/JNOSQL/rooms" target="_blank" class="btn btn-lg btn-info hvr-shadow">
-          Join Us <i class="fa fa-comments-o" aria-hidden="true"></i>
-        </a>
-        <a href="https://dev.eclipse.org/mailman/listinfo/jnosql-dev" target="_blank" class="btn btn-lg btn-info hvr-shadow">
-          Mailing list <i class="fa fa-comments-o" aria-hidden="true"></i>
-        </a>
-        <a href="https://wiki.eclipse.org/JNoSQL" target="_blank" class="btn btn-lg btn-info hvr-shadow">
-          Wiki <i class="fa fa-comments-o" aria-hidden="true"></i>
-        </a>
-
-      </div><!-- /.container -->
-    </section>
-
-    <footer class="bg-dark">
-      <div class="container">
-
-        <div class="col-md-6">
-          <p class="pull-left">
-            <a href="https://github.com/JNOSQL/" target="_blank">Eclipse JNoSQL</a> is maintained by <a href="https://github.com/eclipse?q=jnosql" target="_blank">Eclipse JNOSQL.</a>
-          </p>
-        </div>
-
-        <div class="col-md-6">
-          <p class="pull-right">
-            Website Designed by <a href="http://work.blogmachine.com.br" target="_blank">Blog Machine</a>
-          </p>
-        </div>
-
-      </div><!-- /.container -->
     </footer>
 
-    <a href="#top" class="scroll" id="back-to-top" title="Back to top">&uarr;</a>
+  </div><!-- main content -->
+
+</div><!-- Container -->
 
 
-  </body>
-  <!-- JQuery -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-  <!-- Bootstrap -->
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <!-- Sintax highlighter -->
-  <script type="text/javascript" src="assets/js/prism.js"></script>
-
-  <!-- Font Awesome -->
-  <script src="https://use.fontawesome.com/259cb4e37c.js"></script>
-
-  <!-- Custom JS -->
-  <script type="text/javascript" src="assets/js/master.js"></script>
-
-  </html>
+</body>
+</html>
