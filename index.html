@@ -40,7 +40,7 @@
 
     </h1>
 
-    <p>The Eclipse JNoSQL is a framework whose has the goal to help Java developers to create Java EE applications with NoSQL, whereby they can make scalable application beyond enjoy the polyglot persistence.</p>
+    <p>The Eclipse JNoSQL is a framework with the goal to help developers in creating enterprise-ready applications using Java and NoSQL technologies. It enables them to create scalable applications while maintaining low coupling with the underlying NoSQL technology.</p>
 
     <a href="https://github.com/eclipse?q=Jnosql" class="btn btn-outline-light btn-block btn-lg" target="_blank">View on GitHub</a>
 
@@ -50,8 +50,8 @@
     <nav class="ns-nav">
       <ul class="list-unstyled">
         <li><a href="#about">About</a></li>
-        <li><a href="#support">Support</a></li>
-        <li><a href="apidocs/index.html">Docs</a></li>
+        <li><a href="#support">NoSQL Support</a></li>
+        <li><a href="apidocs/index.html" target="_blank">API Docs</a></li>
         <li><a href="#join">Join Us</a></li>
       </ul>
     </nav>
@@ -60,47 +60,53 @@
     <main id="main">
 
       <section id="about">
-        <h2>What is Eclipse JNoSQL</h2>
-        <p>The Eclipse JNoSQL is a several tools to make easy an integration between the Java Application with the NoSQL. The project has two layers:</p>
+        <h2>What is Eclipse JNoSQL?</h2>
+        <p>The <em>Eclipse JNoSQL</em> is a Java framework that streamlines the integration of a Java application with the NoSQL database. It defines a set of APIs to interact with the NoSQL database and provides a standard implementation for most of the NoSQL databases. This clearly helps to achieve very <em>low coupling</em> with the underlying NoSQL technologies used in the applications.</p>
+
+        <p>The project has two layers:</p>
 
         <ul>
-          <li>Communication API: An API just to communicate with the database, exactly what JDBC does to SQL. This API has four specializations, one for each kind of database.</li>
-          <li>Mapping API: An API to do integration and do the best integration with the Java developer. That is annotation and CDI driven have integration with other technologies such as Bean Validation, etc. This layer does what JPA does to relational technology.</li>
+          <li><b>Communication API:</b> These are set of APIs that define communication with NoSQL database. In traditional RDBMS world, these can be compared with JDBC APIs. This API set contains four modules with each one representing a NoSQL database storage type like Key-Value pair, Column Family etc.</li>
+          <li><b>Mapping API:</b> These are the APIs that help developers to integrate Java application with NoSQL database. This layer is annotation driven and uses technologies like CDI and Bean Validations to make it simpler for the developer. In traditional RDBMS world, this layer can be compared to JPA or ORM frameworks.</li>
         </ul>
-        <p>The basic building blocks hereby are:</p>
+
+        <p>Some of the important features are:</p>
+
         <ul>
-          <li>A simple API to support Column NoSQL Database</li>
-          <li>A simple API to support Key-value NoSQL Database</li>
-          <li>A simple API to support Graph NoSQL Database</li>
-          <li>A simple API to support Document Database</li>
-          <li>Convention over configuration</li>
-          <li>Support for asynchronous queries</li>
-          <li>Support for asynchronous write operations</li>
-          <li>An easy API to implement, so that NoSQL vendors can comply with it and test by themselves.</li>
+          <li>Simple APIs supporting all well known NoSQL storage types - Column Family, Key-Value Pair, Graph and Document databases.</li>
+          <li>Use of Convention over configuration</li>
+          <li>Support for Asynchronous Queries</li>
+          <li>Support for Asynchronous Write operations</li>
+          <li>Easy API Specification and TCK for NoSQL Vendors</li>
         </ul>
+
         <p>The API's focus is on simplicity and ease of use. Developers should only have to know a minimal set of artifacts to work with the solution. The API is built on latest Java 8 features and therefore fit perfectly with the functional features of Java 8.</p>
 
-        <h3>Eclipse JNoSQL communication API, Diana</h3>
-        <p>The Eclipse JNoSQL Diana project has as goal just be the low layer, in other words, just the communication layer to NoSQL database. Basically this project works as a database driver. Diana have four APIs, one for each database type, and its TCK respective. The test compatibility kit affirms if a driver implements an API correctively. So a X database of key-value implements and run all tests correctively that means this X database has support to key-value Diana API.</p>
+        <h3>Eclipse JNoSQL - Diana</h3>
+        <p>The <em>Eclipse JNoSQL - Diana</em> project defines the standard APIs to communicate with NoSQL databases. Basically, this project works as a <b>NoSQL Database jDriver</b>.</p>
 
-        <h3>Eclipse JNoSQL mapping API, Artemis</h3>
-        <p>Eclipse JNoSQL Artemis is an integration layer, in other words, it has the goal to communicate with the communication layer, Diana, and it does integrations with other technologies such as Bean Validation. The Artemis engine has CDI. So it formula is really simple:</p>
+        <p>Diana has four APIs, one for each NoSQL database storage type, and TCK for each one. The Test Compatibility Kit (TCK) helps to ensure that driver implementation adheres to API specifications. So a X database of key-value implements and run all tests correctively that means this X database has support to key-value Diana API.</p>
 
-        <p><strong>Diana plus CDI equals to Artemis</strong></p>
+        <h3>Eclipse JNoSQL - Artemis</h3>
+        <p>The <em>Eclipse JNoSQL - Artemis</em> project is an integration layer that helps developers to integrate applications with Diana. The Artemis layer uses technologies such as Bean Validations and incorporates CDI capabilities, making integrations very simple and effective. In other words, Artemis can be thought as - </p>
 
-        <p>Look like Diana, it has a different package to each NoSQL database. Using CDI as heart, Artemis is highly customizable also observe events on the persistence flow. Artemis has a nice feature such as:</p>
+        <p><strong>Diana + CDI = Artemis</strong></p>
+
+        <p>Similar to Diana, Artemis also has separate modules for all well known NoSQL Database Store types. With CDI at its heart, Artemis becomes a very powerful, yet simple framework. </p>
+
+        <p>Some of the important features of Artemis are:</p>
         <ul>
-          <li>Annotation based</li>
-          <li>Highly customizable \(reflection component, how to save the cache, persistence workflow, etc.\)</li>
-          <li>Listen to an event to each kind of persistence workflow \(it has differents kind of events to each database\).</li>
-          <li>Use interceptors</li>
-          <li>Using CDI events to add a new feature on Artemis is so easy and you also can it on transparency way, you don't need to change the repositories. E.G: Using events can add bean validation on the workflow, without the DAO layer know.</li>
+          <li>Annotation Driven.</li>
+          <li>Highly Customizable (reflection component, how to save the cache, persistence workflow, etc.)</li>
+          <li>Observable events on the persistence flow (Every Artemis module has its own set of events)</li>
+          <li>Support to use Interceptors</li>
+          <li>Use CDI events to inject behaviors and validations in the workflow</li>
         </ul>
       </section><!-- ends about -->
 
       <section id="support">
-        <h2>Support</h2>
-        <p>Currently, Eclipse JNoSQL works with the following databases:</p>
+        <h2>Supported NoSQL Databases</h2>
+        <p>Currently, Eclipse JNoSQL proudly supports following NoSQL database and List is continuously growing:</p>
 
         <ul class="logo-galery list-unstyled">
           <li><a href="http://tinkerpop.apache.org/" target="_blank"><img alt="logo tinkerpop" src="img/logos/apache-tinkerpop.png"></a></li>
@@ -137,11 +143,11 @@
 
     <footer id="join">
       <h2>Join Us</h2>
-      <p>Meet the developers, and stay tunned on the news about Eclipse JNoSQL development. You may want to become one of us!</p>
+      <p>Meet the developers and participate in discussions. Stay in the loop for the latest news about Eclipse JNoSQL development.</p>
 
 
       <div class="btn-group" role="group">
-        <a href="https://gitter.im/orgs/JNOSQL/rooms" class="btn btn-outline-light">Join Us</a>
+        <a href="https://gitter.im/orgs/JNOSQL/rooms" class="btn btn-outline-light">Gitter Chat</a>
         <a href="https://dev.eclipse.org/mailman/listinfo/jnosql-dev" class="btn btn-outline-light">Mailing list</a>
         <a href="https://wiki.eclipse.org/JNoSQL" class="btn btn-outline-light">Wiki</a>
       </div>
