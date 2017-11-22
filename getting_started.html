@@ -79,8 +79,8 @@
         <pre>
           <code class="xml">
             &lt;dependency&gt;
-              &lt;groupId>org.jnosql.artemis&lt;/groupId&gt;
-              &lt;artifactId>artemis-core&lt;/artifactId&gt;
+              &lt;groupId&gt;org.jnosql.artemis&lt;/groupId&gt;
+              &lt;artifactId&gt;artemis-core&lt;/artifactId&gt;
               &lt;version>version&lt;/version&gt;
             &lt;/dependency&gt;
           </code>
@@ -89,9 +89,9 @@
         <pre>
           <code class="xml">
             &lt;dependency&gt;
-              &lt;groupId>org.jnosql.diana&lt;/groupId&gt;
-              &lt;artifactId>hazelcast-driver&lt;/artifactId&gt;
-              &lt;version>version&lt;/version&gt;
+              &lt;groupId&gt;org.jnosql.diana&lt;/groupId&gt;
+              &lt;artifactId&gt;hazelcast-driver&lt;/artifactId&gt;
+              &lt;version&gt;version&lt;/version&gt;
             &lt;/dependency&gt;
           </code>
         </pre>
@@ -192,7 +192,7 @@
        public interface UserRepository extends Repository&lt;User, String&gt; {}
    </code>
   </pre>
-    <h5>Actually, JNoSQL will handle that for you.</h5>
+    <h5>Actually, Eclipse JNoSQL will handle that for you.</h5>
          <pre>
           <code class="java">
          public class App2 {
@@ -244,7 +244,181 @@
 </section>
 <section id="column">
   <h2>Start with Column</h2>
-  coming soon.
+    <h5>Add the Eclipse JNoSQL Artemis dependency</h5>      
+        <pre>
+          <code class="xml">
+            &lt;dependency&gt;
+              &lt;groupId>org.jnosql.artemis&lt;/groupId&gt;
+              &lt;artifactId>artemis-core&lt;/artifactId&gt;
+              &lt;version>version&lt;/version&gt;
+            &lt;/dependency&gt;
+          </code>
+        </pre>
+        <h5>Choose any key-value vendor. e.g:</h5>      
+        <pre>
+          <code class="xml">
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.jnosql.diana&lt;/groupId&gt;
+              &lt;artifactId&gt;cassandra-driver&lt;/artifactId&gt;
+              &lt;version&gt;version&lt;/version&gt;
+            &lt;/dependency&gt;
+          </code>
+        </pre>
+
+        <h5>Use annotation to define either the Id, the column fields and the entity name such as JPA.</h5>      
+        <pre>
+          <code class="java">
+           @Entity("Person")
+           public class Person {
+
+            @Id("id")
+            private long id;
+
+            @Column
+            private String name;
+
+            @Column
+            private List&lt;String&gt; phones;
+            //The getter and setter are not required.
+            //However, the class must have a non-private constructor with no parameters.
+           }
+        </code>
+      </pre>
+
+      <h5>Make an eligible <b>ColumnFamilyManager</b> by the Produces method ColumnFamilyManager.</h5>      
+      <pre>
+        <code class="java">
+          @ApplicationScoped
+          public class ColumnFamilyManagerProducer {
+
+              private static final String KEY_SPACE = "developers";
+
+              private ColumnConfiguration&lt&gt; cassandraConfiguration;
+
+              private ColumnFamilyManagerFactory managerFactory;
+
+              @PostConstruct
+              public void init() {
+                  cassandraConfiguration = new CassandraConfiguration();
+                  managerFactory = cassandraConfiguration.get();
+              }
+
+
+              @Produces
+              public ColumnFamilyManager getManagerCassandra() {
+                  return managerFactory.get(KEY_SPACE);
+              }
+
+          }
+
+
+   </code>
+  </pre>
+     <h5>That's it, it's ready to use with CDI with a column nosql database.</h5>
+       <pre>
+          <code class="java">
+          public class App {
+
+          private static final Person PERSON = Person.builder().
+                  withPhones(Arrays.asList("234", "432"))
+                  .withName("Name")
+                  .withId(1)
+                  .withIgnore("Just Ignore").build();
+
+          public static void main(String[] args) {
+
+              try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+                  ColumnTemplate columnTemplate =  container.select(CassandraTemplate.class).get();
+                  Person saved = columnTemplate.insert(PERSON);
+                  System.out.println("Person saved" + saved);
+
+
+                  ColumnQuery query = select().from("Person").where(eq(Column.of("id", 1L))).build();
+
+                  Optional&lt;Person&gt; person = columnTemplate.singleResult(query);
+                  System.out.println("Entity found: " + person);
+
+              }
+          }
+
+          private App() {}
+      }
+
+     </code>
+
+      <pre>
+          <code class="java">
+            public class PersonService {
+
+               @Inject
+               private ColumnTemplate template;
+
+
+              public Person insert(Person person) {
+                  return template.insert(person);
+              }
+
+              public Optional&lt;Person&gt; find(Long id) {
+                  ColumnQuery query = select().from("Person").where("id").eq(id).build();
+                  return template.singleResult(query);
+              }
+            }
+     </code>
+    </pre>
+  <h5>Create your own repository</h5>
+       <pre>
+        <code class="java">
+       public interface PersonRepository extends Repository&lt;Person, Long&gt; {}
+   </code>
+  </pre>
+    <h5>Actually, JNoSQL will handle that for you.</h5>
+         <pre>
+          <code class="java">
+            public class App2 {
+
+                private static final Person PERSON = Person.builder().
+                        withPhones(Arrays.asList("234", "432"))
+                        .withName("Name")
+                        .withId(1)
+                        .build();
+
+                public static void main(String[] args) {
+
+                    try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+                        PersonRepository repository = container.select(PersonRepository.class).select(ofColumn()).get();
+                        Person saved = repository.save(PERSON);
+                        System.out.println("Person saved" + saved);
+
+                        Optional&lt;Person&gt; person = repository.findById(1L);
+                        System.out.println("Entity found: " + person);
+
+                    }
+                }
+
+                private App2() {}
+            }
+     </code>
+    </pre>
+
+     <pre>
+        <code class="java">
+          public class PersonService {
+
+              @Inject
+              @Database(DatabaseType.COLUMN)
+              private UserRepository repository;
+
+
+              public Person save(Person person) {
+                  return repository.save(person);
+              }
+
+              public Optional&lt;Person&gt; find(Long id) {
+                  return repository.findById(id);
+              }
+          }
+   </code>
+  </pre>
 </section>
 <section id="document">
   <h2>Start with document</h2>
