@@ -121,12 +121,12 @@
            configuration = new HazelCastKeyValueConfiguration();
            Map&lt;String, Object&gt; settings = singletonMap("hazelcast-instanceName", "hazelcast");
            managerFactory = configuration.get(Settings.of(settings));
-       }
+        }
 
-       @Produces
-       public BucketManager getManager() {
-          return managerFactory.getBucketManager(BUCKET);
-     }
+         @Produces
+         public BucketManager getManager() {
+            return managerFactory.getBucketManager(BUCKET);
+       }
    }
 
    </code>
