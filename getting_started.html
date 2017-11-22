@@ -639,7 +639,282 @@
 </section>
 <section id="graph">
   <h2>Start with Graph</h2>
-  coming soon.
+  <h5>Add the Eclipse JNoSQL Artemis dependency</h5>      
+        <pre>
+          <code class="xml">
+            &lt;dependency&gt;
+              &lt;groupId>org.jnosql.artemis&lt;/groupId&gt;
+              &lt;artifactId>graph-extension&lt;/artifactId&gt;
+              &lt;version>version&lt;/version&gt;
+            &lt;/dependency&gt;
+          </code>
+        </pre>
+        <h5>Choose any graph with <a href="http://tinkerpop.apache.org/" target="_blank">TinkerPop</a> vendor. e.g:</h5>      
+        <pre>
+          <code class="xml">
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.apache.tinkerpop&lt;/groupId&gt;
+              &lt;artifactId&gt;gremlin-core&lt;/artifactId&gt;
+              &lt;version&gt;version&lt;/version&gt;
+            &lt;dependency&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.janusgraph&lt;/groupId&gt;
+              &lt;artifactId&gt;janusgraph-core&lt;/artifactId&gt;
+              &lt;version&gt;version&lt;/version&gt;
+            &lt;dependency&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.janusgraph&lt;/groupId&gt;
+              &lt;artifactId&gt;janusgraph-berkeleyje&lt;/artifactId&gt;
+              &lt;version&gt;version&lt;/version&gt;
+            &lt;dependency&gt;
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.janusgraph&lt;/groupId&gt;
+              &lt;artifactId&gt;janusgraph-lucene&lt;/artifactId&gt;
+              &lt;version&gt;version&lt;/version&gt;
+            &lt;dependency&gt;
+          </code>
+        </pre>
+
+        <h5>Use annotation to define either the Id, the column fields and the entity name such as JPA.</h5>      
+        <pre>
+          <code class="java">
+          @Entity
+          public class Person {
+
+              @Id
+              private Long id;
+
+              @Column
+              private String name;
+
+              @Column
+              private int age;
+
+              @Column
+              private String occupation;
+
+              @Column
+              private Double salary;
+            //The getter and setter are not required.
+            //However, the class must have a non-private constructor with no parameters.
+           }
+        </code>
+      </pre>
+
+      <h5>Make an eligible <b>Graph</b> by the Produces method Graph.</h5>      
+      <pre>
+        <code class="java">
+          @ApplicationScoped
+          public class GraphProducer {
+
+              private static final String FILE_CONF = "conf/janusgraph-berkeleyje-lucene.properties";
+
+              private Graph graph;
+
+
+              @PostConstruct
+              public void init() {
+                  JanusGraph janusGraph = JanusGraphFactory.open(FILE_CONF);
+                  GraphTraversalSource g = janusGraph.traversal();
+                  if (g.V().count().next() == 0) {
+                      GraphOfTheGodsFactory.load(janusGraph);
+                  }
+                  this.graph = janusGraph;
+              }
+
+              @Produces
+              @ApplicationScoped
+              public Graph getGraph() {
+                  return graph;
+              }
+
+              public void close(@Disposes Graph graph) throws Exception {
+                  graph.close();
+              }
+          }
+
+
+
+   </code>
+  </pre>
+     <h5>That's it, it's ready to use with CDI with a graph nosql database.</h5>
+       <pre>
+          <code class="java">
+            public final class MarketingApp {
+
+
+                private MarketingApp() {
+                }
+
+
+                public static void main(String[] args) {
+
+                    try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+                        GraphTemplate graph = container.select(GraphTemplate.class).get();
+
+                        Person banner = graph.insert(builder().withAge(30).withName("Banner")
+                                .withOccupation("Developer").withSalary(3_000D).build());
+
+                        Person natalia = graph.insert(builder().withAge(32).withName("Natalia")
+                                .withOccupation("Developer").withSalary(5_000D).build());
+
+                        Person rose = graph.insert(builder().withAge(40).withName("Rose")
+                                .withOccupation("Design").withSalary(1_000D).build());
+
+                        Person tony = graph.insert(builder().withAge(22).withName("tony")
+                                .withOccupation("Developer").withSalary(4_500D).build());
+
+
+                        graph.edge(tony, "knows", rose).add("feel", "love");
+                        graph.edge(tony, "knows", natalia);
+
+                        graph.edge(natalia, "knows", rose);
+                        graph.edge(banner, "knows", rose);
+
+                        List&lt;Person&gt; developers = graph.getTraversalVertex()
+                                .has("salary", gte(3_000D))
+                                .has("age", between(20, 25))
+                                .has("occupation", "Developer")
+                                .&lt;Person&gt;stream().collect(toList());
+
+                        List&lt;Person&gt; peopleWhoDeveloperKnows = graph.getTraversalVertex()
+                                .has("salary", gte(3_000D))
+                                .has("age", between(20, 25))
+                                .has("occupation", "Developer")
+                                .out("knows")
+                                .&lt;Person&gt;stream().collect(toList());
+
+                        List&lt;Person&gt; both = graph.getTraversalVertex()
+                                .has("salary", gte(3_000D))
+                                .has("age", between(20, 25))
+                                .has("occupation", "Developer")
+                                .outE("knows")
+                                .bothV()
+                                .&lt;Person&gt;stream()
+                                .distinct()
+                                .collect(toList());
+
+                        List&lt;Person&gt; couple = graph.getTraversalVertex()
+                                .has("salary", gte(3_000D))
+                                .has("age", between(20, 25))
+                                .has("occupation", "Developer")
+                                .outE("knows")
+                                .has("feel", "love")
+                                .bothV()
+                                .&lt;Person&gt;stream()
+                                .distinct()
+                                .collect(toList());
+
+                        System.out.println("Developers has salary greater than 3000 and age between 20 and 25: " + developers);
+                        System.out.println("Person who the Developers target know: " + peopleWhoDeveloperKnows);
+                        System.out.println("The person and the developers target: " + both);
+                        System.out.println("Developers to Valentine days: " + couple);
+
+                    }
+                }
+
+            }
+
+     </code>
+
+      <pre>
+          <code class="java">
+            public class PersonService {
+
+              @Inject
+              private GraphTemplate template;
+
+
+              public Person insert(Person person) {
+                  return template.insert(person);
+              }
+
+              public Optional&lt;Person&gt; find(Long id) {
+                  return template.find(id);
+              }
+              public EdgeEntity&lt;Person, Person&gt; meet(Person personA, Person personB) {
+                  return template.edge(personA, "knows", personB);
+              }
+          }
+
+     </code>
+    </pre>
+  <h5>Create your own repository</h5>
+       <pre>
+        <code class="java">
+       public interface PersonRepository extends Repository&lt;Person, Long&gt; {
+
+       Stream&lt;Person&gt; findByOccupationAndSalaryGreaterThan(String ocuppation, Double salary);
+
+       Stream&lt;Person&gt; findByAgeBetween(Integer ageA, Integer ageB); 
+     }
+   </code>
+  </pre>
+    <h5>Actually, JNoSQL will handle that for you.</h5>
+         <pre>
+          <code class="java">
+            public final class MarketingApp2 {
+
+
+                private MarketingApp2() {
+                }
+
+
+                public static void main(String[] args) {
+
+                    try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+                        PersonRepository repository = container.select(PersonRepository.class, DatabaseQualifier.ofGraph()).get();
+
+                        Person banner = repository.save(builder().withAge(30).withName("Banner")
+                                .withOccupation("Developer").withSalary(3_000D).build());
+
+                        Person natalia = repository.save(builder().withAge(32).withName("Natalia")
+                                .withOccupation("Developer").withSalary(5_000D).build());
+
+                        Person rose = repository.save(builder().withAge(40).withName("Rose")
+                                .withOccupation("Design").withSalary(1_000D).build());
+
+                        Person tony = repository.save(builder().withAge(22).withName("tony")
+                                .withOccupation("Developer").withSalary(4_500D).build());
+
+
+                        System.out.println("findByOccupationAndSalaryGreaterThan");
+                        repository.findByOccupationAndSalaryGreaterThan("Developer", 3_000D)
+                                .forEach(System.out::println);
+                        System.out.println("findByAgeBetween");
+                        repository.findByAgeBetween(20, 30)
+                                .forEach(System.out::println);
+
+
+                    }
+                }
+
+            }
+
+
+
+     </code>
+    </pre>
+
+     <pre>
+        <code class="java">
+          public class PersonService {
+
+              @Inject
+              @Database(DatabaseType.GRAPH)
+              private PersonRepository repository;
+
+
+              public Person save(Person person) {
+                  return repository.save(person);
+              }
+
+              public Optional&lt;Person&gt; find(Long id) {
+                  return repository.findById(id);
+              }
+          }
+   </code>
+  </pre>
 </section>
 <section id="references">
   <h2>References</h2>
