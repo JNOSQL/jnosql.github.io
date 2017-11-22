@@ -130,10 +130,61 @@
 
    </code>
   </pre>
-    <h5>That's it, it's ready to use with CDI with a Key-value nosql database.</h5>
-     <pre>
+     <h5>That's it, it's ready to use with CDI with a Key-value nosql database.</h5>
+       <pre>
+          <code class="java">
+          public class App {
+
+              private static final User USER = User.builder().
+                      withPhones(Arrays.asList("234", "432"))
+                      .withUsername("username")
+                      .withName("Name")
+                      .build();
+
+              public static void main(String[] args) {
+
+                  try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+                      KeyValueTemplate keyValueTemplate = container.select(KeyValueTemplate.class).get();
+                      User userSaved = keyValueTemplate.put(USER);
+                      System.out.println("User saved: " + userSaved);
+                      Optional&lt;User&gt; user = keyValueTemplate.get("username", User.class);
+                      System.out.println("Entity found: " + user);
+                  }
+              }
+
+              private App() {
+              }
+          }
+     </code>
+
+      <pre>
+          <code class="java">
+            public class UserService {
+
+                @Inject
+                private KeyValueTemplate template;
+
+
+              public User put(User user) {
+                  return template.put(user);
+              }
+
+              public Optional<User> find(String id) {
+                  return template.get(id, User.class);
+              }
+            }
+     </code>
+    </pre>
+  <h5>Create your own repository</h5>
+       <pre>
         <code class="java">
-        public class App {
+       public interface UserRepository extends Repository&lt;User, String&gt; {}
+   </code>
+  </pre>
+    <h5>Actually, JNoSQL will handle that for you.</h5>
+         <pre>
+          <code class="java">
+         public class App2 {
 
             private static final User USER = User.builder().
                     withPhones(Arrays.asList("234", "432"))
@@ -144,52 +195,39 @@
             public static void main(String[] args) {
 
                 try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-                    KeyValueTemplate keyValueTemplate = container.select(KeyValueTemplate.class).get();
-                    User userSaved = keyValueTemplate.put(USER);
-                    System.out.println("User saved: " + userSaved);
-                    Optional&lt;User&gt; user = keyValueTemplate.get("username", User.class);
-                    System.out.println("Entity found: " + user);
+
+                    UserRepository repository = container.select(UserRepository.class, DatabaseQualifier.ofKeyValue()).get();
+                    repository.save(USER);
+                    Optionaly&lt;User&gt; user = repository.findById("username");
+                    System.out.println("User found: " + user);
+                    System.out.println("The user found: " + repository.existsById("username"));
                 }
             }
 
-            private App() {
-            }
-        }
-   </code>
-  </pre>
-  <h5>Create your own repository</h5>
-       <pre>
+          private App2() {
+          }
+      }
+
+     </code>
+    </pre>
+
+     <pre>
         <code class="java">
-       public interface UserRepository extends Repository&lt;User, String&gt; {}
-   </code>
-  </pre>
-    <h5>Actually, JNoSQL will handle that for you.</h5>
-       <pre>
-        <code class="java">
-       public class App2 {
+          public class UserService {
 
-          private static final User USER = User.builder().
-                  withPhones(Arrays.asList("234", "432"))
-                  .withUsername("username")
-                  .withName("Name")
-                  .build();
+              @Inject
+              @Database(DatabaseType.KEY_VALUE)
+              private UserRepository repository;
 
-          public static void main(String[] args) {
 
-              try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+              public User save(User user) {
+                  return repository.save(user);
+              }
 
-                  UserRepository repository = container.select(UserRepository.class, DatabaseQualifier.ofKeyValue()).get();
-                  repository.save(USER);
-                  Optionaly&lt;User&gt; user = repository.findById("username");
-                  System.out.println("User found: " + user);
-                  System.out.println("The user found: " + repository.existsById("username"));
+              public Optional<User> find(String id) {
+                  return repository.findById(id);
               }
           }
-
-        private App2() {
-        }
-    }
-
    </code>
   </pre>
 </section>
