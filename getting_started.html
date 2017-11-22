@@ -406,7 +406,7 @@
 
               @Inject
               @Database(DatabaseType.COLUMN)
-              private UserRepository repository;
+              private PersonRepository repository;
 
 
               public Person save(Person person) {
@@ -422,7 +422,220 @@
 </section>
 <section id="document">
   <h2>Start with document</h2>
-  coming soon.
+    <h5>Add the Eclipse JNoSQL Artemis dependency</h5>      
+        <pre>
+          <code class="xml">
+            &lt;dependency&gt;
+              &lt;groupId>org.jnosql.artemis&lt;/groupId&gt;
+              &lt;artifactId>artemis-core&lt;/artifactId&gt;
+              &lt;version>version&lt;/version&gt;
+            &lt;/dependency&gt;
+          </code>
+        </pre>
+        <h5>Choose any key-value vendor. e.g:</h5>      
+        <pre>
+          <code class="xml">
+            &lt;dependency&gt;
+              &lt;groupId&gt;org.jnosql.diana&lt;/groupId&gt;
+              &lt;artifactId&gt;mongodb-driver&lt;/artifactId&gt;
+              &lt;version&gt;version&lt;/version&gt;
+            &lt;/dependency&gt;
+          </code>
+        </pre>
+
+        <h5>Use annotation to define either the Id, the column fields and the entity name such as JPA.</h5>      
+        <pre>
+          <code class="java">
+           @Entity("Person")
+           public class Person {
+
+            @Id("id")
+            private long id;
+
+            @Column
+            private String name;
+
+            @Column
+            private Address address;
+
+            @Column
+            private List&lt;String&gt; phones;
+            //The getter and setter are not required.
+            //However, the class must have a non-private constructor with no parameters.
+           }
+        </code>
+        <code class="java">
+          @Embeddable
+          public class Address {
+
+            @Column
+            private String street;
+
+            @Column
+            private String city;
+
+            @Column
+            private Integer number;
+
+          } 
+        </code>
+      </pre>
+
+      <h5>Make an eligible <b>DocumentCollectionManager</b> by the Produces method DocumentCollectionManager.</h5>      
+      <pre>
+        <code class="java">
+          @ApplicationScoped
+          public class DocumentCollectionManagerroducer {
+
+              private static final String COLLECTION = "developers";
+
+              private DocumentConfiguration configuration;
+
+              private DocumentCollectionManagerFactory managerFactory;
+
+              @PostConstruct
+              public void init() {
+                  configuration = new MongoDBDocumentConfiguration();
+                  Map&lt;String, Object&gt; settings = Collections.singletonMap("mongodb-server-host-1", "localhost:27017");
+                  managerFactory = configuration.get(Settings.of(settings));
+              }
+
+
+              @Produces
+              public DocumentCollectionManager getManager() {
+                  return managerFactory.get(COLLECTION);
+
+              }
+
+          }
+
+
+   </code>
+  </pre>
+     <h5>That's it, it's ready to use with CDI with a document nosql database.</h5>
+       <pre>
+          <code class="java">
+           public class App {
+
+
+              public static void main(String[] args) {
+
+                  Random random = new Random();
+                  Long id = random.nextLong();
+                  try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+
+                      Person person = Person.builder().
+                              withPhones(Arrays.asList("234", "432"))
+                              .withName("Name")
+                              .withId(id)
+                              .build();
+
+                      DocumentTemplate documentTemplate = container.select(DocumentTemplate.class).get();
+                      Person saved = documentTemplate.insert(person);
+                      System.out.println("Person saved" + saved);
+
+
+                      DocumentQuery query = select().from("Person")
+                              .where(eq(Document.of("_id", id))).build();
+
+                      Optional&lt;Person&gt; personOptional = documentTemplate.singleResult(query);
+                      System.out.println("Entity found: " + personOptional);
+
+                  }
+              }
+
+              private App() {
+              }
+          }
+
+     </code>
+
+      <pre>
+          <code class="java">
+            public class PersonService {
+
+               @Inject
+               private DocumentTemplate template;
+
+
+              public Person insert(Person person) {
+                  return template.insert(person);
+              }
+
+              public Optional&lt;Person&gt; find(Long id) {
+                  DocumentQuery query = select().from("Person").where("id").eq(id).build();
+                  return template.singleResult(query);
+              }
+            }
+     </code>
+    </pre>
+  <h5>Create your own repository</h5>
+       <pre>
+        <code class="java">
+       public interface PersonRepository extends Repository&lt;Person, Long&gt; {
+
+       List&lt;Person&gt; findByName(String name);
+
+       Stream&lt;Person&gt; findByPhones(String phone);
+     }
+   </code>
+  </pre>
+    <h5>Actually, JNoSQL will handle that for you.</h5>
+         <pre>
+          <code class="java">
+            public class App2 {
+
+
+            public static void main(String[] args) {
+
+                Random random = new Random();
+                Long id = random.nextLong();
+
+                try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+
+                    Person person = Person.builder().
+                            withPhones(Arrays.asList("234", "432"))
+                            .withName("Name")
+                            .withId(id)
+                            .build();
+
+                    PersonRepository repository = container.select(PersonRepository.class)
+                            .select(DatabaseQualifier.ofDocument()).get();
+                    repository.save(person);
+
+                    List&lt;Person&gt; people = repository.findByName("Name");
+                    System.out.println("Entity found: " + people);
+                    repository.findByPhones("234").forEach(System.out::println);
+
+                }
+            }
+
+            private App2() {
+            }
+        }
+
+     </code>
+    </pre>
+
+     <pre>
+        <code class="java">
+          public class PersonService {
+
+              @Inject
+              @Database(DatabaseType.DOCUMENT)
+              private PersonRepository repository;
+
+
+              public Person save(Person person) {
+                  return repository.save(person);
+              }
+
+              public Optional&lt;Person&gt; find(Long id) {
+                  return repository.findById(id);
+              }
+          }
+   </code>
+  </pre>
 </section>
 <section id="graph">
   <h2>Start with Graph</h2>
