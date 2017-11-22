@@ -118,13 +118,14 @@
 
          @PostConstruct
          public void init() {
-         configuration = new HazelCastKeyValueConfiguration();
-         managerFactory = configuration.get();
+           configuration = new HazelCastKeyValueConfiguration();
+           Map&lt;String, Object&gt; settings = singletonMap("hazelcast-instanceName", "hazelcast");
+           managerFactory = configuration.get(Settings.of(settings));
        }
 
        @Produces
        public BucketManager getManager() {
-       return managerFactory.getBucketManager(BUCKET);
+          return managerFactory.getBucketManager(BUCKET);
      }
    }
 
