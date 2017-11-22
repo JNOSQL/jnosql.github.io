@@ -170,7 +170,7 @@
                   return template.put(user);
               }
 
-              public Optional<User> find(String id) {
+              public Optional&lt;User&gt; find(String id) {
                   return template.get(id, User.class);
               }
             }
@@ -225,7 +225,7 @@
                   return repository.save(user);
               }
 
-              public Optional<User> find(String id) {
+              public Optional&lt;User&gt; find(String id) {
                   return repository.findById(id);
               }
           }
