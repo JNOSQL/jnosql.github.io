@@ -10,13 +10,21 @@
 
 </head>
 <body>
+
+
   <div class="ns-container">
 
-    <header>
+
+    <header role="header">
+
       <h1>
+        <button type="button" name="button" id="toggle-menu" class="btn btn-link d-md-none text-white">
+          <i class="fas fa-bars"></i>
+        </button>
         <span class="logo-image">
           <img src="img/logo-small.png" alt="Logo os JNoSQL: image of Duke, Java's cartoon mascot, with a bow and arrow pointing to the right">
         </span>
+
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 307.4 53.6" style="enable-background:new 0 0 307.4 53.6;" xml:space="preserve">
         <g>
@@ -40,24 +48,43 @@
 
     </h1>
 
-    <p>The Eclipse JNoSQL is a framework with the goal to help developers in creating enterprise-ready applications using Java and NoSQL technologies. It enables them to create scalable applications while maintaining low coupling with the underlying NoSQL technology.</p>
-
-    <a href="https://github.com/eclipse?q=Jnosql" class="btn btn-outline-light btn-block btn-lg" target="_blank">View on GitHub</a>
-
-  </header> <!-- header -->
-
-  <div class="main">
     <nav class="ns-nav">
-      <ul class="list-unstyled">
-        <li><a href="#about">About</a></li>
-        <li><a href="getting_started.html">Get Started</a></li>
-        <li><a href="#support">NoSQL Support</a></li>
+      <ul>
+        <li><a href="index.html" class="active">JNoSQl</a>
+          <ul>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#support">NoSQL Support</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="getting_started.html">Get Started</a>
+          <ul>
+            <li><a href="getting_started.html#key-value">Key-value</a></li>
+            <li><a href="getting_started.html#column">Column</a></li>
+            <li><a href="getting_started.html#document">Document</a></li>
+            <li><a href="getting_started.html#graph">Graph</a></li>
+            <li><a href="getting_started.html#references">References</a></li>
+          </ul>
+        </li>
         <li><a href="#join">Join Us</a></li>
       </ul>
     </nav>
 
 
+
+  </header> <!-- header -->
+
+  <div class="main">
+
     <main id="main">
+
+      <section class="description">
+
+        <p>The Eclipse JNoSQL is a framework with the goal to help developers in creating enterprise-ready applications using Java and NoSQL technologies. It enables them to create scalable applications while maintaining low coupling with the underlying NoSQL technology.</p>
+
+        <a href="https://github.com/eclipse?q=Jnosql" class="btn btn-outline-warning btn-block" target="_blank">View on GitHub</a>
+      </section>
+
 
       <section id="about">
         <h2>What is Eclipse JNoSQL?</h2>
@@ -103,6 +130,11 @@
           <li>Use CDI events to inject behaviors and validations in the workflow</li>
         </ul>
       </section><!-- ends about -->
+
+
+
+
+
 
       <section id="support">
         <h2>Supported NoSQL Databases</h2>
@@ -156,13 +188,13 @@
         <a href="https://www.eclipse.org/org/foundation/" target="_blank">
           <img alt="logo eclipse" src="img/logos/eclipse_logo_white.png">
         </a>
-      <ul class="list-inline">
-        <li class="list-inline-item"><a href="http://www.eclipse.org/" target="_blank">Eclipse Foundation</a></li>
-        <li class="list-inline-item"><a href="https://eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a></li>
-        <li class="list-inline-item"><a href="https://eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a></li>
-        <li class="list-inline-item"><a href="https://eclipse.org/legal/copyright.php" target="_blank">Copyright Agent</a></li>
-        <li class="list-inline-item"><a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a></li>
-      </ul>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="http://www.eclipse.org/" target="_blank">Eclipse Foundation</a></li>
+          <li class="list-inline-item"><a href="https://eclipse.org/legal/privacy.php" target="_blank">Privacy Policy</a></li>
+          <li class="list-inline-item"><a href="https://eclipse.org/legal/termsofuse.php" target="_blank">Terms of Use</a></li>
+          <li class="list-inline-item"><a href="https://eclipse.org/legal/copyright.php" target="_blank">Copyright Agent</a></li>
+          <li class="list-inline-item"><a href="http://www.eclipse.org/legal" target="_blank">Legal Resources</a></li>
+        </ul>
 
       </div>
     </footer>
@@ -172,13 +204,23 @@
 </div><!-- Container -->
 
 
-</body>
+<script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+
+<script type="text/javascript">
+document.getElementById("toggle-menu").onclick = function() {
+  document
+  .getElementsByClassName("ns-nav")[0]
+  .classList.toggle("is-open");
+};
+</script>
+
 
 <script async src="js/gtag.js"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-110078859-1');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-110078859-1');
 </script>
+</body>
 </html>
