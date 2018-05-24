@@ -21,7 +21,7 @@
         </button>
 
         <span class="logo-image">
-          <img src="img/logo-small.png" alt="Logo os JNoSQL: image of Duke, Java's cartoon mascot, with a bow and arrow pointing to the right">
+          <img src="img/logo-small.png" alt="Logo of JNoSQL: image of Duke, Java's cartoon mascot, with a bow and arrow pointing to the right">
         </span>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 307.4 53.6" style="enable-background:new 0 0 307.4 53.6;" xml:space="preserve">
@@ -49,7 +49,7 @@
 
     <nav class="ns-nav">
       <ul>
-        <li><a href="index.html">JNoSQl</a>
+        <li><a href="index.html">JNoSQL</a>
           <ul>
             <li><a href="index.html#about">About</a></li>
             <li><a href="index.html#support">NoSQL Support</a></li>
@@ -77,23 +77,23 @@
 
       <section class="description">
 
-        <p>The Eclipse JNoSQL is a framework with the goal to help developers in creating enterprise-ready applications using Java and NoSQL technologies. It enables them to create scalable applications while maintaining low coupling with the underlying NoSQL technology.</p>
+        <p>The Eclipse JNoSQL is a framework to help developers create enterprise-grade applications using Java and NoSQL technologies. It helps them create scalable applications while maintaining low coupling with the underlying NoSQL technology.</p>
 
         <a href="https://github.com/eclipse?q=Jnosql" class="btn btn-outline-warning btn-block" target="_blank">View on GitHub</a>
       </section>
 
       <section id="minimum-requirement">
-        <h2>Minimum requirement</h2>
+        <h2>Minimum requirements</h2>
         <ul>
-          <li>Java 8 higher</li>
+          <li>Java 8 (or higher)</li>
           <li><a href="https://jcp.org/en/jsr/detail?id=365" target="_blank">CDI</a> implementation e.g.: <a href="http://weld.cdi-spec.org/" target="_blank">Weld</a></li>
-          <li><a href="https://jcp.org/en/jsr/detail?id=380" target="_blank">Bean Validation</a> implementation e.g.: <a href="http://beanvalidation.org/2.0/" target="_blank">Hibernate Validator</a> when enabling Bean validation (optional)</li>
-          <li><a href="https://jcp.org/en/jsr/detail?id=107" target="_blank">JCache</a> implementation e.g.: <a href="https://github.com/jsr107/RI" target="_blank">JSR107 Cache RI</a> when enabling second level cache (optional)</li>
+          <li><a href="https://jcp.org/en/jsr/detail?id=380" target="_blank">Bean Validation</a> implementation e.g.: <a href="http://beanvalidation.org/2.0/" target="_blank">Hibernate Validator</a> (optional, needed when enabling Bean Validation)</li>
+          <li><a href="https://jcp.org/en/jsr/detail?id=107" target="_blank">JCache</a> implementation e.g.: <a href="https://github.com/jsr107/RI" target="_blank">JSR107 Cache RI</a> (optional, when enabling second level cache)</li>
           <li><a href="https://jcp.org/en/jsr/detail?id=367" target="_blank">JSON-B</a> implementation e.g.: <a href="http://json-b.net/" target="_blank">Eclipse Yasson</a> When it needs JSON binding to either read a JSON configuration's file, or it needs to serialize or deserialize values to a database implementation. </li>
         </ul>
       </section>
       <section id="key-value">
-        <h2>Start with Key-value</h2>
+        <h2>Starting with Key-Value</h2>
         <h5>Add the Eclipse JNoSQL Artemis dependency</h5>
 
 <pre>
@@ -105,7 +105,7 @@
 &lt;/dependency&gt;
 </code>
 </pre>
-        <h5>Choose any key-value vendor. e.g:</h5>
+        <h5>Add a key-value vendor. e.g:</h5>
 <pre>
 <code class="xml">
 &lt;dependency&gt;
@@ -116,7 +116,7 @@
 </code>
 </pre>
 
-        <h5>Use annotation to define either the Id and the entity name such as JPA.</h5>
+        <h5>Use annotation to define both the Id and the entity name, same as JPA.</h5>
 <pre>
 <code class="java">
 @Entity
@@ -128,13 +128,13 @@ public class User implements Serializable {
   private String name;
 
   private List&lt;String&gt; phones;
-  //The getter and setter are not required.
-  //However, the class must have a non-private constructor with no parameters.
+  //Getters and setters are not required.
+  //However, the class must have a non-private constructor with no arguments.
 }
 </code>
 </pre>
 
-        <h5>Make an eligible <b>BucketManager</b> by the Produces method BucketManager.</h5>
+        <h5>Create an eligible <b>BucketManager</b> using the Producer methods in BucketManager.</h5>
 <pre>
 <code class="java">
 @ApplicationScoped
@@ -161,7 +161,7 @@ public class BucketManagerProducer {
 </code>
 </pre>
 
-        <h5>That's it, it's ready to use with CDI with a Key-value nosql database.</h5>
+        <h5>That's it! Now you're ready to go with CDI and a Key-Value NoSQL database.</h5>
 
 <pre>
 <code class="java">
@@ -214,7 +214,7 @@ public class UserService {
 public interface UserRepository extends Repository&lt;User, String&gt; {}
 </code>
 </pre>
-          <h5>Actually, Eclipse JNoSQL will handle that for you.</h5>
+          <h5>Don't worry about the implementation, Eclipse JNoSQL will handle that for you.</h5>
 <pre>
 <code class="java">
 public class App2 {
@@ -264,7 +264,7 @@ public class UserService {
 </pre>
         </section>
         <section id="column">
-          <h2>Start with Column</h2>
+          <h2>Starting with Column</h2>
           <h5>Add the Eclipse JNoSQL Artemis dependency</h5>
 <pre>
 <code class="xml">
@@ -286,7 +286,7 @@ public class UserService {
 </code>
 </pre>
 
-          <h5>Use annotation to define either the Id, the column fields and the entity name such as JPA.</h5>
+        <h5>Use annotation to define both the Id and the entity name, same as JPA. Note that here you'll need to also define what values are stored in columns with @Column annotations.</h5>
 <pre>
 <code class="java">
 @Entity("Person")
@@ -300,13 +300,13 @@ public class Person {
 
   @Column
   private List&lt;String&gt; phones;
-  //The getter and setter are not required.
-  //However, the class must have a non-private constructor with no parameters.
+  //Getters and setters are not required.
+  //However, the class must have a non-private constructor with no arguments.
 }
 </code>
 </pre>
 
-          <h5>Make an eligible <b>ColumnFamilyManager</b> by the Produces method ColumnFamilyManager.</h5>
+          <h5>Make an eligible <b>ColumnFamilyManager</b> using the Producer methods in ColumnFamilyManager.</h5>
 <pre>
 <code class="java">
 @ApplicationScoped
@@ -335,7 +335,7 @@ public class ColumnFamilyManagerProducer {
 
 </code>
 </pre>
-          <h5>That's it, it's ready to use with CDI with a column nosql database.</h5>
+          <h5>That's it, you're ready to go with CDI and a Column NoSQL database.</h5>
 <pre>
 <code class="java">
 public class App {
@@ -362,7 +362,8 @@ public class App {
     }
   }
 
-  private App() {}
+  private App() {
+  }
 }
 
 </code>
@@ -394,7 +395,7 @@ public class PersonService {
 public interface PersonRepository extends Repository&lt;Person, Long&gt; {}
 </code>
 </pre>
-            <h5>Actually, JNoSQL will handle that for you.</h5>
+          <h5>Don't worry about the implementation, Eclipse JNoSQL will handle that for you.</h5>
 <pre>
 <code class="java">
 public class App2 {
@@ -418,7 +419,8 @@ public class App2 {
     }
   }
 
-  private App2() {}
+  private App2() {
+  }
 }
 </code>
 </pre>
@@ -444,7 +446,7 @@ public class PersonService {
 </pre>
           </section>
           <section id="document">
-            <h2>Start with document</h2>
+            <h2>Starting with Document</h2>
             <h5>Add the Eclipse JNoSQL Artemis dependency</h5>
 <pre>
 <code class="xml">
@@ -466,8 +468,7 @@ public class PersonService {
 </code>
 </pre>
 
-            <h5>Use annotation to define either the Id, the column fields and the entity name such as JPA.</h5>
-<pre>
+<h5>Use annotation to define Id, Entity name and Columns to store, like in JPA.</h5><pre>
 <code class="java">
 @Entity("Person")
 public class Person {
@@ -483,7 +484,7 @@ public class Person {
 
   @Column
   private List&lt;String&gt; phones;
-  //The getter and setter are not required.
+  //Getters and setters are not required.
   //However, the class must have a non-private constructor with no parameters.
 }
 </code>
@@ -504,7 +505,7 @@ public class Address {
 </code>
 </pre>
 
-            <h5>Make an eligible <b>DocumentCollectionManager</b> by the Produces method DocumentCollectionManager.</h5>
+            <h5>Make an eligible <b>DocumentCollectionManager</b> using the Producer methods in DocumentCollectionManager.</h5>
 <pre>
 <code class="java">
 @ApplicationScoped
@@ -535,7 +536,7 @@ public class DocumentCollectionManagerProducer {
 </code>
 </pre>
 
-            <h5>That's it, it's ready to use with CDI with a document nosql database.</h5>
+            <h5>That's it, you are ready to go with CDI and a Document NoSQL Database.</h5>
 
 <pre>
 <code class="java">
@@ -603,7 +604,7 @@ public interface PersonRepository extends Repository&lt;Person, Long&gt; {
 }
 </code>
 </pre>
-              <h5>Actually, JNoSQL will handle that for you.</h5>
+          <h5>Don't worry about the implementation, Eclipse JNoSQL will handle that for you.</h5>
 <pre>
 <code class="java">
 public class App2 {
@@ -661,7 +662,7 @@ public class PersonService {
 </pre>
             </section>
             <section id="graph">
-              <h2>Start with Graph</h2>
+              <h2>Starting with Graph</h2>
               <h5>Add the Eclipse JNoSQL Artemis dependency</h5>
 <pre>
 <code class="xml">
@@ -672,7 +673,7 @@ public class PersonService {
 &lt;/dependency&gt;
 </code>
 </pre>
-              <h5>Choose any graph with <a href="http://tinkerpop.apache.org/" target="_blank">TinkerPop</a> vendor. e.g:</h5>
+              <h5>Choose any graph with <a href="http://tinkerpop.apache.org/" target="_blank">TinkerPop</a> support, e.g:</h5>
 <pre>
 <code class="xml">
 &lt;dependency&gt;
@@ -698,7 +699,7 @@ public class PersonService {
 </code>
 </pre>
 
-              <h5>Use annotation to define either the Id, the column fields and the entity name such as JPA.</h5>
+              <h5>Use annotations to define the Id, the Column fields and the Entity name, like in JPA.</h5>
 <pre>
 <code class="java">
 @Entity
@@ -718,13 +719,13 @@ public class Person {
 
   @Column
   private Double salary;
-  //The getter and setter are not required.
+  //Getters and setters are not required.
   //However, the class must have a non-private constructor with no parameters.
 }
 </code>
 </pre>
 
-              <h5>Make an eligible <b>Graph</b> by the Produces method Graph.</h5>
+              <h5>Make an eligible <b>Graph</b> using the @Produces method.</h5>
 <pre>
 <code class="java">
 @ApplicationScoped
@@ -760,7 +761,7 @@ public class GraphProducer {
 
 </code>
 </pre>
-              <h5>That's it, it's ready to use with CDI with a graph nosql database.</h5>
+              <h5>That's it, you are ready to go with CDI and a Graph NoSQL database.</h5>
 <pre>
 <code class="java">
 public final class MarketingApp {
@@ -876,7 +877,7 @@ public interface PersonRepository extends Repository&lt;Person, Long&gt; {
 </code>
 </pre>
 
-                <h5>Actually, JNoSQL will handle that for you.</h5>
+          <h5>Don't worry about the implementation, Eclipse JNoSQL will handle that for you.</h5>
 
 <pre>
 <code class="java">
