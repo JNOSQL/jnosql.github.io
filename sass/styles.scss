@@ -295,16 +295,16 @@ h3 {
   margin: 3rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   grid-gap: 3rem;
   align-items: center;
 
-  @include media-breakpoint-up(md) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  // @include media-breakpoint-up(md) {
+  // }
 
-  @include media-breakpoint-up(lg) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
+  // @include media-breakpoint-up(lg) {
+  //   grid-template-columns: 1fr 1fr 1fr 1fr;
+  // }
 
   a {
     filter: grayscale(1);
