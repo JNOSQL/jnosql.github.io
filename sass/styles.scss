@@ -250,7 +250,24 @@ section {
   color: white;
   // background: $ns-accent-color;
   @include extend-to-border;
+}
 
+
+.video-responsive {
+  @include extend-to-border;
+  overflow: hidden;
+  padding-bottom: calc(56.25% + 3rem);
+  position: relative;
+  height: 0;
+  padding-top: 3rem;
+  border-bottom: 1px solid $border-color;
+}
+.video-responsive iframe{
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 
