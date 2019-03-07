@@ -19,8 +19,8 @@ $h2-font-size: $font-size-base * 2;
 $h3-font-size: $font-size-base * 1.8;
 
 $font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont,
-"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-"Segoe UI Emoji", "Segoe UI Symbol";
+  "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol";
 
 $font-weight-light: 200 !default;
 $font-weight-normal: 400 !default;
@@ -34,9 +34,9 @@ $ns-border: 5px;
 
 $ns-nav-height: 3rem;
 
-$primary-color: #2b2255;// #0b486b; //#2b4799;c02942
+$primary-color: #2b2255; // #0b486b; //#2b4799;c02942
 $ns-accent-color: #f6941d; //#b6367d;
-$warning:       $ns-accent-color !default;
+$warning: $ns-accent-color !default;
 $border-color: rgba($primary-color, 0.2);
 $border-color-inverse: rgba(white, 0.2);
 
@@ -93,7 +93,11 @@ body {
 
 // pre{ max-width: 100%!important;}
 
-
+html {
+  @include media-breakpoint-down(sm) {
+    font-size: 120%;
+  }
+}
 // Layout
 
 .ns-container {
@@ -174,13 +178,11 @@ h1 {
     height: 1.5rem;
     fill: #fff;
     @include media-breakpoint-up(md) {
-     height: auto;
-     width: 70%;
+      height: auto;
+      width: 70%;
     }
   }
 }
-
-
 
 // nav
 
@@ -188,7 +190,7 @@ h1 {
   position: absolute;
   width: 100%;
   transform: translateX(-100%);
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   padding-top: 1rem;
   top: 3.5rem;
   bottom: 0;
@@ -214,7 +216,7 @@ h1 {
   a {
     display: block;
     padding: $spacer/1.5 $ns-gutter-sm;
-    color: rgba(white,.6);
+    color: rgba(white, 0.6);
     &.active {
       color: white;
       background-color: $border-color-inverse;
@@ -223,14 +225,12 @@ h1 {
       text-decoration: none;
       color: white;
     }
-
   }
 
   li ul a {
     padding-left: $ns-gutter-sm * 1.5;
-    font-weight: nor
+    font-weight: nor;
   }
-
 }
 
 // mian
@@ -261,14 +261,13 @@ section {
   padding-top: 3rem;
   border-bottom: 1px solid $border-color;
 }
-.video-responsive iframe{
+.video-responsive iframe {
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
   position: absolute;
 }
-
 
 h2 {
   font-weight: $font-weight-bold;
@@ -322,9 +321,9 @@ h3 {
 footer {
   background-color: darken($primary-color, 10%);
   background-image: linear-gradient(
-  to right,
-  rgba(black, 0.2),
-  transparent 1rem
+    to right,
+    rgba(black, 0.2),
+    transparent 1rem
   );
   color: #fff;
   padding-top: 3rem;
@@ -332,9 +331,9 @@ footer {
   h2 {
     background-color: darken($primary-color, 10%);
     background-image: linear-gradient(
-    to right,
-    rgba(black, 0.2),
-    transparent 1rem
+      to right,
+      rgba(black, 0.2),
+      transparent 1rem
     );
     border-bottom-color: rgba(white, 0.2);
     color: white;
@@ -343,7 +342,7 @@ footer {
   .btn-group {
     margin-bottom: 6rem;
     display: flex;
-    filter: opacity(.6);
+    filter: opacity(0.6);
     &:hover {
       filter: opacity(1);
     }
@@ -363,7 +362,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    filter: opacity(.6);
+    filter: opacity(0.6);
     p {
       flex: 0 0 auto;
     }
@@ -390,9 +389,9 @@ footer {
 }
 
 pre {
-  white-space:pre-wrap;
+  white-space: pre-wrap;
 }
 
 pre code {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
