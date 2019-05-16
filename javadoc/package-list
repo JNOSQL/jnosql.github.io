@@ -20,6 +20,7 @@ org.jnosql.artemis.key.query
 org.jnosql.artemis.key.spi
 org.jnosql.artemis.query
 org.jnosql.artemis.reflection
+org.jnosql.artemis.spi
 org.jnosql.artemis.util
 org.jnosql.artemis.validation
 org.jnosql.diana.api
