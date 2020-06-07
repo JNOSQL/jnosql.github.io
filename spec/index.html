@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<meta name="author" content="Otávio Santana">
+<meta name="author" content="Otávio Santana, Leonardo de Moura Rocha Lima, Roan Brasil Monteiro">
 <title>Eclipse Jakarta NoSQL</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -522,8 +522,8 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>Eclipse Jakarta NoSQL</h1>
 <div class="details">
-<span id="revnumber">version 0.1.0.M1,</span>
-<span id="revdate">Novembro 11, 2019</span>
+<span id="revnumber">version 1.0.0-b2,</span>
+<span id="revdate">junho 07, 2020</span>
 <br><span id="revremark">Draft</span>
 </div>
 <div id="toc" class="toc2">
@@ -581,7 +581,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_document_manager">4.5.1. Document Manager</a>
 <ul class="sectlevel4">
 <li><a href="#_documentcollectionmanager">DocumentCollectionManager</a></li>
-<li><a href="#_documentcollectionmanagerasync">DocumentCollectionManagerAsync</a></li>
 <li><a href="#_search_information_on_a_document_collection">Search information on a document collection</a></li>
 <li><a href="#_removing_information_from_document_collection">Removing information from Document Collection</a></li>
 </ul>
@@ -589,7 +588,6 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_column_manager">4.5.2. Column Manager</a>
 <ul class="sectlevel4">
 <li><a href="#_columnfamilymanager">ColumnFamilyManager</a></li>
-<li><a href="#_columnfamilymanagerasync">ColumnFamilyManagerAsync</a></li>
 <li><a href="#_search_information_on_a_column_family">Search information on a column family</a></li>
 <li><a href="#_removing_information_from_column_family">Removing information from Column Family</a></li>
 </ul>
@@ -599,17 +597,17 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_removing_and_retrieve_information_from_a_key_value_database">Removing and retrieve information from a key-value database</a></li>
 </ul>
 </li>
-<li><a href="#_querying_by_text_at_communication_api">4.5.4. Querying by text at Communication API</a>
+<li><a href="#_querying_by_text_with_the_communication_api">4.5.4. Querying by text with the Communication API</a>
 <ul class="sectlevel4">
-<li><a href="#_key_value_2">Key-Value</a></li>
-<li><a href="#_column_and_document">Column and Document</a></li>
-<li><a href="#_where">WHERE</a></li>
+<li><a href="#_key_value_databases">Key-Value databases</a></li>
+<li><a href="#_column_and_document_databases">Column and Document databases</a></li>
+<li><a href="#_code_where_code"><code>where</code></a></li>
 <li><a href="#_conditions">Conditions</a></li>
 <li><a href="#_operators">Operators</a></li>
 <li><a href="#_the_value">The value</a></li>
-<li><a href="#_skip">SKIP</a></li>
-<li><a href="#_limit">LIMIT</a></li>
-<li><a href="#_order_by">ORDER BY</a></li>
+<li><a href="#_code_skip_code"><code>skip</code></a></li>
+<li><a href="#_code_limit_code"><code>limit</code></a></li>
+<li><a href="#_code_order_by_code"><code>order by</code></a></li>
 <li><a href="#_ttl">TTL</a></li>
 <li><a href="#_preparedstatement_and_preparedstatementasync">PreparedStatement and PreparedStatementAsync</a></li>
 </ul>
@@ -640,27 +638,23 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel3">
 <li><a href="#_annotation_models">5.2.1. Annotation Models</a>
 <ul class="sectlevel4">
-<li><a href="#_entity_2">Entity</a></li>
-<li><a href="#_column_2">Column</a></li>
-<li><a href="#_mappedsuperclass">MappedSuperclass</a></li>
-<li><a href="#_id">Id</a></li>
-<li><a href="#_embeddable">Embeddable</a></li>
-<li><a href="#_convert">Convert</a></li>
-<li><a href="#_collection">Collection</a></li>
+<li><a href="#_entity_2">@Entity</a></li>
+<li><a href="#_column_2">@Column</a></li>
+<li><a href="#_mappedsuperclass">@MappedSuperclass</a></li>
+<li><a href="#_id">@Id</a></li>
+<li><a href="#_embeddable">@Embeddable</a></li>
+<li><a href="#_convert">@Convert</a></li>
+<li><a href="#_collections">Collections</a></li>
 </ul>
 </li>
-<li><a href="#_qualifier_annotation">5.2.2. Qualifier annotation</a></li>
+<li><a href="#_database">5.2.2. @Database</a></li>
 </ul>
 </li>
 <li><a href="#_template_classes">5.3. Template classes</a>
 <ul class="sectlevel3">
 <li><a href="#_documenttemplate">5.3.1. DocumentTemplate</a></li>
 <li><a href="#_documenttemplateasync">5.3.2. DocumentTemplateAsync</a></li>
-<li><a href="#_columntemplate">5.3.3. ColumnTemplate</a>
-<ul class="sectlevel4">
-<li><a href="#_columntemplateasync">ColumnTemplateAsync</a></li>
-</ul>
-</li>
+<li><a href="#_columntemplate">5.3.3. ColumnTemplate</a></li>
 <li><a href="#_key_value_template">5.3.4. Key-Value template</a></li>
 <li><a href="#_graph_template">5.3.5. Graph template</a>
 <ul class="sectlevel4">
@@ -670,7 +664,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_querying_by_text_at_mapping_api">5.3.6. Querying by text at Mapping API</a>
 <ul class="sectlevel4">
-<li><a href="#_key_value_3">Key-Value</a></li>
+<li><a href="#_key_value_2">Key-Value</a></li>
 <li><a href="#_column_family_2">Column-Family</a></li>
 <li><a href="#_document_collection_2">Document Collection</a></li>
 <li><a href="#_graph_2">Graph</a></li>
@@ -685,9 +679,8 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_special_parameters">Special Parameters</a></li>
 </ul>
 </li>
-<li><a href="#_using_repository_as_an_asynchronous_way">5.4.2. Using Repository as an asynchronous way</a></li>
-<li><a href="#_using_query_annotation">5.4.3. Using Query annotation</a></li>
-<li><a href="#_how_to_create_repository_and_repositoryasync_implementation_programmatically">5.4.4. How to Create Repository and RepositoryAsync implementation programmatically</a></li>
+<li><a href="#_using_query_annotation">5.4.2. Using Query annotation</a></li>
+<li><a href="#_how_to_create_repository_implementation_programmatically">5.4.3. How to Create Repository implementation programmatically</a></li>
 </ul>
 </li>
 <li><a href="#_pagination">5.5. Pagination</a>
@@ -735,14 +728,14 @@ table.CodeRay td.code>pre{padding:0}
 <div class="content">
 <pre>Specification: Eclipse Jakarta NoSQL
 
-Version: 0.1.0.M1
+Version: 1.0.0-b2
 
 Status: Draft
 
-Release: Novembro 11, 2019
+Release: junho 07, 2020
 
 Copyright (c) 2019 Eclipse Jakarta NoSQL Contributors:
-Otávio Santana
+Otávio Santana, Leonardo de Moura Rocha Lima, Roan Brasil Monteiro
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License v. 2.0 which is available at
@@ -756,7 +749,7 @@ terms of the Eclipse Public License v. 2.0 which is available at
 <h2 id="_one_mapping_api_multiples_databases"><a class="anchor" href="#_one_mapping_api_multiples_databases"></a>1. One Mapping API, multiples databases</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Jakarta NoSQL is a Java framework that streamlines the integration of Java applications with NoSQL databases. It defines a set of APIs and provides a standard implementation for most NoSQL databases. This clearly helps to achieve very low coupling with the underlying NoSQL technologies used in applications.</p>
+<p>Jakarta NoSQL is a Java framework that streamlines the integration of Java applications with NoSQL databases. It defines a set of APIs and provides a standard implementation for most NoSQL databases. This clearly helps to achieve very low application coupling with the underlying NoSQL technologies used in applications.</p>
 </div>
 <div class="paragraph">
 <p>The project has two layers:</p>
@@ -817,12 +810,9 @@ Optional nameResult = repository.findByName(<span class="string"><span class="de
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">ColumnTemplateAsync templateAsync = <span class="error">…</span>;
-ColumnTemplate template = <span class="error">…</span>;
+<pre class="CodeRay highlight"><code data-lang="java">ColumnTemplate template = <span class="error">…</span>;
 God diana = God.builder().withId(<span class="string"><span class="delimiter">&quot;</span><span class="content">diana</span><span class="delimiter">&quot;</span></span>).withName(<span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>)
                 .withPower(<span class="string"><span class="delimiter">&quot;</span><span class="content">hunt</span><span class="delimiter">&quot;</span></span>).builder();
-Consumer&lt;God&gt; callback = g -&gt; <span class="predefined-type">System</span>.out.println(<span class="string"><span class="delimiter">&quot;</span><span class="content">Insert completed to: </span><span class="delimiter">&quot;</span></span> + g);
-templateAsync.insert(diana, callback);
 <span class="predefined-type">Duration</span> ttl = <span class="predefined-type">Duration</span>.ofSeconds(<span class="integer">1</span>);
 template.insert(diana, <span class="predefined-type">Duration</span>.ofSeconds(<span class="integer">1</span>));</code></pre>
 </div>
@@ -888,12 +878,6 @@ template.save(person, level);</code></pre>
 <p>Use of Convention Over Configuration</p>
 </li>
 <li>
-<p>Support for Asynchronous Queries</p>
-</li>
-<li>
-<p>Support for Asynchronous Write operations</p>
-</li>
-<li>
 <p>Easy-to-implement API Specification and Test Compatibility Kit (TCK) for NoSQL Vendors</p>
 </li>
 <li>
@@ -908,10 +892,10 @@ template.save(person, level);</code></pre>
 <h2 id="_let_s_talk_about_standard_to_nosql_database_in_java"><a class="anchor" href="#_let_s_talk_about_standard_to_nosql_database_in_java"></a>2. Let&#8217;s talk about standard to NoSQL database in Java</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The NoSQL DB is a database that provides a mechanism for storage and retrieval of data, which is modeled by means, other than the tabular relations used in relational databases. These databases have speed and high scalability. This kind of database is becoming more popular in several applications, which include financial ones. As a result of the increase, the number of users and vendors are increasing too.</p>
+<p>NoSQL DB are databases that provide mechanisms for storage and retrieval of unstructured data (non-relational), in stark contrast of the tabular relations used in relational databases. NoSQL databases, comparing to relational databases, have better performance and high scalability. They are becoming more popular in several industry verticals, such as finance and streaming. As a result of this increased usage, the number of users and database vendors are increasing too.</p>
 </div>
 <div class="paragraph">
-<p>The NoSQL database is defined basically by its model of storage, and there are four types:</p>
+<p>A NoSQL database is defined basically by a model of storage. There are four types:</p>
 </div>
 <div class="sect2">
 <h3 id="_key_value"><a class="anchor" href="#_key_value"></a>2.1. Key-value</h3>
@@ -922,7 +906,7 @@ template.save(person, level);</code></pre>
 <div class="title">Figure 1. Key-value structure</div>
 </div>
 <div class="paragraph">
-<p>This database has a structure that looks like a java.util.Map API, where we can store any value from a key.</p>
+<p>This database has a structure that looks like a java.util.Map API, values are mapped to keys.</p>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -930,10 +914,7 @@ template.save(person, level);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>Amazon Dynamo</p>
-</li>
-<li>
-<p>Amazon S3</p>
+<p>Amazon DynamoDB</p>
 </li>
 <li>
 <p>Redis</p>
@@ -985,7 +966,7 @@ template.save(person, level);</code></pre>
 <div class="title">Figure 2. Document structure</div>
 </div>
 <div class="paragraph">
-<p>This model can store any document without the need to predefine a structure. This document may be composed of numerous fields with many kinds of data, including a document inside another document. This model works either with XML or JSON file.</p>
+<p>This model can store documents without a predefined structure. This document may be composed of numerous fields with many different kinds of data, including a document inside another document. This model works either with XML or JSON file.</p>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -1042,7 +1023,7 @@ template.save(person, level);</code></pre>
 <div class="title">Figure 3. Column Family structure</div>
 </div>
 <div class="paragraph">
-<p>This model became popular with the Bigtable&#8217;s paper by Google, with the goal of being a distributed system storage, projected to have either high scalability or volume.</p>
+<p>This model became popular with the Bigtable paper by Google, with the goal of being a distributed storage system for structured data, projected to have either high scalability or volume.</p>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -1105,18 +1086,18 @@ template.save(person, level);</code></pre>
 <div class="title">Figure 4. Graph structure</div>
 </div>
 <div class="paragraph">
-<p>In computing, a graph database is a database that uses graph structures for semantic queries with nodes, edges, and properties, to represent and store data.</p>
+<p>A graph database uses graph structures for semantic queries with nodes, edges and properties to represent and store data.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Property</strong>: A small component in the structure; a tuple where the key is the name, and the value is the information itself.</p>
+<p><strong>Vertex</strong>: A node in the graph, it stores data like the table in SQL or a Document in a Document database;</p>
 </li>
 <li>
-<p><strong>Vertex</strong>: Looks like the table in an SQL technology that has an unlimited number of properties.</p>
+<p><strong>Edge</strong>: The element that establishes the relationship between vertices;</p>
 </li>
 <li>
-<p><strong>Edge</strong>: The element that represents the relationship between vertices; it has a small similarity with a relationship in SQL. However, the edge has properties — so, a connection deeper than relational technology.</p>
+<p><strong>Property</strong>: A key-value pair that can be at</p>
 </li>
 </ul>
 </div>
@@ -1127,20 +1108,7 @@ template.save(person, level);</code></pre>
 <div class="title">Figure 5. Graph with vertex, edge and properties</div>
 </div>
 <div class="paragraph">
-<p>The graph direction is another concept pretty important in a graph structure, i.e., you can know a person despite this person not knowing you.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Out</strong>: Vertex &gt; action &gt; vertex; the "out" is the "action" direction, moreover, the sample (i.e. I know the Ironman)</p>
-</li>
-<li>
-<p><strong>In</strong>: Vertex &gt; passive; the "in" is the reaction course; synonymously, the Ironman is known by me.</p>
-</li>
-<li>
-<p><strong>Both</strong>: Refers to either direction IN or OUT</p>
-</li>
-</ul>
+<p>The graph direction is an important concept in a graph structure. For example, you can know a person despite this person not knowing you. This is stored in the relationship (edge) direction of the graph.</p>
 </div>
 <div class="paragraph">
 <p><strong>Examples:</strong></p>
@@ -1213,7 +1181,7 @@ template.save(person, level);</code></pre>
 <div class="sect2">
 <h3 id="_scalability_vs_complexity"><a class="anchor" href="#_scalability_vs_complexity"></a>2.6. Scalability vs Complexity</h3>
 <div class="paragraph">
-<p>Every kind with specific persistence structures to solve particular problems. As the graph below shows, there is a balance regarding model complexity; more complicated models are less scalable. E.g., a key-value NoSQL database is more scalable, but it has smooth complexity once all queries and operations are key-based.</p>
+<p>Every database type has specific persistence structures to solve particular problems. There is a balance regarding model complexity; more complicated models are less scalable. E.g., a key-value NoSQL database is more scalable and there is a simple complexity because all queries and operations are key-based.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1231,26 +1199,26 @@ template.save(person, level);</code></pre>
 <div class="title">Figure 7. BASE vs ACID</div>
 </div>
 <div class="paragraph">
-<p>While in the relational persistence technology, they use the ACID, that is an acronym for Atomicity, Consistency, Isolation, Durability.</p>
+<p>Relational persistence technologies have as key characteristics: Atomicity, Consistency, Isolation, Durability (ACID):</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Atomicity</strong>: All of the operations in the transaction will complete, or none will.</p>
+<p><strong>Atomicity</strong>: Either all transaction operations complete, or none will.</p>
 </li>
 <li>
-<p><strong>Consistency</strong>: The database will be in a consistent state when the transaction begins and ends.</p>
+<p><strong>Consistency</strong>: The database is in a consistent state when a transaction begins and ends.</p>
 </li>
 <li>
-<p><strong>Isolation</strong>: The transaction will behave as if it is the only operation being performed upon the database.</p>
+<p><strong>Isolation</strong>: A transaction will behave as if it is the only operation being performed upon the database.</p>
 </li>
 <li>
-<p><strong>Durability</strong>: Upon completion of the transaction, the operation will not be reversed.</p>
+<p><strong>Durability</strong>: Upon completion of a transaction, a operation will not be reversed.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>In the NoSQL world, they usually focus on the BASE. As ACID the BASE is an acronym.</p>
+<p>In the NoSQL world, the key characteristics are Basic Availability, Soft-state and Eventual consistency (BASE):</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1275,8 +1243,7 @@ template.save(person, level);</code></pre>
 <div class="title">Figure 8. CAP Theorem</div>
 </div>
 <div class="paragraph">
-<p>The CAP theorem applies to distributed systems that store state. Eric Brewer, at the 2000 Symposium on Principles of Distributed Computing (PODC), conjectured that in any networked shared-data system, there is a fundamental trade-off between consistency, availability, and partition.
-Tolerance: In 2002, Seth Gilbert and Nancy Lynch of MIT published a formal proof of Brewer&#8217;s conjecture. The theorem states that networked shared-data systems can only guarantee/strongly support two of the following three properties:</p>
+<p>The CAP theorem is applied to distributed systems that store state. Eric Brewer, at the 2000 Symposium on Principles of Distributed Computing (PODC), conjectured that in any networked shared-data system, there is a fundamental trade-off between Consistency, Availability, and Partition Tolerance. In 2002, Seth Gilbert and Nancy Lynch of MIT published a formal proof of Brewer&#8217;s conjecture. The theorem states that networked shared-data systems can only guarantee/strongly support two of the following three properties at the same time:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1284,7 +1251,7 @@ Tolerance: In 2002, Seth Gilbert and Nancy Lynch of MIT published a formal proof
 <p><strong>Consistency</strong>: A guarantee that every node in a distributed cluster returns the same, most recent, successful write. Consistency refers to every client having the same view of the data. There are various types of consistency models. Consistency in CAP (used to prove the theorem) refers to linearizability or sequential consistency - a very strong form of consistency.</p>
 </li>
 <li>
-<p><strong>Availability</strong>: Every non-failing node returns a response for all read and write requests in a reasonable amount of time. The key word here is “every.” To be available, every node (on either side of a network partition) must be able to respond in a reasonable amount of time.</p>
+<p><strong>Availability</strong>: Every non-failing node returns a response for all read and write requests in a reasonable amount of time. The key word here is "every". To be available, every node (on either side of a network partition) must be able to respond in a reasonable amount of time.</p>
 </li>
 <li>
 <p><strong>Partition Tolerance</strong>: The system continues to function and uphold its consistency guarantees in spite of network partitions. Network partitions are a fact of life. Distributed systems guaranteeing partition tolerance can gracefully recover from partitions once the partition heals.</p>
@@ -1295,45 +1262,45 @@ Tolerance: In 2002, Seth Gilbert and Nancy Lynch of MIT published a formal proof
 <div class="sect2">
 <h3 id="_the_diversity_in_nosql"><a class="anchor" href="#_the_diversity_in_nosql"></a>2.9. The diversity in NoSQL</h3>
 <div class="paragraph">
-<p>At the current moment, there are around two hundred and twenty-five NoSQL databases. These databases usually go beyond to support one or more types of structures, and they also have specific behavior. These particular features make the developer’s life more comfortable in different ways, such as Cassandra Query language at Cassandra database, a search engine to Elasticsearch, the live query at OrientDB, N1QL at Couchbase, and so on. These aspect matters when the topic is a NoSQL database.</p>
+<p>There are around two hundred and twenty-five NoSQL databases (at time of writing). These databases usually support one or more types of structures. They also have specific behavior. Particular features make developer’s life more comfortable in different ways, such as Cassandra Query language in Cassandra databases, a search engine in Elasticsearch, live query in OrientDB, N1QL in Couchbase, and so on. Such aspects matter when the topic is NoSQL databases.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_standard_in_sql"><a class="anchor" href="#_standard_in_sql"></a>2.10. Standard in SQL</h3>
 <div class="paragraph">
-<p>Looking to Java application that uses a relational database, it&#8217;s a good practice to have a layer bridge between a Java application and relationship database: a DAO - the data access object. Talking more about relational databases, there are APIs such as JPA and JDBC that have some advantages to a Java developer:</p>
+<p>Java applications that use relational databases have as good practice a layer between business logic and data. This is known as DAO - Data Access Object. There are also APIs, such as JPA and JDBC providing advantages to developers:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>There isn’t a lock-in vendor. In other words, with the standard, a database change will happen easier and with transparency because we just need to change a simple driver.</p>
+<p>Avoid vendor lock-in. Using a standard (such as JDBC), a database has less impact and is easier to implement - because we just need to change a simple driver.</p>
 </li>
 <li>
-<p>It isn’t necessary to learn a new API for each new database once there is a common database communication.</p>
+<p>There is no need to learn a new API to work with a new database - that&#8217;s implemented into the driver.</p>
 </li>
 <li>
-<p>There isn’t an impact in change from one vendor to another; in some moments, it&#8217;s necessary to use a specific database resource, but in this case, not everything in the DAO layer is lost.</p>
+<p>There is less code change when changing to a new vendor. There may be some code changes, but not all code that talks to the database is lost.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Currently in NoSQL, database have no standard, so a Java developer has some issues:</p>
+<p>Currently, there are no NoSQL standards for Java. This causes a Java developer to:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Lock-in vendor</p>
+<p>Be locked-in to a vendor</p>
 </li>
 <li>
-<p>To each new database, it’s necessary to learn a new API. Any change to another database has a high impact, and once all the communication layer will be lost, there isn&#8217;t a standard API. This happens even with the same kind of NoSQL database; for example, a change in a column to another column.</p>
+<p>Learn a new API every time it needs to use a new database. Every database vendor change has a high impact, because a rewrite of the communication layer is needed. This happens even when changing to a new database that is the same kind of NoSQL database.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>There is a massive effort to create a common API to make the Java developer&#8217;s life easier, such as Spring Data, Hibernate ORM, and TopLink. The JPA is a popular API in the Java world, which is why all solutions try to use it. However, this API is created for SQL and not for NoSQL and doesn&#8217;t support all behaviors in NoSQL database. Many NoSQL hasn’t a transaction, and many NoSQL database hasn’t support to asynchronous insertion.</p>
+<p>There are initiatives to create NoSQL APIs, such as Spring Data, Hibernate ORM, and TopLink. JPA is a popular API in the Java world, which is why all these initiatives try to use it. However, this API is created for SQL and not for NoSQL and, as such, doesn&#8217;t support all behaviors in NoSQL databases. Many NoSQL databases have no transaction concecpt, and many NoSQL database don&#8217;t support to asynchronous insertion either.</p>
 </div>
 <div class="paragraph">
-<p>The solution for this case would be the creation of a specification that covers the four kinds of NoSQL database; as described, each NoSQL database has specific structures that must be recognized. The new API should look like the JPA once the developer has familiarity with this API, plus be extensible when a database has more than a particular behavior. However, that cannot be JPA as JPA has the goal of a relational database instead of NoSQL. As described briefly, NoSQL has more than one structure that must be covered. They usually use BASE instead of ACID, they typically don&#8217;t use SQL as a query language, schemeless, and so on.</p>
+<p>The solution, in this case, is the creation of a specification that covers the four kinds of NoSQL database; as described, each kind has specific structures that must be recognized. This new API should resemble JPA because of its popularity amongst Java developers. It should also be extensible, to support cases when a database has more than one particular behavior.</p>
 </div>
 </div>
 </div>
@@ -1995,7 +1962,7 @@ Value value = entity.getValue();
 <div class="sect2">
 <h3 id="_manager"><a class="anchor" href="#_manager"></a>4.5. Manager</h3>
 <div class="paragraph">
-<p>The Manager is the class that pushes information to a database and retrieves it. The manager might have a synchronous and asynchronous implementation.</p>
+<p>The Manager is the class that pushes information to a database and retrieves it.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2003,13 +1970,7 @@ Value value = entity.getValue();
 <p><strong>DocumentCollectionManager</strong></p>
 </li>
 <li>
-<p><strong>DocumentCollectionManagerAsync</strong></p>
-</li>
-<li>
 <p><strong>ColumnConfiguration</strong></p>
-</li>
-<li>
-<p><strong>ColumnConfigurationAsync</strong></p>
 </li>
 <li>
 <p><strong>BucketManager</strong></p>
@@ -2018,16 +1979,10 @@ Value value = entity.getValue();
 </div>
 <div class="sect3">
 <h4 id="_document_manager"><a class="anchor" href="#_document_manager"></a>4.5.1. Document Manager</h4>
-<div class="paragraph">
-<p>The manager class to a document type can be synchronous or asynchronous:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
 <p><strong>DocumentCollectionManager</strong>: To do synchronous operations.</p>
-</li>
-<li>
-<p><strong>DocumentCollectionManagerAsync</strong>: To do asynchronous operations.</p>
 </li>
 </ul>
 </div>
@@ -2055,43 +2010,9 @@ manager.update(entities);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_documentcollectionmanagerasync"><a class="anchor" href="#_documentcollectionmanagerasync"></a>DocumentCollectionManagerAsync</h5>
-<div class="paragraph">
-<p>The <code>DocumentCollectionManagerAsync</code> is the class that manages the persistence on an asynchronous way to document collection.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">DocumentEntity entity = DocumentEntity.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">collection</span><span class="delimiter">&quot;</span></span>);
-<span class="predefined-type">Document</span> diana = <span class="predefined-type">Document</span>.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>);
-entity.add(diana);
-
-<span class="predefined-type">List</span>&lt;DocumentEntity&gt; entities = <span class="predefined-type">Collections</span>.singletonList(entity);
-DocumentCollectionManagerAsync managerAsync = <span class="comment">//instance</span>
-
-<span class="comment">//insert operations</span>
-managerAsync.insert(entity);
-managerAsync.insert(entity, <span class="predefined-type">Duration</span>.ofHours(<span class="integer">2L</span>));<span class="comment">//inserts with 2 hours of TTL</span>
-managerAsync.insert(entities, <span class="predefined-type">Duration</span>.ofHours(<span class="integer">2L</span>));<span class="comment">//inserts with 2 hours of TTL</span>
-<span class="comment">//updates operations</span>
-managerAsync.update(entity);
-managerAsync.update(entities);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Sometimes on an asynchronous process, it&#8217;s important to know when this process is over, so the <code>DocumentCollectionManagerAsync</code> also has callback support.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">Consumer&lt;DocumentEntity&gt; callBack = e -&gt; {};
-managerAsync.insert(entity, callBack);
-managerAsync.update(entity, callBack);</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_search_information_on_a_document_collection"><a class="anchor" href="#_search_information_on_a_document_collection"></a>Search information on a document collection</h5>
 <div class="paragraph">
-<p>The Document Communication API has support to retrieve information from both ways; synchronous and asynchronous, from the <code>DocumentQuery</code> class. The <code>DocumentQuery</code> has information such as sort type, document, and also the condition to retrieve information.</p>
+<p>The Document Communication API has support to retrieve information from the <code>DocumentQuery</code> class. The <code>DocumentQuery</code> has information such as sort type, document, and also the condition to retrieve information.</p>
 </div>
 <div class="paragraph">
 <p>The condition on <code>DocumentQuery</code> is given from <code>DocumentCondition</code>, which has the status and the document. E.g. The condition behind is to find a name equal "<strong>Ada</strong>".</p>
@@ -2119,12 +2040,9 @@ DocumentCondition nameNotEqualsAda = nameEqualsAda.negate();</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">DocumentCollectionManager manager = <span class="comment">//instance;</span>
-DocumentCollectionManagerAsync managerAsync = <span class="comment">//instance;</span>
 DocumentQuery query = DocumentQueryBuilder.select().from(<span class="string"><span class="delimiter">&quot;</span><span class="content">collection</span><span class="delimiter">&quot;</span></span>).where(<span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>).lt(<span class="integer">10</span>).and(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>).eq(<span class="string"><span class="delimiter">&quot;</span><span class="content">Ada</span><span class="delimiter">&quot;</span></span>).orderBy(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>).asc().limit(<span class="integer">10</span>).skip(<span class="integer">2</span>).build();
 Stream&lt;DocumentEntity&gt; entities = manager.select(query);
-Optional&lt;DocumentEntity&gt; entity = manager.singleResult(query);
-Consumer&lt;Stream&lt;DocumentEntity&gt;&gt; callback = e -&gt; {};
-managerAsync.select(query, callback);</code></pre>
+Optional&lt;DocumentEntity&gt; entity = manager.singleResult(query);</code></pre>
 </div>
 </div>
 </div>
@@ -2139,28 +2057,19 @@ managerAsync.select(query, callback);</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">DocumentCollectionManager manager = <span class="comment">//instance;</span>
-DocumentCollectionManagerAsync managerAsync = <span class="comment">//instance;</span>
 DocumentDeleteQuery query = DocumentQueryBuilder.delete().from(<span class="string"><span class="delimiter">&quot;</span><span class="content">collection</span><span class="delimiter">&quot;</span></span>)
                       .where(<span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>).gt(<span class="integer">10</span>).build();
-manager.delete(query);
-managerAsync.delete(query);
-managerAsync.delete(query, v -&gt; {});</code></pre>
+manager.delete(query);</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_column_manager"><a class="anchor" href="#_column_manager"></a>4.5.2. Column Manager</h4>
-<div class="paragraph">
-<p>The Manager class for the column family type can be synchronous or asynchronous:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
 <p><strong>ColumnFamilyManager</strong>: To do synchronous operations.</p>
-</li>
-<li>
-<p><strong>ColumnFamilyManagerAsync</strong>: To do asynchronous operations.</p>
 </li>
 </ul>
 </div>
@@ -2189,42 +2098,9 @@ manager.update(entities);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_columnfamilymanagerasync"><a class="anchor" href="#_columnfamilymanagerasync"></a>ColumnFamilyManagerAsync</h5>
-<div class="paragraph">
-<p>The <code>ColumnFamilyManagerAsync</code> is the class that manages the persistence on the asynchronous way to column family.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">Column diana = Column.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>);
-entity.add(diana);
-
-<span class="predefined-type">List</span>&lt;ColumnEntity&gt; entities = <span class="predefined-type">Collections</span>.singletonList(entity);
-ColumnFamilyManagerAsync managerAsync = <span class="predefined-constant">null</span>;
-
-<span class="comment">//inserts operations</span>
-managerAsync.insert(entity);
-managerAsync.insert(entity, <span class="predefined-type">Duration</span>.ofHours(<span class="integer">2L</span>));<span class="comment">//inserts with 2 hours of TTL</span>
-managerAsync.insert(entities, <span class="predefined-type">Duration</span>.ofHours(<span class="integer">2L</span>));<span class="comment">//inserts with 2 hours of TTL</span>
-<span class="comment">//updates operations</span>
-managerAsync.update(entity);
-managerAsync.update(entities);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Sometimes on an asynchronous process, is important to know when this process is over, so the <code>ColumnFamilyManagerAsync</code> also has callback support.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">Consumer&lt;ColumnEntity&gt; callBack = e -&gt; {};
-managerAsync.insert(entity, callBack);
-managerAsync.update(entity, callBack);</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_search_information_on_a_column_family"><a class="anchor" href="#_search_information_on_a_column_family"></a>Search information on a column family</h5>
 <div class="paragraph">
-<p>The Column communication API has support to retrieve information from both ways synchronous and asynchronous from the <code>ColumnQuery</code> class. The <code>ColumnQuery</code>  has information such as sort type, document and also the condition to retrieve information.</p>
+<p>The Column communication API has support to retrieve information from the <code>ColumnQuery</code> class. The <code>ColumnQuery</code>  has information such as sort type, document and also the condition to retrieve information.</p>
 </div>
 <div class="paragraph">
 <p>The condition on <code>ColumnQuery</code> is given from ColumnCondition, which has the status and the column. E.g. The condition behind is to find a name equal "<strong>Ada</strong>".</p>
@@ -2254,14 +2130,10 @@ ColumnCondition nameNotEqualsAda = nameEqualsAda.negate();</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">ColumnFamilyManager manager = <span class="comment">//instance;</span>
-ColumnFamilyManagerAsync managerAsync = <span class="comment">//instance;</span>
 ColumnQuery query = ColumnQuery query = ColumnQueryBuilder.select().from(<span class="string"><span class="delimiter">&quot;</span><span class="content">collection</span><span class="delimiter">&quot;</span></span>).where(<span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>).lt(<span class="integer">10</span>).and(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>).eq(<span class="string"><span class="delimiter">&quot;</span><span class="content">Ada</span><span class="delimiter">&quot;</span></span>).orderBy(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>).asc().limit(<span class="integer">10</span>).skip(<span class="integer">2</span>).build();
 
 Stream&lt;ColumnEntity&gt; entities = manager.select(query);
-Optional&lt;ColumnEntity&gt; entity = manager.singleResult(query);
-
-Consumer&lt;Stream&lt;ColumnEntity&gt;&gt; callback = e -&gt; {};
-managerAsync.select(query, callback);</code></pre>
+Optional&lt;ColumnEntity&gt; entity = manager.singleResult(query);</code></pre>
 </div>
 </div>
 </div>
@@ -2276,15 +2148,9 @@ managerAsync.select(query, callback);</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">ColumnFamilyManager manager = <span class="comment">//instance;</span>
-ColumnFamilyManagerAsync managerAsync = <span class="comment">//instance;</span>
-
 ColumnDeleteQuery query = ColumnQueryBuilder.delete()
                 .from(<span class="string"><span class="delimiter">&quot;</span><span class="content">collection</span><span class="delimiter">&quot;</span></span>).where(<span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>).gt(<span class="integer">10</span>).build();
-
-manager.delete(query);
-
-managerAsync.delete(query);
-managerAsync.delete(query, v -&gt; {});</code></pre>
+manager.delete(query);</code></pre>
 </div>
 </div>
 </div>
@@ -2322,17 +2188,17 @@ bucketManager.remove(<span class="predefined-type">Collections</span>.singletonL
 </div>
 </div>
 <div class="sect3">
-<h4 id="_querying_by_text_at_communication_api"><a class="anchor" href="#_querying_by_text_at_communication_api"></a>4.5.4. Querying by text at Communication API</h4>
+<h4 id="_querying_by_text_with_the_communication_api"><a class="anchor" href="#_querying_by_text_with_the_communication_api"></a>4.5.4. Querying by text with the Communication API</h4>
 <div class="paragraph">
-<p>The communication API also has a query as text. These queries will convert to an operation that already exists in the Manager interface from the <code>query</code> method, thereby, these operations might return an <code>UnsupportedOperationException</code> if a NoSQL has no support for that procedure.</p>
+<p>The Communication API allows queries to be text. These queries are converted to an operation that already exists in the Manager interface from the <code>query</code> method. An <code>UnsupportedOperationException</code> is thrown if a NoSQL database doesn&#8217;t have support for that procedure.</p>
 </div>
 <div class="paragraph">
-<p>This query has basic principles:</p>
+<p>Queries follow these rules:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>All instructions end with a break like <code>\n</code></p>
+<p>All instructions end with a like break <code>\n</code></p>
 </li>
 <li>
 <p>It is case-sensitive</p>
@@ -2344,87 +2210,97 @@ bucketManager.remove(<span class="predefined-type">Collections</span>.singletonL
 <p>The goal is to look like SQL, however simpler</p>
 </li>
 <li>
-<p>Even passing in the syntax and parsing the query, a specific implementation may not support an operation. E.g., Column family may not support query in a different field that is not the ID field.</p>
+<p>Even if a query has valid sintax a specific implementation may not support an operation. For example, a Column family database may not support queries in a different field that is not the ID field.</p>
 </li>
 </ul>
 </div>
 <div class="sect4">
-<h5 id="_key_value_2"><a class="anchor" href="#_key_value_2"></a>Key-Value</h5>
+<h5 id="_key_value_databases"><a class="anchor" href="#_key_value_databases"></a>Key-Value databases</h5>
 <div class="paragraph">
-<p>The key-value has three operations: <strong>put</strong>, <strong>remove</strong> and <strong>get</strong>.
-====== Get</p>
+<p>Key-Value databases support three operations: <code>get</code>, <code>del</code> and <code>put</code>.</p>
 </div>
+<div class="sect5">
+<h6 id="_code_get_code"><a class="anchor" href="#_code_get_code"></a><code>get</code></h6>
 <div class="paragraph">
-<p>Retrieving data for an entity is done using a GET statement:</p>
+<p>Use the <code>get</code> statement to retrie data related to a key</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql">get_statement ::=  GET ID (<span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span> ID)*
-//sample
+<pre class="CodeRay highlight"><code data-lang="sql">get_statement ::=  get ID (<span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span> ID)*
+
+//examples
 get <span class="string"><span class="delimiter">&quot;</span><span class="content">Apollo</span><span class="delimiter">&quot;</span></span> //<span class="keyword">to</span> <span class="directive">return</span> an element <span class="keyword">where</span> the id <span class="keyword">is</span> <span class="string"><span class="delimiter">'</span><span class="content">Apollo</span><span class="delimiter">'</span></span>
-get <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span> <span class="string"><span class="delimiter">&quot;</span><span class="content">Artemis</span><span class="delimiter">&quot;</span></span> //<span class="keyword">to</span> <span class="directive">return</span> a list <span class="keyword">of</span> <span class="keyword">values</span> <span class="keyword">from</span> the ids</code></pre>
+get <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span> <span class="string"><span class="delimiter">&quot;</span><span class="content">Artemis</span><span class="delimiter">&quot;</span></span> //<span class="keyword">to</span> <span class="directive">return</span> a list <span class="keyword">of</span> <span class="keyword">values</span> <span class="keyword">from</span> the keys</code></pre>
+</div>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_del"><a class="anchor" href="#_del"></a>Del</h6>
+<h6 id="_code_del_code"><a class="anchor" href="#_code_del_code"></a><code>del</code></h6>
 <div class="paragraph">
-<p>To delete one or more entities, use the remove statement</p>
+<p>Use the <code>del</code> statement to delete one or more entities</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql">del_statement ::=  DEl ID (<span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span> ID)*
-//sample
+<pre class="CodeRay highlight"><code data-lang="sql">del_statement ::=  del ID (<span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span> ID)*
+
+//examples
 del <span class="string"><span class="delimiter">&quot;</span><span class="content">Apollo</span><span class="delimiter">&quot;</span></span>
 del <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span> <span class="string"><span class="delimiter">&quot;</span><span class="content">Artemis</span><span class="delimiter">&quot;</span></span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_put"><a class="anchor" href="#_put"></a>Put</h6>
+<h6 id="_code_put_code"><a class="anchor" href="#_code_put_code"></a><code>put</code></h6>
 <div class="paragraph">
-<p>To either insert or override values from a key-value database, use the put statement.</p>
+<p>Use the <code>put</code> statement to either insert or override values</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql">put_statement ::=  PUT {<span class="type">KEY</span>, VALUE, [TTL]}
-//sample
-put {<span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span> ,  <span class="string"><span class="delimiter">&quot;</span><span class="content">The goddess of hunt</span><span class="delimiter">&quot;</span></span>}//adds <span class="type">key</span> -diana <span class="keyword">and</span> value -&gt;<span class="string"><span class="delimiter">&quot;</span><span class="content">The goddess of hunt</span><span class="delimiter">&quot;</span></span>
-put {<span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span> ,  <span class="string"><span class="delimiter">&quot;</span><span class="content">The goddess of hunt</span><span class="delimiter">&quot;</span></span>, <span class="integer">10</span> second}//also defines a TTL <span class="keyword">of</span> <span class="integer">10</span> seconds</code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql">put_statement ::=  put {<span class="type">KEY</span>, VALUE [, TTL]}
+
+//examples
+put {<span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span> , <span class="string"><span class="delimiter">&quot;</span><span class="content">The goddess of hunt</span><span class="delimiter">&quot;</span></span>} //adds <span class="type">key</span> <span class="string"><span class="delimiter">'</span><span class="content">diana</span><span class="delimiter">'</span></span> <span class="keyword">and</span> value <span class="string"><span class="delimiter">'</span><span class="content">The goddess of hunt</span><span class="delimiter">'</span></span>
+put {<span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span> , <span class="string"><span class="delimiter">&quot;</span><span class="content">The goddess of hunt</span><span class="delimiter">&quot;</span></span>, <span class="integer">10</span> second} //also defines a TTL <span class="keyword">of</span> <span class="integer">10</span> seconds</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_column_and_document"><a class="anchor" href="#_column_and_document"></a>Column and Document</h5>
+<h5 id="_column_and_document_databases"><a class="anchor" href="#_column_and_document_databases"></a>Column and Document databases</h5>
 <div class="paragraph">
-<p>Both have sample syntax that looks like an SQL query, however, remember it has a limitation and does not support joins. Document types are usually more queriable than a column type. They have four operations: insert, update, delete, and select.</p>
+<p>The queries have syntax similar to SQL queries. But keep in mind that it has a limitation: joins are not supported.</p>
+</div>
+<div class="paragraph">
+<p>They have four operations: <code>insert</code>, <code>update</code>, <code>delete</code>, and <code>select</code>.</p>
 </div>
 <div class="sect5">
-<h6 id="_insert"><a class="anchor" href="#_insert"></a>Insert</h6>
+<h6 id="_code_insert_code"><a class="anchor" href="#_code_insert_code"></a><code>insert</code></h6>
 <div class="paragraph">
-<p>Inserting data for an entity is done using an INSERT statement:</p>
+<p>Use the <code>insert</code> statement to store data for an entity</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql">insert_statement ::=  <span class="class">INSERT</span> entity_name (name = value, (<span class="string"><span class="delimiter">`</span><span class="content">,</span><span class="delimiter">`</span></span> name = value) *) || JSON [ TTL ]
-//sample
+<pre class="CodeRay highlight"><code data-lang="sql">insert_statement ::=  <span class="class">insert</span> ENTITY_NAME (NAME = VALUE, (<span class="string"><span class="delimiter">`</span><span class="content">,</span><span class="delimiter">`</span></span> NAME = VALUE) *) || JSON [ TTL ]
+
+//examples
 <span class="class">insert</span> God (name = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, age = <span class="integer">10</span>)
-<span class="class">insert</span> God (name = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, age = <span class="integer">10</span>, power = {<span class="string"><span class="delimiter">&quot;</span><span class="content">sun</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">god</span><span class="delimiter">&quot;</span></span>})
-<span class="class">insert</span> God (name = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, age = <span class="integer">10</span>, power = {<span class="string"><span class="delimiter">&quot;</span><span class="content">sun</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">god</span><span class="delimiter">&quot;</span></span>}) <span class="integer">1</span> day
-<span class="class">insert</span> God {<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>: <span class="integer">10</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">power</span><span class="delimiter">&quot;</span></span>: [<span class="string"><span class="delimiter">&quot;</span><span class="content">hunt</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">moon</span><span class="delimiter">&quot;</span></span>]}
-<span class="class">insert</span> God {<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>: <span class="integer">10</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">power</span><span class="delimiter">&quot;</span></span>: [<span class="string"><span class="delimiter">&quot;</span><span class="content">hunt</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">moon</span><span class="delimiter">&quot;</span></span>]} <span class="integer">1</span> day</code></pre>
+<span class="class">insert</span> God (name = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, age = <span class="integer">10</span>, powers = {<span class="string"><span class="delimiter">&quot;</span><span class="content">sun</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">god</span><span class="delimiter">&quot;</span></span>})
+<span class="class">insert</span> God (name = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, age = <span class="integer">10</span>, powers = {<span class="string"><span class="delimiter">&quot;</span><span class="content">sun</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">god</span><span class="delimiter">&quot;</span></span>}) <span class="integer">1</span> day
+<span class="class">insert</span> God {<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>: <span class="integer">10</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">powers</span><span class="delimiter">&quot;</span></span>: [<span class="string"><span class="delimiter">&quot;</span><span class="content">hunt</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">moon</span><span class="delimiter">&quot;</span></span>]}
+<span class="class">insert</span> God {<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>: <span class="integer">10</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">powers</span><span class="delimiter">&quot;</span></span>: [<span class="string"><span class="delimiter">&quot;</span><span class="content">hunt</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">moon</span><span class="delimiter">&quot;</span></span>]} <span class="integer">1</span> day</code></pre>
 </div>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_update"><a class="anchor" href="#_update"></a>Update</h6>
+<h6 id="_code_update_code"><a class="anchor" href="#_code_update_code"></a><code>update</code></h6>
 <div class="paragraph">
-<p>Updating an entity is done using an update statement:</p>
+<p>Use the <code>update</code> statement to update the values of an entity</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql">update_statement ::=  <span class="class">UPDATE</span> entity_name (name = value, (<span class="string"><span class="delimiter">`</span><span class="content">,</span><span class="delimiter">`</span></span> name = value) *) || JSON
- //sample
+<pre class="CodeRay highlight"><code data-lang="sql">update_statement ::= <span class="class">update</span> ENTITY_NAME (NAME = VALUE, (<span class="string"><span class="delimiter">`</span><span class="content">,</span><span class="delimiter">`</span></span> NAME = VALUE) *) || JSON
+
+ //examples
 <span class="class">update</span> God (name = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, age = <span class="integer">10</span>)
 <span class="class">update</span> God (name = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, age = <span class="integer">10</span>, power = {<span class="string"><span class="delimiter">&quot;</span><span class="content">hunt</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">moon</span><span class="delimiter">&quot;</span></span>})
 <span class="class">update</span> God {<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">age</span><span class="delimiter">&quot;</span></span>: <span class="integer">10</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">power</span><span class="delimiter">&quot;</span></span>: [<span class="string"><span class="delimiter">&quot;</span><span class="content">hunt</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">moon</span><span class="delimiter">&quot;</span></span>]}</code></pre>
@@ -2432,35 +2308,35 @@ put {<span class="string"><span class="delimiter">&quot;</span><span class="cont
 </div>
 </div>
 <div class="sect5">
-<h6 id="_delete"><a class="anchor" href="#_delete"></a>Delete</h6>
+<h6 id="_code_delete_code"><a class="anchor" href="#_code_delete_code"></a><code>delete</code></h6>
 <div class="paragraph">
-<p>Deleting either an entity or fields uses the delete statement</p>
+<p>Use the <code>delete</code> statement to remove fields or entities</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql">delete_statement ::=  <span class="class">DELETE</span> [ simple_selection ( <span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span> simple_selection ) ]
-                      <span class="keyword">FROM</span> entity_name
-                      <span class="keyword">WHERE</span> where_clause
-//sample
+<pre class="CodeRay highlight"><code data-lang="sql">delete_statement ::=  <span class="class">delete</span> [ simple_selection ( <span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span> simple_selection ) ]
+                      <span class="keyword">from</span> ENTITY_NAME
+                      [ <span class="keyword">where</span> WHERE_CLAUSE ]
+//examples
 <span class="class">delete</span> <span class="keyword">from</span> God
-<span class="class">delete</span>  name, age ,adress.age <span class="keyword">from</span> God <span class="keyword">where</span> id = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span></code></pre>
+<span class="class">delete</span> power, age <span class="keyword">from</span> God <span class="keyword">where</span> name = <span class="string"><span class="delimiter">&quot;</span><span class="content">Diana</span><span class="delimiter">&quot;</span></span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_select"><a class="anchor" href="#_select"></a>Select</h6>
+<h6 id="_code_select_code"><a class="anchor" href="#_code_select_code"></a><code>select</code></h6>
 <div class="paragraph">
-<p>The select statement reads one or more fields for one or more entities. It returns a result-set of the entities matching the request, where each entity contains the fields for corresponding to the query.</p>
+<p>The <code>select</code> statement reads one or more fields for one or more entities. It returns a result-set of the entities matching the request, where each entity contains the fields corresponding to the query.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql">select_statement ::=  <span class="class">SELECT</span> ( select_clause | <span class="string"><span class="delimiter">'</span><span class="content">*</span><span class="delimiter">'</span></span> )
-                      <span class="keyword">FROM</span> entity_name
-                      [ <span class="keyword">WHERE</span> where_clause ]
-                      [ SKIP (<span class="predefined-type">integer</span>) ]
-                      [ LIMIT (<span class="predefined-type">integer</span>) ]
-                      [ <span class="keyword">ORDER</span> <span class="keyword">BY</span> ordering_clause ]
-//sample
+<pre class="CodeRay highlight"><code data-lang="sql">select_statement ::=  <span class="class">select</span> ( SELECT_CLAUSE | <span class="string"><span class="delimiter">'</span><span class="content">*</span><span class="delimiter">'</span></span> )
+                      <span class="keyword">from</span> ENTITY_NAME
+                      [ <span class="keyword">where</span> WHERE_CLAUSE ]
+                      [ skip (<span class="predefined-type">INTEGER</span>) ]
+                      [ limit (<span class="predefined-type">INTEGER</span>) ]
+                      [ <span class="keyword">order</span> <span class="keyword">by</span> ORDERING_CLAUSE ]
+//examples
 <span class="class">select</span> * <span class="keyword">from</span> God
 <span class="class">select</span> name, age, adress.age <span class="keyword">from</span> God <span class="keyword">order</span> <span class="keyword">by</span> name <span class="directive">desc</span> age <span class="directive">desc</span>
 <span class="class">select</span> * <span class="keyword">from</span> God <span class="keyword">where</span> birthday <span class="keyword">between</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">01-09-1988</span><span class="delimiter">&quot;</span></span> <span class="keyword">and</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">01-09-1988</span><span class="delimiter">&quot;</span></span> <span class="keyword">and</span> salary = <span class="integer">12</span>
@@ -2470,23 +2346,28 @@ put {<span class="string"><span class="delimiter">&quot;</span><span class="cont
 </div>
 </div>
 <div class="sect4">
-<h5 id="_where"><a class="anchor" href="#_where"></a>WHERE</h5>
+<h5 id="_code_where_code"><a class="anchor" href="#_code_where_code"></a><code>where</code></h5>
 <div class="paragraph">
-<p>The <strong>WHERE</strong> clause specifies a filter to the result. These filters are boolean operations that are composed of one or more conditions appended with the and (<strong>AND</strong>) and or (<strong>OR</strong>) operators.</p>
+<p>The <code>where</code> keyword specifies a filter (<code>WHERE_CLAUSE</code>) to the query. A filter is composed of boolean statements called <code>conditions</code> that are combined using <code>and</code> or <code>or</code> operators.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql">WHERE_CLAUSE ::= CONDITION ([<span class="keyword">and</span> | <span class="keyword">or</span>] CONDITION)*</code></pre>
+</div>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_conditions"><a class="anchor" href="#_conditions"></a>Conditions</h5>
 <div class="paragraph">
-<p>Conditions perform different computations or actions depending on whether a boolean query condition evaluates to <strong>true</strong> or <strong>false</strong>. The conditions are composed of three elements:</p>
+<p>Conditions are boolean statements that operate on data being queried. They are composed of three elements:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Name</strong>, the data source or target, to apply the operator</p>
+<p><strong>Name</strong>: the data source, or target, to apply the operator</p>
 </li>
 <li>
-<p><strong>Operator</strong>, that defines comparing process between the name and the value.</p>
+<p><strong>Operator</strong>, defines comparing process between the name and the value.</p>
 </li>
 <li>
 <p><strong>Value</strong>, that data that receives the operation.</p>
@@ -2589,21 +2470,26 @@ put {<span class="string"><span class="delimiter">&quot;</span><span class="cont
 </div>
 </div>
 <div class="sect4">
-<h5 id="_skip"><a class="anchor" href="#_skip"></a>SKIP</h5>
+<h5 id="_code_skip_code"><a class="anchor" href="#_code_skip_code"></a><code>skip</code></h5>
 <div class="paragraph">
-<p>The <strong>SKIP</strong> option to a <strong>SELECT</strong> statement defines where the query should start.</p>
+<p>The <code>skip</code> option in a <code>select</code> statement defines where the query results should start.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_limit"><a class="anchor" href="#_limit"></a>LIMIT</h5>
+<h5 id="_code_limit_code"><a class="anchor" href="#_code_limit_code"></a><code>limit</code></h5>
 <div class="paragraph">
-<p>The <strong>LIMIT</strong> option to a <strong>SELECT</strong> statement limits the number of rows returned by a query.</p>
+<p>The <code>limit</code> option in a <code>select</code> statement limits the number of rows returned by a query.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_order_by"><a class="anchor" href="#_order_by"></a>ORDER BY</h5>
+<h5 id="_code_order_by_code"><a class="anchor" href="#_code_order_by_code"></a><code>order by</code></h5>
 <div class="paragraph">
-<p>The ORDER BY clause allows selecting the order of the returned results. It takes as argument a list of column names along with the order for the column (<strong>ASC</strong> for ascendant and <strong>DESC</strong> for the descendant, omitting the order being equivalent to <strong>ASC</strong>).</p>
+<p>The <code>order by</code> option allows defining the order of the returned results. It takes as argument (ORDERING_CLAUSE) a list of column names along with the ordering for the column (<code>asc</code> for ascendant, which is the default, and <code>desc</code> for the descendant).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql">ORDERING_CLAUSE ::= NAME [<span class="directive">asc</span> | <span class="directive">desc</span>] ( NAME [<span class="directive">asc</span> | <span class="directive">desc</span>])*</code></pre>
+</div>
 </div>
 </div>
 <div class="sect4">
@@ -2655,9 +2541,6 @@ For graph API, check <a href="https://tinkerpop.apache.org/gremlin.html">Gremlin
 <div class="ulist">
 <ul>
 <li>
-<p><strong>ColumnFamilyManagerAsyncFactory</strong></p>
-</li>
-<li>
 <p><strong>ColumnFamilyManagerFactory</strong></p>
 </li>
 <li>
@@ -2665,9 +2548,6 @@ For graph API, check <a href="https://tinkerpop.apache.org/gremlin.html">Gremlin
 </li>
 <li>
 <p><strong>DocumentCollectionManagerFactory</strong></p>
-</li>
-<li>
-<p><strong>DocumentCollectionManagerAsyncFactory</strong></p>
 </li>
 </ul>
 </div>
@@ -2679,26 +2559,15 @@ For graph API, check <a href="https://tinkerpop.apache.org/gremlin.html">Gremlin
 <div class="ulist">
 <ul>
 <li>
-<p><strong>ColumnFamilyManagerAsyncFactory</strong></p>
-</li>
-<li>
 <p><strong>ColumnFamilyManagerFactory</strong></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The <code>ColumnFamilyManagerAsyncFactory</code> and <code>ColumnFamilyManagerFactory</code> create the manager synchronously and asynchronously respectively.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">ColumnFamilyManagerFactory factory = <span class="comment">//instance</span>
-ColumnFamilyManagerAsyncFactory asyncFactory = <span class="comment">//instance</span>
-ColumnFamilyManager manager = factory.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">database</span><span class="delimiter">&quot;</span></span>);
-ColumnFamilyManagerAsync managerAsync = asyncFactory.getAsync(<span class="string"><span class="delimiter">&quot;</span><span class="content">database</span><span class="delimiter">&quot;</span></span>);</code></pre>
+ColumnFamilyManager manager = factory.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">database</span><span class="delimiter">&quot;</span></span>);</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The factories were separated intentionally, as not all databases support synchronous and asynchronous operations.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2711,24 +2580,13 @@ ColumnFamilyManagerAsync managerAsync = asyncFactory.getAsync(<span class="strin
 <li>
 <p><strong>DocumentCollectionManagerFactory</strong></p>
 </li>
-<li>
-<p><strong>DocumentCollectionManagerAsyncFactory</strong></p>
-</li>
 </ul>
-</div>
-<div class="paragraph">
-<p>The <code>DocumentCollectionManagerAsyncFactory</code> and <code>DocumentCollectionManagerFactory</code> create the manager synchronously and asynchronously respectively.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">DocumentCollectionManagerFactory factory = <span class="comment">//instance</span>
-DocumentCollectionManagerAsyncFactory asyncFactory = <span class="comment">//instance</span>
-DocumentCollectionManager manager = factory.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">database</span><span class="delimiter">&quot;</span></span>);
-DocumentCollectionManagerAsync managerAsync = asyncFactory.getAsync(<span class="string"><span class="delimiter">&quot;</span><span class="content">database</span><span class="delimiter">&quot;</span></span>);</code></pre>
+DocumentCollectionManager manager = factory.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">database</span><span class="delimiter">&quot;</span></span>);</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The factories were separated intentionally, as not all databases support synchronous and asynchronous operations.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2811,28 +2669,24 @@ To read the property information, it will follow the same principal and priority
 <div class="sect3">
 <h4 id="_document_configuration"><a class="anchor" href="#_document_configuration"></a>4.7.2. Document Configuration</h4>
 <div class="paragraph">
-<p>On the document collection configuration, there are two classes, <code>DocumentConfiguration</code> and <code>DocumentConfigurationAsync</code> to <code>DocumentCollectionManagerFactory</code> and <code>DocumentCollectionManagerAsyncFactory</code> respectively.</p>
+<p>On the document collection configuration, <code>DocumentConfiguration</code> configures and creates <code>DocumentCollectionManagerFactory</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">DocumentConfiguration configuration = <span class="comment">//instance</span>
-DocumentConfigurationAsync configurationAsync = <span class="comment">//instance</span>
-DocumentCollectionManagerFactory managerFactory = configuration.get();
-DocumentCollectionManagerAsyncFactory managerAsyncFactory = configurationAsync.getAsync();</code></pre>
+DocumentCollectionManagerFactory managerFactory = configuration.get();</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_column_configuration"><a class="anchor" href="#_column_configuration"></a>4.7.3. Column Configuration</h4>
 <div class="paragraph">
-<p>On the column family configuration, there are two classes, <code>ColumnConfiguration</code> and <code>ColumnConfigurationAsync</code> to <code>ColumnFamilyManagerFactory</code> and <code>ColumnFamilyManagerAsyncFactory</code> respectively.</p>
+<p>On the column family configuration, <code>ColumnConfiguration</code> creates and configures <code>ColumnFamilyManagerFactory</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">ColumnConfiguration configuration = <span class="comment">//instance</span>
-ColumnConfigurationAsync configurationAsync = <span class="comment">//instance</span>
-ColumnFamilyManagerFactory managerFactory = configuration.get();
-ColumnFamilyManagerAsyncFactory managerAsyncFactory = configurationAsync.getAsync();</code></pre>
+ColumnFamilyManagerFactory managerFactory = configuration.get();</code></pre>
 </div>
 </div>
 </div>
@@ -2958,7 +2812,7 @@ Like communication API, there is a support for database diversity. This project 
 <div class="sect3">
 <h4 id="_annotation_models"><a class="anchor" href="#_annotation_models"></a>5.2.1. Annotation Models</h4>
 <div class="paragraph">
-<p>The annotation model is to convert the entity model to the entity on communication, the communication entity:</p>
+<p>The annotation model converts the entity model into the entity on communication, the communication entity:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2983,12 +2837,12 @@ Like communication API, there is a support for database diversity. This project 
 </ul>
 </div>
 <div class="paragraph">
-<p>The Jakarta NoSQL Mapping does not require the getter and setter methods to the fields, however, the Entity class must have a non-private constructor with no parameters.</p>
+<p>Jakarta NoSQL Mapping does not require getter and setter methods to fields. However, the Entity class must have a non-private constructor with no parameters.</p>
 </div>
 <div class="sect4">
-<h5 id="_entity_2"><a class="anchor" href="#_entity_2"></a>Entity</h5>
+<h5 id="_entity_2"><a class="anchor" href="#_entity_2"></a>@Entity</h5>
 <div class="paragraph">
-<p>This annotation maps the class to Eclipse Jakarta NoSQL. It has a unique attribute called <code>name</code>. This attribute is to inform either the column family name or the document collection name, etc. The default value is the simple name of a class; for example, given the org.jakarta.nosql.demo.Person class, the default name will be <code>Person</code>.</p>
+<p>This annotation maps the class to Eclipse Jakarta NoSQL. There is a single value attribute. This attribute specifies the column family name, or the document collection name, etc. The default value is the simple name of the class. For example, given the <code>org.jakarta.nosql.demo.Person</code> class, the default name will be <code>Person</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2999,13 +2853,13 @@ Like communication API, there is a support for database diversity. This project 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Entity</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>)
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Entity</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">ThePerson</span><span class="delimiter">&quot;</span></span>)
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Person</span> {
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>An entity as a field will incorporate as a sub-entity. E.g., In a document, this entity field will convert to a subdocument.</p>
+<p>An entity that is a field be will incorporated as a sub-entity. For example, in a Document, the entity field will be converted to a subdocument.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3039,20 +2893,20 @@ Like communication API, there is a support for database diversity. This project 
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="json">{
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">_id</span><span class="delimiter">&quot;</span></span>:<span class="integer">10</span>,
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Ada Lovelave</span><span class="delimiter">&quot;</span></span>,
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">address</span><span class="delimiter">&quot;</span></span>:{
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">city</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">São Paulo</span><span class="delimiter">&quot;</span></span>,
-        <span class="key"><span class="delimiter">&quot;</span><span class="content">street</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Av nove de julho</span><span class="delimiter">&quot;</span></span>
-    }
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">_id</span><span class="delimiter">&quot;</span></span>:<span class="integer">10</span>,
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Ada Lovelave</span><span class="delimiter">&quot;</span></span>,
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">address</span><span class="delimiter">&quot;</span></span>:{
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">city</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">São Paulo</span><span class="delimiter">&quot;</span></span>,
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">street</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Av Nove de Julho</span><span class="delimiter">&quot;</span></span>
+   }
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_column_2"><a class="anchor" href="#_column_2"></a>Column</h5>
+<h5 id="_column_2"><a class="anchor" href="#_column_2"></a>@Column</h5>
 <div class="paragraph">
-<p>This annotation is to define which fields on an Entity will be persisted. It also has a unique attribute name to specify that name on Database, and the default value is the field name.</p>
+<p>This annotation defines which fields that belong an Entity will be persisted. There is a single attribute that specifies that name in Database. It is default value that is the field name as declared in the class. This annotation is mandatory for non-Key-Value database types. In Key-Value types, only the Key needs to be identified with <code>@Key</code> - all other fields are stored as a single blob.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3060,10 +2914,13 @@ Like communication API, there is a support for database diversity. This project 
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Person</span> {
     <span class="annotation">@Column</span>
     <span class="directive">private</span> <span class="predefined-type">String</span> nickname;
-    <span class="annotation">@Column</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">native_mapper</span><span class="delimiter">&quot;</span></span>)
+
+    <span class="annotation">@Column</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">personName</span><span class="delimiter">&quot;</span></span>)
     <span class="directive">private</span> <span class="predefined-type">String</span> name;
+
     <span class="annotation">@Column</span>
     <span class="directive">private</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; phones;
+
     <span class="comment">//ignored</span>
     <span class="directive">private</span> <span class="predefined-type">String</span> address;
 }</code></pre>
@@ -3071,9 +2928,12 @@ Like communication API, there is a support for database diversity. This project 
 </div>
 </div>
 <div class="sect4">
-<h5 id="_mappedsuperclass"><a class="anchor" href="#_mappedsuperclass"></a>MappedSuperclass</h5>
+<h5 id="_mappedsuperclass"><a class="anchor" href="#_mappedsuperclass"></a>@MappedSuperclass</h5>
 <div class="paragraph">
-<p>If this annotation is on the parent class, it will persist its information as well. So, beyond the son class, it will store any field that is in Parent class with Column annotation.</p>
+<p>The class with the MapperSuperclass annotation will have all attributes considered as an extension of his subclass with Entity annotation. In this case, all attributes are going to be stored, even the attributes inside the Super Class.</p>
+</div>
+<div class="paragraph">
+<p>This means, that This annotation causes fields annotated with <code>@Column</code> in a parent class to be persisted together with the child class' fields.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3094,18 +2954,17 @@ Like communication API, there is a support for database diversity. This project 
     <span class="annotation">@Column</span>
     <span class="directive">private</span> <span class="predefined-type">Integer</span> age;
 
-
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>On this sample above, when saving a Dog instance, it saves the Animal case too; explicitly, will save the field&#8217;s <code>name</code>, <code>race</code>, and <code>age</code>.</p>
+<p>On the example above, when saving a Dog instance, Animal class' fields are saved too: <code>name</code>, <code>race</code>, and <code>age</code> are saved in a single instance.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_id"><a class="anchor" href="#_id"></a>Id</h5>
+<h5 id="_id"><a class="anchor" href="#_id"></a>@Id</h5>
 <div class="paragraph">
-<p>It shows which attribute is the id, or the key in key-value types. Thus, the value will be the remaining information. It has an attribute as the Column to define the native name. However, the default value of this annotation is <code>_id</code>. The way of storing the class will depend on the database driver.</p>
+<p>Defines which attribute is the entity&#8217;s id, or the Key in Key-Value databases. In such case, the Value is the remaining information. It has a single attribute (like <code>@Column</code>) to define the native name. Unlike <code>@Column</code>, the default value is <code>_id</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3115,17 +2974,19 @@ Like communication API, there is a support for database diversity. This project 
     <span class="annotation">@Id</span>
     <span class="directive">private</span> <span class="predefined-type">String</span> userName;
 
+    <span class="annotation">@Column</span>
     <span class="directive">private</span> <span class="predefined-type">String</span> name;
 
+    <span class="annotation">@Column</span>
     <span class="directive">private</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; phones;
-    }</code></pre>
+}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_embeddable"><a class="anchor" href="#_embeddable"></a>Embeddable</h5>
+<h5 id="_embeddable"><a class="anchor" href="#_embeddable"></a>@Embeddable</h5>
 <div class="paragraph">
-<p>Defines a class whose instances are stored as an intrinsic part of an owning entity and share the identity of the object.</p>
+<p>Defines a class whose instances are stored as an intrinsic part of an owning entity and share the identity of that object. The behaviour is similar to <code>@MappedSuperclass</code>, but this is used on composition instead of inheritance.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3133,73 +2994,84 @@ Like communication API, there is a support for database diversity. This project 
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Book</span> {
 
     <span class="annotation">@Column</span>
-    <span class="directive">private</span> <span class="predefined-type">String</span> name;
+    <span class="directive">private</span> <span class="predefined-type">String</span> title;
 
     <span class="annotation">@Column</span>
     <span class="directive">private</span> Author author;
-
-
 }
 
 <span class="annotation">@Embeddable</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Author</span> {
 
     <span class="annotation">@Column</span>
-    <span class="directive">private</span> <span class="predefined-type">String</span> name;
+    <span class="directive">private</span> <span class="predefined-type">String</span> author;
 
     <span class="annotation">@Column</span>
     <span class="directive">private</span> <span class="predefined-type">Integer</span> age;
+}
 
-
-}</code></pre>
+In <span class="local-variable">this</span> example, there is a single Instance in the database with columns <span class="error">`</span>title<span class="error">`</span>, <span class="error">`</span>author<span class="error">`</span> and <span class="error">`</span>age<span class="error">`</span>.</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_convert"><a class="anchor" href="#_convert"></a>Convert</h5>
+<h5 id="_convert"><a class="anchor" href="#_convert"></a>@Convert</h5>
 <div class="paragraph">
-<p>As Communication, the Mapping API has a converter at abstraction level. This feature is useful, e.g., to cipher a field, String to String, or just to do a conversion to a custom type using annotation. The Converter annotation has a parameter, and an AttributeConverter implementation class can be used. E.g., the sample below shows how to create a converter to a custom Money class.</p>
+<p>This annotation allows value convertions when mapping the value that came from the Communication API. This is useful for cases such as to cipher a field (String to String conversion), or to convert to a custom type. The Converter annotation has a single, mandatory parameter: a Class that inherits from AttributeConverter that will be used to perform the convertion. The example below shows how to create a converter to a custom Money class.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Entity</span>
-<span class="directive">public</span> <span class="type">class</span> <span class="class">Worker</span> {
+<span class="directive">public</span> <span class="type">class</span> <span class="class">Employee</span> {
+
     <span class="annotation">@Column</span>
     <span class="directive">private</span> <span class="predefined-type">String</span> name;
+
     <span class="annotation">@Column</span>
     <span class="directive">private</span> Job job;
+
     <span class="annotation">@Column</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">money</span><span class="delimiter">&quot;</span></span>)
     <span class="annotation">@Convert</span>(MoneyConverter.class)
-    <span class="directive">private</span> Money salary;
+    <span class="directive">private</span> MonetaryAmmount salary;
 }
 
-<span class="directive">public</span> <span class="type">class</span> <span class="class">MoneyConverter</span> <span class="directive">implements</span> AttributeConverter&lt;Money, <span class="predefined-type">String</span>&gt;{
+<span class="directive">public</span> <span class="type">class</span> <span class="class">MoneyConverter</span> <span class="directive">implements</span> AttributeConverter&lt;MonetaryAmmount, <span class="predefined-type">String</span>&gt; {
+
     <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="predefined-type">String</span> convertToDatabaseColumn(Money attribute) {
-        <span class="keyword">return</span> attribute.toString();
+    <span class="directive">public</span> <span class="predefined-type">String</span> convertToDatabaseColumn(MonetaryAmmount appValue) {
+        <span class="keyword">return</span> appValue.toString();
     }
+
     <span class="annotation">@Override</span>
-    <span class="directive">public</span> Money convertToEntityAttribute(<span class="predefined-type">String</span> dbData) {
-        <span class="keyword">return</span> Money.parse(dbData);
+    <span class="directive">public</span> MonetaryAmmount convertToEntityAttribute(<span class="predefined-type">String</span> dbValue) {
+        <span class="keyword">return</span> MonetaryAmmount.parse(dbValue);
     }
 }
-<span class="directive">public</span> <span class="type">class</span> <span class="class">Money</span> {
+
+<span class="directive">public</span> <span class="type">class</span> <span class="class">MonetaryAmmount</span> {
     <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> currency;
 
     <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">BigDecimal</span> value;
 
-<span class="comment">//....</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
+        <span class="comment">//specific implementation</span>
+    }
+
+    <span class="directive">public</span> <span class="directive">static</span> MonetaryAmmount parse(<span class="predefined-type">String</span> string) {
+        <span class="comment">//specific implementation</span>
+    }
+
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_collection"><a class="anchor" href="#_collection"></a>Collection</h5>
+<h5 id="_collections"><a class="anchor" href="#_collections"></a>Collections</h5>
 <div class="paragraph">
-<p>The Mapping layer has support for <code>java.util.Collection</code> to both simple elements such as <code>String</code>, <code>Integer</code>, that will send to the communication API the exact value and class that has fields inside, once the class has either <code>Entity</code> or <code>Embedded</code> annotation; otherwise, will post as the first scenario, like String or any amount without converter process.</p>
+<p>The Mapping layer supports <code>java.util.Collection</code> (and subclasses, as defined below) mapping to simple elements such as <code>String</code> and <code>Integer</code> (that will be sent to the communication API as-is), and mapping to <code>Entity</code> or <code>Embedded</code> entities.</p>
 </div>
 <div class="paragraph">
-<p>It has support to:</p>
+<p>The following collections are supported:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3241,9 +3113,8 @@ Like communication API, there is a support for database diversity. This project 
     <span class="directive">private</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; phones;
 
     <span class="annotation">@Column</span>
-    <span class="directive">private</span> <span class="predefined-type">List</span>&lt;Address&gt; address;
+    <span class="directive">private</span> <span class="predefined-type">List</span>&lt;Address&gt; addresses;
 }
-
 
 <span class="annotation">@Embeddable</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">Address</span> {
@@ -3257,71 +3128,79 @@ Like communication API, there is a support for database diversity. This project 
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>The above classes are mapped to:</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="json">{
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">_id</span><span class="delimiter">&quot;</span></span>: <span class="integer">10</span>,
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">address</span><span class="delimiter">&quot;</span></span>:[
-        {
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">city</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">São Paulo</span><span class="delimiter">&quot;</span></span>,
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">street</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Av nove de julho</span><span class="delimiter">&quot;</span></span>
-        },
-        {
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">city</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Salvador</span><span class="delimiter">&quot;</span></span>,
-            <span class="key"><span class="delimiter">&quot;</span><span class="content">street</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Rua Engenheiro Jose Anasoh</span><span class="delimiter">&quot;</span></span>
-        }
-    ],
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Name</span><span class="delimiter">&quot;</span></span>,
-    <span class="key"><span class="delimiter">&quot;</span><span class="content">phones</span><span class="delimiter">&quot;</span></span>:[
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">234</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">432</span><span class="delimiter">&quot;</span></span>
-    ]
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">_id</span><span class="delimiter">&quot;</span></span>:<span class="integer">10</span>,
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">addresses</span><span class="delimiter">&quot;</span></span>:[
+      {
+         <span class="key"><span class="delimiter">&quot;</span><span class="content">city</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">São Paulo</span><span class="delimiter">&quot;</span></span>,
+         <span class="key"><span class="delimiter">&quot;</span><span class="content">street</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Av Nove de Julho</span><span class="delimiter">&quot;</span></span>
+      },
+      {
+         <span class="key"><span class="delimiter">&quot;</span><span class="content">city</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Salvador</span><span class="delimiter">&quot;</span></span>,
+         <span class="key"><span class="delimiter">&quot;</span><span class="content">street</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Rua Engenheiro Jose Anasoh</span><span class="delimiter">&quot;</span></span>
+      }
+   ],
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Name</span><span class="delimiter">&quot;</span></span>,
+   <span class="key"><span class="delimiter">&quot;</span><span class="content">phones</span><span class="delimiter">&quot;</span></span>:[
+      <span class="string"><span class="delimiter">&quot;</span><span class="content">234</span><span class="delimiter">&quot;</span></span>,
+      <span class="string"><span class="delimiter">&quot;</span><span class="content">432</span><span class="delimiter">&quot;</span></span>
+   ]
 }</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_qualifier_annotation"><a class="anchor" href="#_qualifier_annotation"></a>5.2.2. Qualifier annotation</h4>
+<h4 id="_database"><a class="anchor" href="#_database"></a>5.2.2. @Database</h4>
 <div class="paragraph">
-<p>That is important to work with more than one type of the same application.</p>
+<p>This annotation allows programmers to specialize <code>@Inject</code> annotations to choose which specific resource should be injected.</p>
+</div>
+<div class="paragraph">
+<p>For example, when working with multiple DocumentRepositories, the following is ambiguous:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
 <span class="directive">private</span> DocumentRepository repositoryA;
+
 <span class="annotation">@Inject</span>
 <span class="directive">private</span> DocumentRepository repositoryB;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Two injections with the same interface, CDI throws an ambiguous exception. There is the <code>Database</code> qualifier to fix this problem. It has two attributes:</p>
+<p><code>@Database</code> has two attributes to help specify what resource should be injected:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>DatabaseType</strong>: The database type, key-value, document, column, graph.</p>
+<p><strong>DatabaseType</strong>: The database type (key-value, document, column, graph);</p>
 </li>
 <li>
-<p><strong>provider</strong>: The provider&#8217;s database name, e.g., "cassandra", "hbase", "mongodb". So, using the <code>Database</code> qualifier:</p>
+<p><strong>provider</strong>: The provider&#8217;s database name</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Applying the annotation to the example above, the result is:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
 <span class="annotation">@Database</span>(value = DatabaseType.DOCUMENT, provider = <span class="error">“</span>databaseA<span class="error">”</span>)
 <span class="directive">private</span> DocumentRepository repositoryA;
+
 <span class="annotation">@Inject</span>
 <span class="annotation">@Database</span>(value = DatabaseType.DOCUMENT, provider = <span class="error">“</span>databaseB<span class="error">”</span>)
 <span class="directive">private</span> DocumentRepository repositoryB;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Beyond this annotation, the producer method with the entity manager is required.</p>
-</div>
-<div class="paragraph">
-<p>The benefit of using this qualifier instead of creating a new one is that if the Manager Entity is produced using <code>Database</code> as a qualifier, it will create classes such as DocumentRepository, ColumnRepository, etc. automatically.</p>
+<p>A producer method annotaded with the same <code>@Database</code> values must exist as well.</p>
 </div>
 </div>
 </div>
@@ -3651,7 +3530,7 @@ templateAsync.delete(deleteQuery, voidCallBack);</code></pre>
 <div class="sect3">
 <h4 id="_columntemplate"><a class="anchor" href="#_columntemplate"></a>5.3.3. ColumnTemplate</h4>
 <div class="paragraph">
-<p>This template has the duty to be a bridge between the entity model and the communication to a column family. It has two classes; <code>ColumnTemplate</code> and <code>ColumnTemplateAsync</code> - one for the synchronous and the other for the asynchronous work.</p>
+<p>This template has the duty to be a bridge between the entity model and the communication to a column family.</p>
 </div>
 <div class="paragraph">
 <p>The <code>ColumnTemplate</code> is the column template for the synchronous tasks. It has three components:</p>
@@ -3803,127 +3682,6 @@ template.delete(deleteQuery);</code></pre>
    ColumnTemplate templateA = producer.get(managerA);
    ColumnTemplate templateB = producer.get(managerB);
 }</code></pre>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_columntemplateasync"><a class="anchor" href="#_columntemplateasync"></a>ColumnTemplateAsync</h5>
-<div class="paragraph">
-<p>The <code>ColumnTemplateAsync</code> is the document template for the asynchronous tasks. It has two components:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>ColumnEntityConverter:</strong> That converts an entity to communication API, e.g., The Person to ColumnFamilyEntity.</p>
-</li>
-<li>
-<p><strong>ColumnFamilyManagerAsync:</strong>  The asynchronous communication column family entity manager.</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">ColumnTemplateAsync templateAsync = <span class="comment">//instance</span>
-
-Person person = <span class="keyword">new</span> Person();
-person.setAddress(<span class="string"><span class="delimiter">&quot;</span><span class="content">Olympus</span><span class="delimiter">&quot;</span></span>);
-person.setName(<span class="string"><span class="delimiter">&quot;</span><span class="content">Artemis Good</span><span class="delimiter">&quot;</span></span>);
-person.setPhones(<span class="predefined-type">Arrays</span>.asList(<span class="string"><span class="delimiter">&quot;</span><span class="content">55 11 94320121</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">55 11 94320121</span><span class="delimiter">&quot;</span></span>));
-person.setNickname(<span class="string"><span class="delimiter">&quot;</span><span class="content">artemis</span><span class="delimiter">&quot;</span></span>);
-
-<span class="predefined-type">List</span>&lt;Person&gt; people = <span class="predefined-type">Collections</span>.singletonList(person);
-
-Consumer&lt;Person&gt; callback = p -&gt; {};
-templateAsync.insert(person);
-templateAsync.insert(person, <span class="predefined-type">Duration</span>.ofHours(<span class="integer">1L</span>));
-templateAsync.insert(person, callback);
-templateAsync.insert(people);
-
-templateAsync.update(person);
-templateAsync.update(person, callback);
-templateAsync.update(people);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For information removal and retrieval, there are <strong>ColumnQuery</strong> and <strong>ColumnDeleteQuery</strong>, respectively; also, the callback method can be used.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">Consumer&lt;Stream&lt;Person&gt;&gt; callBackPeople = p -&gt; {};
-Consumer&lt;<span class="predefined-type">Void</span>&gt; voidCallBack = v -&gt;{};
-templateAsync.select(query, callBackPeople);
-templateAsync.delete(deleteQuery);
-templateAsync.delete(deleteQuery, voidCallBack);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To use a column template just follow the CDI style and put an <code>@Inject</code> on the field.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
-<span class="directive">private</span> ColumnTemplateAsync template;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The next step is to produce a <strong>ColumnFamilyManagerAsync:</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Produces</span>
-<span class="directive">public</span> ColumnFamilyManagerAsync getManager() {
-    ColumnFamilyManagerAsync managerAsync = <span class="comment">//instance</span>
-    <span class="keyword">return</span> manager;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To work with more than one Column Template, there are two approaches:</p>
-</div>
-<div class="paragraph">
-<p>1) Using qualifiers:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
-<span class="annotation">@Database</span>(value = DatabaseType.COLUMN, provider = <span class="string"><span class="delimiter">&quot;</span><span class="content">databaseA</span><span class="delimiter">&quot;</span></span>)
-<span class="directive">private</span> ColumnTemplateAsync templateA;
-
-<span class="annotation">@Inject</span>
-<span class="annotation">@Database</span>(value = DatabaseType.COLUMN, provider = <span class="string"><span class="delimiter">&quot;</span><span class="content">databaseB</span><span class="delimiter">&quot;</span></span>)
-<span class="directive">private</span> ColumnTemplateAsync templateB;
-
-
-<span class="comment">//producers methods</span>
-<span class="annotation">@Produces</span>
-<span class="annotation">@Database</span>(value = DatabaseType.COLUMN, provider = <span class="string"><span class="delimiter">&quot;</span><span class="content">databaseA</span><span class="delimiter">&quot;</span></span>)
-<span class="directive">public</span> ColumnFamilyManagerAsync getManagerA() {
-    ColumnFamilyManagerAsync manager = <span class="comment">//instance</span>
-    <span class="keyword">return</span> manager;
-}
-
-<span class="annotation">@Produces</span>
-<span class="annotation">@Database</span>(value = DatabaseType.COLUMN, provider = <span class="string"><span class="delimiter">&quot;</span><span class="content">databaseB</span><span class="delimiter">&quot;</span></span>)
-<span class="directive">public</span> ColumnFamilyManagerAsync getManagerB() {
-    ColumnFamilyManagerAsync manager = <span class="comment">//instance</span>
-    <span class="keyword">return</span> manager;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>2) Using the  <strong>ColumnTemplateAsyncProducer</strong>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
-<span class="directive">private</span> ColumnTemplateAsyncProducer producer;
-
-<span class="directive">public</span> <span class="type">void</span> sample() {
-   ColumnFamilyManagerAsync managerA = <span class="comment">//instance;</span>
-   ColumnFamilyManagerAsync managerB = <span class="comment">//instance</span>
-   ColumnTemplateAsync templateA = producer.get(managerA);
-   ColumnTemplateAsync templateB = producer.get(managerB);
-}</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -4220,7 +3978,7 @@ Person out = edge.getOutgoing();
 <p>As in communication layer, the Mapping has a query by text. Both communication and Mapping have the <code>query</code> and <code>prepare</code> methods, however, at the Mapping API, it will convert the fields and entities to native names from the Entity and Column annotations.</p>
 </div>
 <div class="sect4">
-<h5 id="_key_value_3"><a class="anchor" href="#_key_value_3"></a>Key-Value</h5>
+<h5 id="_key_value_2"><a class="anchor" href="#_key_value_2"></a>Key-Value</h5>
 <div class="paragraph">
 <p>In the Key-value database, there is a <code>KeyValueTemplate</code> in this NoSQL storage technology. Usually, all the operations are defined by the ID. Therefore, it has a smooth query.</p>
 </div>
@@ -4613,69 +4371,7 @@ All these special instances must be at the end, thus after the parameters that w
 </div>
 </div>
 <div class="sect3">
-<h4 id="_using_repository_as_an_asynchronous_way"><a class="anchor" href="#_using_repository_as_an_asynchronous_way"></a>5.4.2. Using Repository as an asynchronous way</h4>
-<div class="paragraph">
-<p>The RepositoryAsync interface works similarly as Repository but with asynchronous work.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
-<span class="annotation">@Database</span>(DatabaseType.DOCUMENT)
-<span class="directive">private</span> PersonRepositoryAsync documentRepositoryAsync;
-
-<span class="annotation">@Inject</span>
-<span class="annotation">@Database</span>(DatabaseType.COLUMN)
-<span class="directive">private</span> PersonRepositoryAsync columnRepositoryAsync;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In other words, just inject and then create an Entity Manager async with producers method.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">PersonRepositoryAsync repositoryAsync = <span class="comment">//instance</span>
-
-Person person = <span class="keyword">new</span> Person();
-person.setNickname(<span class="string"><span class="delimiter">&quot;</span><span class="content">diana</span><span class="delimiter">&quot;</span></span>);
-person.setName(<span class="string"><span class="delimiter">&quot;</span><span class="content">Diana Goodness</span><span class="delimiter">&quot;</span></span>);
-
-<span class="predefined-type">List</span>&lt;Person&gt; people = <span class="predefined-type">Collections</span>.singletonList(person);
-
-
-repositoryAsync.save(person);
-repositoryAsync.save(people);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Also, delete and retrieve information with a callback.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="type">interface</span> <span class="class">PersonRepositoryAsync</span> <span class="directive">extends</span> RepositoryAsync&lt;Person, <span class="predefined-type">Long</span>&gt; {
-
-    <span class="type">void</span> findByNickname(<span class="predefined-type">String</span> nickname, Consumer&lt;Stream&lt;Person&gt;&gt; callback);
-
-    <span class="type">void</span> deleteByNickName(<span class="predefined-type">String</span> nickname);
-
-    <span class="type">void</span> deleteByNickName(<span class="predefined-type">String</span> nickname, Consumer&lt;<span class="predefined-type">Void</span>&gt; callback);
-}</code></pre>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-In the key-value resource, the <strong>Repository</strong> does not support method query resource; this database type has key oriented operations.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_using_query_annotation"><a class="anchor" href="#_using_query_annotation"></a>5.4.3. Using Query annotation</h4>
+<h4 id="_using_query_annotation"><a class="anchor" href="#_using_query_annotation"></a>5.4.2. Using Query annotation</h4>
 <div class="paragraph">
 <p>The Repository interface contains all the trivial methods shared among the NoSQL implementations that a developer does not need to care. Also, there is a query method that does query based on the method name. Equally important, there are two new annotations: The Query and param, that defines the statement and set the values in the query respectively.</p>
 </div>
@@ -4704,10 +4400,9 @@ Remember, when a developer defines who that repository will be implemented from 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_how_to_create_repository_and_repositoryasync_implementation_programmatically"><a class="anchor" href="#_how_to_create_repository_and_repositoryasync_implementation_programmatically"></a>5.4.4. How to Create Repository and RepositoryAsync implementation programmatically</h4>
+<h4 id="_how_to_create_repository_implementation_programmatically"><a class="anchor" href="#_how_to_create_repository_implementation_programmatically"></a>5.4.3. How to Create Repository implementation programmatically</h4>
 <div class="paragraph">
-<p>The Mapping API has support to create Repository programmatically to each NoSQL type, so there are <strong>ColumnRepositoryProducer</strong>, <strong>DocumentRepositoryProducer</strong>, <strong>KeyValueRepositoryProducer</strong>, <strong>GraphRepositoryProducer</strong> to column, document, key-value, graph repository implementation respectively. Each producer needs both the repository class and the manager instance to return a repository instance.
-The <strong>ColumnRepositoryAsyncProducer</strong> and <strong>DocumentRepositoryAsyncProducer</strong> have a method to create a RepositoryAsync instance that needs both an interface that extends RepositoryAsync and the manager async.</p>
+<p>The Mapping API has support to create Repository programmatically to each NoSQL type, so there are <strong>ColumnRepositoryProducer</strong>, <strong>DocumentRepositoryProducer</strong>, <strong>KeyValueRepositoryProducer</strong>, <strong>GraphRepositoryProducer</strong> to column, document, key-value, graph repository implementation respectively. Each producer needs both the repository class and the manager instance to return a repository instance.</p>
 </div>
 <div class="listingblock">
 <div class="title">Graph repository producer</div>
@@ -4739,32 +4434,22 @@ The <strong>ColumnRepositoryAsyncProducer</strong> and <strong>DocumentRepositor
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
 <span class="directive">private</span> ColumnRepositoryProducer producer;
 
-<span class="annotation">@Inject</span>
-<span class="directive">private</span> ColumnRepositoryAsyncProducer producerAsync;
-
 <span class="directive">public</span> <span class="type">void</span> anyMethod() {
     DocumentCollectionManager manager = ...;<span class="comment">//instance</span>
-    DocumentCollectionManagerAsync managerAsync = ...;<span class="comment">//instance</span>
     PersonRepository personRepository = producer.get(PersonRepository.class, graph);
-    PersonRepositoryAsync personRepositoryAsync = producerAsync.get(PersonRepositoryAsync.class, graph);
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Document repository producer</div>
 <div class="content">
-<pre>@Inject
-private DocumentRepositoryProducer producer;
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
+<span class="directive">private</span> DocumentRepositoryProducer producer;
 
-@Inject
-private DocumentRepositoryAsyncProducer producerAsync;
-
-public void anyMethod() {
-    DocumentCollectionManager manager = ...;//instance
-    DocumentCollectionManagerAsync managerAsync = ...;//instance
+<span class="directive">public</span> <span class="type">void</span> anyMethod() {
+    DocumentCollectionManager manager = ...;<span class="comment">//instance</span>
     PersonRepository personRepository = producer.get(PersonRepository.class, graph);
-    PersonRepositoryAsync personRepositoryAsync = producerAsync.get(PersonRepositoryAsync.class, graph);
-}</pre>
+}</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -4772,14 +4457,9 @@ public void anyMethod() {
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
 <span class="directive">private</span> ColumnRepositoryProducer producer;
 
-<span class="annotation">@Inject</span>
-<span class="directive">private</span> ColumnRepositoryAsyncProducer producerAsync;
-
 <span class="directive">public</span> <span class="type">void</span> anyMethod() {
     ColumnFamilyManager manager = ...;<span class="comment">//instance</span>
-    ColumnFamilyManagerAsync managerAsync = ...;<span class="comment">//instance</span>
     PersonRepository personRepository = producer.get(PersonRepository.class, manager);
-    PersonRepositoryAsync personRepositoryAsync = producerAsync.get(PersonRepositoryAsync.class, managerAsync);
 }</code></pre>
 </div>
 </div>
@@ -4788,14 +4468,9 @@ public void anyMethod() {
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Inject</span>
 <span class="directive">private</span> DocumentRepositoryProducer producer;
 
-<span class="annotation">@Inject</span>
-<span class="directive">private</span> DocumentRepositoryAsyncProducer producerAsync;
-
 <span class="directive">public</span> <span class="type">void</span> anyMethod() {
     DocumentCollectionManager manager = ...;<span class="comment">//instance</span>
-    DocumentCollectionManagerAsync managerAsync = ...;<span class="comment">//instance</span>
     PersonRepository personRepository = producer.get(PersonRepository.class, manager);
-    PersonRepositoryAsync personRepositoryAsync = producerAsync.get(PersonRepositoryAsync.class, managerAsync);
 }</code></pre>
 </div>
 </div>
@@ -5039,7 +4714,7 @@ Graph repository implementation does not support the <code>Page</code> conversio
 <div class="sect2">
 <h3 id="_bean_validation"><a class="anchor" href="#_bean_validation"></a>5.6. Bean Validation</h3>
 <div class="paragraph">
-<p>The Mapping has support to use <a href="http://beanvalidation.org/">Bean Validation</a> (BV), which supports a plugin that, basically, listens to an event from <strong>preEntity</strong> and executes the BV.</p>
+<p>Mapping API supports <a href="http://beanvalidation.org/">Bean Validation</a>. This is implemented as a plugin that listens to <strong>preEntity</strong> events and performs bean validation on the entity.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5069,17 +4744,18 @@ Graph repository implementation does not support the <code>Page</code> conversio
 </div>
 </div>
 <div class="paragraph">
-<p>In case of a validation problem in the project, a <code>ConstraintViolationException</code> will be thrown.</p>
+<p>In case of validation failure, a <code>ConstraintViolationException</code> will be thrown.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"> Person person = Person.builder()
-                .withAge(<span class="integer">10</span>)
+<pre class="CodeRay highlight"><code data-lang="java">Person person = Person.builder()
+                .withAge(<span class="integer">10</span>) <span class="comment">//this is lower than @Min(21) defines</span>
                 .withName(<span class="string"><span class="delimiter">&quot;</span><span class="content">Ada</span><span class="delimiter">&quot;</span></span>)
                 .withSalary(<span class="predefined-type">BigDecimal</span>.ONE)
                 .withPhones(singletonList(<span class="string"><span class="delimiter">&quot;</span><span class="content">123131231</span><span class="delimiter">&quot;</span></span>))
                 .build();
-repository.save(person);<span class="comment">//throws a ConstraintViolationException</span></code></pre>
+
+repository.save(person); <span class="comment">//throws a ConstraintViolationException</span></code></pre>
 </div>
 </div>
 </div>
@@ -5274,8 +4950,8 @@ repository.save(person);<span class="comment">//throws a ConstraintViolationExce
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.1.0.M1<br>
-Last updated 2019-09-03 14:44:29 BRT
+Version 1.0.0-b2<br>
+Last updated 2020-05-24 04:35:44 BRT
 </div>
 </div>
 </body>
