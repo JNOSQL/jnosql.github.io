@@ -1,15 +1,48 @@
-# JNoSQL-site
+# Eclipse JNoSQL
 
-The Eclipse JNoSQL is a framework whose has the goal to help Java developers to create Java EE applications with NoSQL, whereby they can make scalable application beyond enjoy the polyglot persistence.
+![JNoSQL Logo](http://www.jnosql.org/images/home_logo.png)
 
-# Contribute to this repo
+The Eclipse JNoSQL is a framework to help developers create enterprise-grade applications using Java and NoSQL technologies. It helps them create scalable applications while maintaining low coupling with the underlying NoSQL technology.
 
-To run it, first install the dependencies with npm (you'll need [node](https://nodejs.org/en/) installed):
+## What is Eclipse JNoSQL?
 
-``npm install``
+Eclipse JNoSQL is a Java framework that streamlines the integration of Java applications with NoSQL databases. It defines a set of APIs and provides a standard implementation for most NoSQL databases. This clearly helps to achieve very low coupling with the underlying NoSQL technologies used in applications.
 
-Then run gulp:
+The project has two layers:
 
-``gulp``
+1. _Communication Layer_: A set of APIs that defines communication with NoSQL databases. Compared with traditional the RDBMS world, they are like the JDBC API. It contains four modules, one for each NoSQL database type: Key-Value, Column Family, Document, and Graph.
 
-Never change the css directly, edit the scss file.
+1. _Mapping Layer_: These APIs help developers to integrate their Java application with the NoSQL database. This layer is annotation-driven and uses technologies like CDI and Bean Validation, making it simple for developers to use. In the traditional RDBMS world, this layer can be compared to the Java Persistence API or object-relational mapping frameworks such as Hibernate.
+
+![](http://www.jnosql.org/images/layers.png)
+
+### Key features
+
+- Simple APIs supporting all well-known NoSQL storage types - Column Family, Key-Value Pair, Graph and Document databases.
+- Use of Convention Over Configuration
+- Support for Asynchronous Queries
+- Support for Asynchronous Write operations
+- Easy-to-implement API Specification and Test Compatibility Kit (TCK) for NoSQL Vendors
+
+The API's focus is on simplicity and ease of use. Developers should only have to know a minimal set of artifacts to work with JNoSQL. The API is built on Java 8 features like Lambdas and Streams and therefore fits perfectly with the functional features of Java 8+.
+
+### Eclipse JNoSQL - Diana
+
+The _Eclipse JNoSQL - Diana_ project defines the standard APIs to communicate with NoSQL databases - this project works as a **NoSQL Database jDriver**.
+
+Diana has four APIs, one for each NoSQL database storage type, and a TCK for each one. The Test Compatibility Kit (TCK) helps ensure that driver implementations adhere to API specifications. So if a key-value database driver implements and pass all its tests, it means that this database driver support the Diana key-value API.
+
+### Eclipse JNoSQL - Artemis
+
+The _Eclipse JNoSQL - Artemis_ project is an integration and mapping layer that helps developers integrate applications and works with Diana. The Artemis layer uses technologies such as Bean Validations and incorporates CDI capabilities, making integrations very simple and effective.
+
+In other words: **Diana + CDI = Artemis**
+
+Similar to Diana, Artemis also has separate modules for all well known NoSQL Database Storage types. With CDI at its heart, Artemis is a very powerful, yet simple, framework.
+
+Key features of Artemis:
+
+- Annotation Driven.
+- Highly Customizable (reflection, caching, persistence flow, etc.)
+- Observable events on the persistence flow
+- Support for Interceptors, Injection and Validation
