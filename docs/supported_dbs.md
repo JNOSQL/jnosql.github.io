@@ -15,13 +15,10 @@ sort: 2
 
 If you'd rather see the list of names, you can find them here:
 
-|        -         |            | -                     | -                         |
-| :--------------: | :--------: | --------------------- | ------------------------- |
-|     ArangoDB     | Cassandra  | Titan                 | OrientDB                  |
-|   Apache HBase   | Couchbase  | JanusGraph            | RavenDB                   |
-| Apache TinkerPop |  CouchDB   | Keylines              | Redis                     |
-|  Azure CosmosDB  | Infinispan | Linkurious            | Riak                      |
-|      Basho       | IBM Graph  | Memcached             | Scylla                    |
-|    Blazegraph    | Hazelcast  | MongoDB               | Solr                      |
-| Oracle NoSQL     |  Grakn.ai  | Neo4J                 | Tom Sawyer Graph Database |
-|     DataStax     |  Elastic   |                       |                           |
+|       -        |                  | -          | -          | -                         | -          | -            |
+| :------------: | :--------------: | ---------- | ---------- | ------------------------- | ---------- | ------------ |
+|    ArangoDB    | Apache TinkerPop | Blazegraph | Riak       | Tom Sawyer Graph Database | Cassandra  | Couchbase    |
+|   IBM Graph    |     CouchDB      | Infinispan | Elastic    | Grakn Cosmos              | Hazelcast  | Apache Hbase |
+| Azure CosmosDB |     Stardog      | Titan      | JanusGraph | KeyLines                  | Linkurious | Memcached    |
+|    MongoDB     |   Apache Solr    | Scylla     | Neo4J      | Oracle NoSQL Database     | OrientDB   | Redis        |
+|      Riak      |     RavenDB      |            |            |                           |            |              |
