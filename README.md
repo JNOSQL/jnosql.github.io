@@ -26,21 +26,21 @@ The project has two layers:
 
 The API's focus is on simplicity and ease of use. Developers should only have to know a minimal set of artifacts to work with JNoSQL. The API is built on Java 8 features like Lambdas and Streams and therefore fits perfectly with the functional features of Java 8+.
 
-### Eclipse JNoSQL - Diana
+### Eclipse JNoSQL - Communication
 
-The _Eclipse JNoSQL - Diana_ project defines the standard APIs to communicate with NoSQL databases - this project works as a **NoSQL Database jDriver**.
+The _Eclipse JNoSQL - Communication_ project defines the standard APIs to communicate with NoSQL databases - this project works as a **NoSQL Database JDriver**.
 
-Diana has four APIs, one for each NoSQL database storage type, and a TCK for each one. The Test Compatibility Kit (TCK) helps ensure that driver implementations adhere to API specifications. So if a key-value database driver implements and pass all its tests, it means that this database driver support the Diana key-value API.
+Communication has four APIs, one for each NoSQL database storage type, and a TCK for each one. The Test Compatibility Kit (TCK) helps ensure that driver implementations adhere to API specifications. So if a key-value database driver implements and pass all its tests, it means that this database driver support the Communication key-value API.
 
-### Eclipse JNoSQL - Artemis
+### Eclipse JNoSQL - Mapping
 
-The _Eclipse JNoSQL - Artemis_ project is an integration and mapping layer that helps developers integrate applications and works with Diana. The Artemis layer uses technologies such as Bean Validations and incorporates CDI capabilities, making integrations very simple and effective.
+The _Eclipse JNoSQL - Mapping_ project is an integration and mapping layer that helps developers integrate applications and works with Communication. The Mapping layer uses technologies such as Bean Validations and incorporates CDI capabilities, making integrations very simple and effective.
 
-In other words: **Diana + CDI = Artemis**
+In other words: **Communication + CDI = Mapping**
 
-Similar to Diana, Artemis also has separate modules for all well known NoSQL Database Storage types. With CDI at its heart, Artemis is a very powerful, yet simple, framework.
+Similar to Communication, Mapping also has separate modules for all well known NoSQL Database Storage types. With CDI at its heart, Mapping is a very powerful, yet simple, framework.
 
-Key features of Artemis:
+Key features of Mapping:
 
 - Annotation Driven.
 - Highly Customizable (reflection, caching, persistence flow, etc.)
