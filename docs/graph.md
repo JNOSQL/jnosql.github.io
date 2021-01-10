@@ -53,7 +53,7 @@ In a maven project, the first step is to add the dependencies. Where we'll add t
 
 **3 Use annotation to define both the Id and the entity name.**
 
-Use annotation to define both the Id and the entity name. Note that here you'll need to also define what values are stored in columns with @Column annotations.
+Use annotation to define both the Id and the entity name. Note that here you'll need to also define what values are stored in columns with ```@Column``` annotations.
 
 ```java
 @Entity
@@ -78,7 +78,7 @@ public class Person {
 }
 ```
 
-**4 Make an eligible **Graph** using the @Produces method.**
+**4 Make an eligible ```@Graph``` using the @Produces method.**
 
 ```java
 @ApplicationScoped
@@ -115,7 +115,7 @@ public class GraphProducer {
 Eclipse JNoSQL has tight integration with Eclipse MicroProfile Configuration, therefore, you can use this configuration instead of putting the configuration directly in the code.
 ```
 
-**5 That's it! Now you're ready to go with CDI and a Key-Value NoSQL database.**
+**5 That's it! Now you're ready to go with CDI and a Graph NoSQL database.**
 
 ```java
 public final class MarketingApp {
