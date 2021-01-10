@@ -53,7 +53,7 @@ public class Person {
 }
 ```
 
-**4 Make an eligible DocumentCollectionManager using the Producer methods in DocumentCollectionManager.**
+**4 Make an eligible DocumentCollectionManager using the `@Produces` methods in DocumentCollectionManager.**
 
 ```java
 @ApplicationScoped
