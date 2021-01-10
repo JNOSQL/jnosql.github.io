@@ -31,7 +31,7 @@ In a maven project, the first step is to add the dependencies. Where we'll add t
 </dependency>
 ```
 
-**3 Use annotation to define both the Id and the entity name.**
+**3 Use annotation to define both the ```@Id``` and the entity name.**
 
 ```java
 @Entity
@@ -48,7 +48,7 @@ public class User implements Serializable {
 }
 ```
 
-**4 Create an eligible BucketManager using the Producer methods in BucketManager.**
+**4 Create an eligible BucketManager using the ```@Produces``` methods in BucketManager.**
 
 ```java
 @ApplicationScoped

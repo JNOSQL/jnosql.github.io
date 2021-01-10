@@ -33,7 +33,7 @@ In a maven project, the first step is to add the dependencies. Where we'll add t
 
 **3 Use annotation to define both the Id and the entity name.**
 
-Use annotation to define both the Id and the entity name. Note that here you'll need to also define what values are stored in columns with @Column annotations.
+Use annotation to define both the Id and the entity name. Note that here you'll need to also define what values are stored in columns with ```@Column``` annotations.
 
 ```java
 @Entity("Person")
