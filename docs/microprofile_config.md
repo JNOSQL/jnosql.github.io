@@ -74,7 +74,7 @@ private ColumnFamilyManager manager;
 private ColumnFamilyManagerFactory factory;
 ```
 
-The `name` attribute within the` ConfigProperty` annotation indicates the prefix used to search for credentials and settings information. For example, given the example above using the name `document`, it will be necessary to have a similar structure below:
+The `name` attribute within the` ConfigProperty` annotation indicates the prefix used to search for credentials and settings information. For example, given the example above using the name `column`, it will be necessary to have a similar structure below:
 
 ```properties
 column=column
@@ -89,3 +89,36 @@ Where:
 * `prefix.settings.*`: Indicates the settings that will be injected into the provider, for example, there will be a property `key` with value` value` and another `key2` with value` value2`.
 * `prefix.provider`: Defines the qualifield of the configuration class, in this case, classes that implement `ColumnConfiguration`
 * `prefix.database`: The database name.
+
+## Graph
+
+Within the Graph API it is possible to inject the following questions:
+
+* Graph
+* GraphTemplate
+
+E.g.:
+
+```java
+@Inject
+@ConfigProperty(name = "graph")
+private GraphTemplate template;
+
+@Inject
+@ConfigProperty(name = "graph")
+private Graph graph;
+```
+
+The `name` attribute within the` ConfigProperty` annotation indicates the prefix used to search for credentials and settings information. For example, given the example above using the name `graph`, it will be necessary to have a similar structure below:
+
+```properties
+graph=graph
+graph.settings.key=value
+graph.settings.key2=value2
+graph.provider=org.eclipse.jnosql.mapping.graph.configuration.GraphConfigurationMock
+```
+
+Where:
+
+* `prefix.settings.*`: Indicates the settings that will be injected into the provider, for example, there will be a property `key` with value` value` and another `key2` with value` value2`.
+* `prefix.provider`: Defines the qualifield of the configuration class, in this case, classes that implement `ColumnConfiguration`
