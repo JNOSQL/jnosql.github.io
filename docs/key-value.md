@@ -9,23 +9,23 @@ A key–value database is a data storage paradigm designed for storing, retrievi
 
 In a maven project, the first step is to add the dependencies. Where we'll add the Mapper dependency, think JPA to Key-value NoSQL, and then a communication dependency, think JDBC to Key-value NoSQL.
 
-**1 Add the Eclipse JNoSQL Artemis dependency;**
+**1 Add the Eclipse JNoSQL Mapping dependency;**
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.artemis</groupId>
-   <artifactId>artemis-key-value</artifactId>
+   <groupId>org.eclipse.jnosql.mapping</groupId>
+   <artifactId>mapping-key-value</artifactId>
    <version>version</version>
 </dependency>
 ```
 
-[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.artemis/artemis-key-value)
+[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.mapping/mapping-key-value)
 
 **Add a key-value vendor in the communication dependency, e.g.:**
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.diana</groupId>
+   <groupId>org.eclipse.jnosql.communication</groupId>
    <artifactId>hazelcast-driver</artifactId>
    <version>version</version>
 </dependency>

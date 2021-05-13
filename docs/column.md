@@ -9,23 +9,23 @@ A wide-column store (or extensible record stores) is a type of NoSQL database. I
 
 In a maven project, the first step is to add the dependencies. Where we'll add the Mapper dependency, think JPA to Column NoSQL, and then a communication dependency, think JDBC to Column NoSQL.
 
-**1 Add the Eclipse JNoSQL Artemis dependency;**
+**1 Add the Eclipse JNoSQL Mapping dependency;**
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.artemis</groupId>
-   <artifactId>artemis-column</artifactId>
+   <groupId>org.eclipse.jnosql.mapping</groupId>
+   <artifactId>mapping-column</artifactId>
    <version>version</version>
 </dependency>
 ```
 
-[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.artemis/artemis-column)
+[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.mapping/mapping-column)
 
 **Add a column vendor in the communication dependency, e.g.:**
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.diana</groupId>
+   <groupId>org.eclipse.jnosql.communication</groupId>
     <artifactId>cassandra-driver</artifactId>
    <version>version</version>
 </dependency>
