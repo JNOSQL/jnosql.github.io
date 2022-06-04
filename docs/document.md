@@ -10,23 +10,23 @@ Document-oriented databases are one of the main categories of NoSQL databases, a
 
 In a maven project, the first step is to add the dependencies. Where we'll add the Mapper dependency, think JPA to Document NoSQL, and then a communication dependency, think JDBC to Document NoSQL.
 
-**1 Add the Eclipse JNoSQL Artemis dependency;**
+**1 Add the Eclipse JNoSQL Mapping dependency;**
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.artemis</groupId>
-   <artifactId>artemis-document</artifactId>
+   <groupId>org.eclipse.jnosql.mapping</groupId>
+   <artifactId>mapping-document</artifactId>
    <version>version</version>
 </dependency>
 ```
 
-[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.artemis/artemis-document)
+[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.mapping/mapping-document)
 
 **Add a document vendor in the communication dependency, e.g.:**
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.diana</groupId>
+   <groupId>org.eclipse.jnosql.communication</groupId>
    <artifactId>mongodb-driver</artifactId>
    <version>version</version>
 </dependency>

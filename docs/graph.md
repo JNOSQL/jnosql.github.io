@@ -9,17 +9,17 @@ In computing, a graph database (GDB) is a database that uses graph structures fo
 
 In a maven project, the first step is to add the dependencies. Where we'll add the Mapper dependency, think JPA to Graph NoSQL, and then a communication dependency, think JDBC to Document NoSQL. Where we're using [Apache Tinkerpop](https://tinkerpop.apache.org/).
 
-**1 Add the Eclipse JNoSQL Artemis dependency;**
+**1 Add the Eclipse JNoSQL Mapping dependency;**
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.artemis</groupId>
-   <artifactId>artemis-graph</artifactId>
+   <groupId>org.eclipse.jnosql.mapping</groupId>
+   <artifactId>mapping-graph</artifactId>
    <version>version</version>
 </dependency>
 ```
 
-[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.artemis/artemis-graph)
+[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.mapping/mapping-graph)
 
 **Choose any graph with TinkerPop support, e.g:**
 
