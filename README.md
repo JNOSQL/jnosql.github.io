@@ -2,29 +2,21 @@
 
 ![JNoSQL Logo](http://www.jnosql.org/images/home_logo.png)
 
-The Eclipse JNoSQL is a framework to help developers create enterprise-grade applications using Java and NoSQL technologies. It helps them create scalable applications while maintaining low coupling with the underlying NoSQL technology.
+== Introduction
 
-## What is Eclipse JNoSQL?
+Jakarta NoSQL is a Java framework that streamlines the integration of Java applications with NoSQL databases.
 
-Eclipse JNoSQL is a Java framework that streamlines the integration of Java applications with NoSQL databases. It defines a set of APIs and provides a standard implementation for most NoSQL databases. This clearly helps to achieve very low coupling with the underlying NoSQL technologies used in applications.
+== Goals
 
-The project has two layers:
-
-1. _Communication Layer_: A set of APIs that defines communication with NoSQL databases. Compared with traditional the RDBMS world, they are like the JDBC API. It contains four modules, one for each NoSQL database type: Key-Value, Column Family, Document, and Graph.
-
-1. _Mapping Layer_: These APIs help developers to integrate their Java application with the NoSQL database. This layer is annotation-driven and uses technologies like CDI and Bean Validation, making it simple for developers to use. In the traditional RDBMS world, this layer can be compared to the Java Persistence API or object-relational mapping frameworks such as Hibernate.
-
-![](http://www.jnosql.org/images/layers.png)
-
-### Key features
-
-- Simple APIs supporting all well-known NoSQL storage types - Column Family, Key-Value Pair, Graph and Document databases.
-- Use of Convention Over Configuration
-- Support for Asynchronous Queries
-- Support for Asynchronous Write operations
-- Easy-to-implement API Specification and Test Compatibility Kit (TCK) for NoSQL Vendors
-
-The API's focus is on simplicity and ease of use. Developers should only have to know a minimal set of artifacts to work with JNoSQL. The API is built on Java 8 features like Lambdas and Streams and therefore fits perfectly with the functional features of Java 8+.
+* Increase productivity performing common NoSQL operations
+* Rich Object Mapping integrated with Contexts and Dependency Injection (CDI)
+* Java-based Query and Fluent-API
+* Persistence lifecycle events
+* Low-level mapping using Standard NoSQL APIs
+* Specific template API to each NoSQL category
+* Annotation-oriented using JPA-like naming when it makes sense
+* Extensible to explore the particular behavior of a NoSQL database
+* Explore the popularity of Apache TinkerPop in Graph API
 
 ### Eclipse JNoSQL - Communication
 
