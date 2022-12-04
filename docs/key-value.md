@@ -83,19 +83,19 @@ Eclipse JNoSQL has tight integration with Eclipse MicroProfile Configuration, th
 ```java
 public class App {
 
-  private static final User USER = User.builder().
-  withPhones(Arrays.asList("234", "432"))
-  .withUsername("username")
-  .withName("Name")
-  .build();
+  private static final User USER = User.builder()
+                                        .phones(Arrays.asList("234", "432"))
+                                        .username("username")
+                                        .name("Name")
+                                        .build();
 
   public static void main(String[] args) {
 
     try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-      KeyValueTemplate keyValueTemplate = container.select(KeyValueTemplate.class).get();
-      User userSaved = keyValueTemplate.put(USER);
+      KeyValueTemplate template = container.select(KeyValueTemplate.class).get();
+      User userSaved = template.put(USER);
       System.out.println("User saved: " + userSaved);
-      Optional<User> user = keyValueTemplate.get("username", User.class);
+      Optional<User> user = template.get("username", User.class);
       System.out.println("Entity found: " + user);
     }
   }
@@ -133,11 +133,11 @@ Don't worry about the implementation, Eclipse JNoSQL will handle that for you.
 ```java
 public class App2 {
 
-  private static final User USER = User.builder().
-  withPhones(Arrays.asList("234", "432"))
-  .withUsername("username")
-  .withName("Name")
-  .build();
+  private static final User USER = User.builder()
+                                        .phones(Arrays.asList("234", "432"))
+                                        .username("username")
+                                        .name("Name")
+                                        .build();
 
   public static void main(String[] args) {
 
