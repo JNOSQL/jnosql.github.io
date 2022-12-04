@@ -35,7 +35,7 @@ In a maven project, the first step is to add the dependencies. Where we'll add t
 
 ```java
 @Entity
-public class User implements Serializable {
+public class User {
 
   @Id
   private String userName;
