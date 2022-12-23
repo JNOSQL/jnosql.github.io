@@ -15,7 +15,7 @@ In a maven project, the first step is to add the dependencies. Where we'll add t
 <dependency>
    <groupId>org.eclipse.jnosql.mapping</groupId>
    <artifactId>mapping-column</artifactId>
-   <version>version</version>
+   <version>1.0.0-b5</version>
 </dependency>
 ```
 
@@ -27,7 +27,7 @@ In a maven project, the first step is to add the dependencies. Where we'll add t
 <dependency>
    <groupId>org.eclipse.jnosql.communication</groupId>
     <artifactId>cassandra-driver</artifactId>
-   <version>version</version>
+   <version>1.0.0-b5</version>
 </dependency>
 ```
 
@@ -62,7 +62,7 @@ public class ColumnFamilyManagerProducer {
 
   private ColumnConfiguration cassandraConfiguration;
 
-  private ColumnFamilyManagerFactory managerFactory;
+  private ColumnManagerFactory managerFactory;
 
   @PostConstruct
   public void init() {
@@ -72,7 +72,7 @@ public class ColumnFamilyManagerProducer {
 
 
   @Produces
-  public ColumnFamilyManager getManagerCassandra() {
+  public ColumnManagerFactory getManagerCassandra() {
     return managerFactory.get(KEY_SPACE);
   }
 

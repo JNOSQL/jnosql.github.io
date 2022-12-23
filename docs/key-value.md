@@ -15,7 +15,7 @@ In a maven project, the first step is to add the dependencies. Where we'll add t
 <dependency>
    <groupId>org.eclipse.jnosql.mapping</groupId>
    <artifactId>mapping-key-value</artifactId>
-   <version>version</version>
+   <version>1.0.0-b5</version>
 </dependency>
 ```
 
@@ -27,7 +27,7 @@ In a maven project, the first step is to add the dependencies. Where we'll add t
 <dependency>
    <groupId>org.eclipse.jnosql.communication</groupId>
    <artifactId>hazelcast-driver</artifactId>
-   <version>version</version>
+   <version>1.0.0-b5</version>
 </dependency>
 ```
 
