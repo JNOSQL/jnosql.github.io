@@ -29,3 +29,5 @@ _sass/@primer/css/**/*.md
 
 # action
 changelog.report.md
+
+**/.DS_Store
