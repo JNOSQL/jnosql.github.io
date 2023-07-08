@@ -25,7 +25,8 @@ Another example can be found in an article that demonstrates the same annotated 
 Vendor lock-in is one of the things any Java project needs to consider when choosing NoSQL databases. If there's a need for a switch, other considerations include: time spent on the change, the learning curve of a new API to use with this database, the code that will be lost, the persistence layer that needs to be replaced, etc. Eclipse JNoSQL avoids most of these issues through the Communication APIs. It also has template classes that apply the design pattern 'template method’ to databases operations. And the Repository interface allows Java developers to create and extend interfaces, with implementation automatically provided by Eclipse JNoSQL: support method queries built by developers will automatically be implemented for them.
 
 ```java
-public interface GodRepository extends Repository<God, String> {
+@Repository
+public interface GodRepository extends CrudRepository<God, String> {
 
     Optional<God> findByName(String name);
 
@@ -43,11 +44,8 @@ Optional nameResult = repository.findByName("Diana");
 JPA is a good API for object-relationship mapping and it's already a standard in the Java world defined in JSRs. It would be great to use the same API for both SQL and NoSQL, but there are behaviors in NoSQL that SQL does not cover, such as time to live and asynchronous operations. JPA was simply not made to handle those features.
 
 ```java
-ColumnTemplateAsync templateAsync = …;
 ColumnTemplate template = …;
 God diana = God.builder().withId("diana").withName("Diana").withPower("hunt").builder();
-Consumer<God> callback = g -> System.out.println("Insert completed to: " + g);
-templateAsync.insert(diana, callback);
 Duration ttl = Duration.ofSeconds(1);
 template.insert(diana, Duration.ofSeconds(1));
 ```
