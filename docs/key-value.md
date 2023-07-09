@@ -1,5 +1,5 @@
 ---
-sort: 5
+sort: 4
 ---
 
 ## 1. Introduction to Key-value NoSQL Databases
