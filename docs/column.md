@@ -2,38 +2,48 @@
 sort: 6
 ---
 
-# Starting with Column
 
-This guide will explain how to use a column database with JNoSQL.
-A wide-column store (or extensible record stores) is a type of NoSQL database. It uses tables, rows, and columns, but unlike a relational database, the names and format of the columns can vary from row to row in the same table. A wide-column store can be interpreted as a two-dimensional key–value store.
+# Getting Started with Eclipse JNoSQL Wide-column API
 
-In a maven project, the first step is to add the dependencies. Where we'll add the Mapper dependency, think JPA to Column NoSQL, and then a communication dependency, think JDBC to Column NoSQL.
+## 1. Introduction to Wide-column NoSQL Databases
+Wide-column NoSQL databases, also known as column-family databases, are a type of NoSQL database that store data in a tabular format with columns and rows. Unlike traditional relational databases, wide-column databases allow flexible schema design and can handle vast amounts of structured and semi-structured data. They are suitable for use cases that require high scalability, fault-tolerance, and efficient querying.
 
-**1 Add the Eclipse JNoSQL Mapping dependency;**
+## 2. Minimum Requirements
+Before you start using Eclipse JNoSQL Wide-column API, ensure that your Java application meets the following minimum requirements:
+- Java 17
+- CDI 4.0 (Contexts and Dependency Injection)
+- JSON-B 3.0 (Java API for JSON Binding)
+- Eclipse MicroProfile Config
 
-```xml
-<dependency>
-   <groupId>org.eclipse.jnosql.mapping</groupId>
-   <artifactId>mapping-column</artifactId>
-   <version>1.0.0-b5</version>
-</dependency>
-```
+## 3. Choosing a Wide-column NoSQL Database
+Eclipse JNoSQL supports various Wide-column NoSQL databases. You can find a list of supported databases, along with their configurations and dependencies, on the [GitHub repository](https://github.com/eclipse/jnosql-databases).
 
-[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.mapping/mapping-column)
-
-**Add a column vendor in the communication dependency, e.g.:**
+## 4. Adding Eclipse JNoSQL Dependency
+To use a specific Wide-column NoSQL database with Eclipse JNoSQL, you need to add the corresponding dependency to your project. For example, if you want to use Cassandra, add the following Maven dependency to your project's `pom.xml` file:
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.communication</groupId>
-    <artifactId>cassandra-driver</artifactId>
-   <version>1.0.0-b5</version>
+  <groupId>org.eclipse.jnosql.databases</groupId>
+  <artifactId>jnosql-cassandra</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 
-**3 Use annotation to define both the Id and the entity name.**
+## 5. Configuring Database Credentials
+Once you have added the appropriate dependency, you need to configure the credentials for your Wide-column NoSQL database. These credentials typically include details such as the database name, host, port, and any required authentication credentials.
 
-Use annotation to define both the Id and the entity name. Note that here you'll need to also define what values are stored in columns with ```@Column``` annotations.
+To obtain the necessary configuration settings, refer to the [GitHub repository](https://github.com/eclipse/jnosql-databases) mentioned earlier. For example, to configure Cassandra, you can find the credentials at: [Cassandra Configuration](https://github.com/eclipse/jnosql-databases#cassandra)
+
+Below is an example of Cassandra credentials:
+
+```properties
+jnosql.column.database=developers
+jnosql.cassandra.query.1=CREATE KEYSPACE IF NOT EXISTS developers WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 3};
+jnosql.cassandra.query.2=CREATE COLUMNFAMILY IF NOT EXISTS developers.Person (id bigint PRIMARY KEY, name text, phones list<text>);
+```
+
+## 6. Setting up a Class with Annotations
+To map your Wide-column database with Eclipse JNoSQL, you need to set up a class with annotations that define it as an entity and specify which field will serve as the key. For example:
 
 ```java
 @Entity("Person")
@@ -47,144 +57,62 @@ public class Person {
 
   @Column
   private List<String> phones;
-  //Getters and setters are not required.
-  //However, the class must have a non-private constructor with no arguments.
 }
 ```
 
-**4 Make an eligible ColumnFamilyManager using the Producer methods in ColumnFamilyManager.**
+In the above example, the `@Entity` annotation marks the class as an entity with the specified table name, and the `@Id` annotation indicates the field that will serve as the key. The `@Column` annotation is used to map fields to columns.
 
+## 7. Working with Eclipse JNoSQL Wide-column API
+Once you have configured the necessary dependencies, credentials, and set up the entity class, you can start using Eclipse JNoSQL Wide-column API to interact with your database. Here are the basic steps to get started:
+
+a. Inject the `ColumnTemplate`:
 ```java
-@ApplicationScoped
-public class ColumnFamilyManagerProducer {
-
-  private static final String KEY_SPACE = "developers";
-
-  private ColumnConfiguration cassandraConfiguration;
-
-  private ColumnManagerFactory managerFactory;
-
-  @PostConstruct
-  public void init() {
-    cassandraConfiguration = new CassandraConfiguration();
-    managerFactory = cassandraConfiguration.get();
-  }
-
-
-  @Produces
-  public ColumnManagerFactory getManagerCassandra() {
-    return managerFactory.get(KEY_SPACE);
-  }
-
-}
-
+@Inject
+ColumnTemplate template;
 ```
 
-```tip
-Eclipse JNoSQL has tight integration with Eclipse MicroProfile Configuration, therefore, you can use this configuration instead of putting the configuration directly in the code.
-```
-
-**5 That's it! Now you're ready to go with CDI and a Key-Value NoSQL database.**
+b. Perform CRUD operations using the `ColumnTemplate`:
 
 ```java
-public class App {
-
-  private static final Person PERSON = Person.builder().
-  withPhones(Arrays.asList("234", "432"))
+Person person = Person.builder()
+  .withPhones(Arrays.asList("234", "432"))
   .withName("Name")
-  .withId(1)
-  .withIgnore("Just Ignore").build();
+  .withId(1).build();
 
-  public static void main(String[] args) {
+// Insert an entity
+Person saved = template.insert(person);
 
-    try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-      ColumnTemplate columnTemplate =  container.select(CassandraTemplate.class).get();
-      Person saved = columnTemplate.insert(PERSON);
-      System.out.println("Person saved" + saved);
-
-
-      ColumnQuery query = select().from("Person").where(eq(Column.of("id", 1L))).build();
-
-      Optional<Person> person = columnTemplate.singleResult(query);
-      System.out.println("Entity found: " + person);
-
-    }
-  }
-
-  private App() {
-  }
-}
-
+// Find an entity by key
+Optional<Person> retrievedPerson = template.find(Person.class, 1L);
 ```
 
+c. Optionally, create a repository interface using Jakarta Data:
 ```java
-public class PersonService {
-
-  @Inject
-  private ColumnTemplate template;
-
-
-  public Person insert(Person person) {
-    return template.insert(person);
-  }
-
-  public Optional<Person> find(Long id) {
-    ColumnQuery query = select().from("Person").where("id").eq(id).build();
-    return template.singleResult(query);
-  }
-}
+@Repository
+public interface PersonRepository extends CrudRepository<Person, String> {}
 ```
 
-**6 Create your own repository.**
-
+d. Inject and use the repository for CRUD operations:
 ```java
-public interface PersonRepository extends Repository<Person, Long> {}
-```
+@Inject
+PersonRepository repository;
 
-Don't worry about the implementation, Eclipse JNoSQL will handle that for you.
-
-```java
-public class App2 {
-
-  private static final Person PERSON = Person.builder().
-  withPhones(Arrays.asList("234", "432"))
+Person person = Person.builder()
+  .withPhones(Arrays.asList("234", "432"))
   .withName("Name")
-  .withId(1)
-  .build();
+  .withId(1).build();
 
-  public static void main(String[] args) {
+// Save an entity
+repository.save(person);
 
-    try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-      PersonRepository repository = container.select(PersonRepository.class).select(ofColumn()).get();
-      Person saved = repository.save(PERSON);
-      System.out.println("Person saved" + saved);
-
-      Optional<Person> person = repository.findById(1L);
-      System.out.println("Entity found: " + person);
-
-    }
-  }
-
-  private App2() {
-  }
-}
-
+// Retrieve an entity by key
+Optional<Person> retrievedPerson = repository.findById(1L);
 ```
 
-```java
-public class PersonService {
+Note: Wide-column databases have limitations on querying by fields other than the identifier.
 
-  @Inject
-  @Database(DatabaseType.COLUMN)
-  private PersonRepository repository;
+## 8. Further Exploration
 
+The above steps provide a basic starting point for using Eclipse JNoSQL Wide-column API with a Wide-column NoSQL database. You can explore the official documentation of Eclipse JNoSQL and the specific documentation for your chosen database to learn more about advanced features, querying options, performance optimization, and other relevant topics.
 
-  public Person save(Person person) {
-    return repository.save(person);
-  }
-
-  public Optional<Person> find(Long id) {
-    return repository.findById(id);
-  }
-}
-```
+Refer to the documentation and resources specific to the database you are using for any additional configuration or database-specific operations.
