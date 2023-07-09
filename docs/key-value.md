@@ -1,3 +1,6 @@
+---
+sort: 5
+---
 
 ## 1. Introduction to Key-value NoSQL Databases
 
