@@ -1,37 +1,49 @@
----
-sort: 5
----
 
-# Starting with Key-Value
+## 1. Introduction to Key-value NoSQL Databases
 
-This guide will explain how to use a key-value database with JNoSQL.
-A key–value database is a data storage paradigm designed for storing, retrieving, and managing associative arrays, and a data structure more commonly known today as a dictionary or hash table. Dictionaries contain a collection of objects, or records, which in turn have many different fields within them, each containing data. These records are stored and retrieved using a key that uniquely identifies the record, and is used to find the data within the database.
+Key-value NoSQL databases are a type of NoSQL database that store data in a simple key-value format. In this model, each data item is stored as a key-value pair, where the key is unique and used to access the corresponding value. Key-value databases are highly scalable and provide fast access to data, making them suitable for use cases that require high throughput and low-latency data retrieval.
 
-In a maven project, the first step is to add the dependencies. Where we'll add the Mapper dependency, think JPA to Key-value NoSQL, and then a communication dependency, think JDBC to Key-value NoSQL.
+## 2. Minimum Requirements
 
-**1 Add the Eclipse JNoSQL Mapping dependency;**
+Before you start using Eclipse JNoSQL Key-value API, ensure that your Java application meets the following minimum requirements:
 
-```xml
-<dependency>
-   <groupId>org.eclipse.jnosql.mapping</groupId>
-   <artifactId>mapping-key-value</artifactId>
-   <version>1.0.0-b5</version>
-</dependency>
-```
+-   Java 17
+-   CDI 4.0 (Contexts and Dependency Injection)
+-   JSON-B 3.0 (Java API for JSON Binding)
+-   Eclipse MicroProfile Config
 
-[Check here to take the latest version.](https://mvnrepository.com/artifact/org.eclipse.jnosql.mapping/mapping-key-value)
+## 3. Choosing a Key-value NoSQL Database
 
-**Add a key-value vendor in the communication dependency, e.g.:**
+Eclipse JNoSQL supports various Key-value NoSQL databases. You can find a list of supported databases, along with their configurations and dependencies, on the [GitHub repository](https://github.com/eclipse/jnosql-databases).
+
+## 4. Adding Eclipse JNoSQL Dependency
+
+To use a specific Key-value NoSQL database with Eclipse JNoSQL, you need to add the corresponding dependency to your project. For example, if you want to use Redis, add the following Maven dependency to your project's `pom.xml` file:
 
 ```xml
 <dependency>
-   <groupId>org.eclipse.jnosql.communication</groupId>
-   <artifactId>hazelcast-driver</artifactId>
-   <version>1.0.0-b5</version>
+  <groupId>org.eclipse.jnosql.databases</groupId>
+  <artifactId>jnosql-redis</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 
-**3 Use annotation to define both the ```@Id``` and the entity name.**
+## 5. Configuring Database Credentials
+
+Once you have added the appropriate dependency, you need to configure the credentials for your Key-value NoSQL database. These credentials typically include details such as the database name, host, port, and any required authentication credentials.
+
+To obtain the necessary configuration settings, refer to the [GitHub repository](https://github.com/eclipse/jnosql-databases) mentioned earlier. For example, to configure Redis, you can find the credentials at: [Redis Configuration](https://github.com/eclipse/jnosql-databases#redis)
+
+Below is an example of Redis credentials:
+
+
+```properties
+jnosql.keyvalue.database=developers
+jnosql.redis.port=6379
+jnosql.redis.host=localhost
+```
+
+## 6. Set up a class with annotations
 
 ```java
 @Entity
@@ -43,134 +55,57 @@ public class User {
   private String name;
 
   private List<String> phones;
-  //Getters and setters are not required.
-  //However, the class must have a non-private constructor with no arguments.
 }
 ```
 
-**4 Create an eligible BucketManager using the ```@Produces``` methods in BucketManager.**
+In the above example, the `@Entity` annotation marks the class as an entity, and the `@Id` annotation indicates the field that will serve as the key.
+
+## 7. Inject the KeyValueTemplate:
 
 ```java
-@ApplicationScoped
-public class BucketManagerProducer {
-
-  private static final String BUCKET = "developers";
-
-  private KeyValueConfiguration configuration;
-
-  private BucketManagerFactory managerFactory;
-
-  @PostConstruct
-  public void init() {
-    configuration = new HazelCastKeyValueConfiguration();
-    Map<String, Object> settings = singletonMap("hazelcast-instanceName", "hazelcast");
-    managerFactory = configuration.get(Settings.of(settings));
-  }
-
-  @Produces
-  public BucketManager getManager() {
-    return managerFactory.getBucketManager(BUCKET);
-  }
-}
+@Inject
+KeyValueTemplate template; 
 ```
 
-```tip
-Eclipse JNoSQL has tight integration with Eclipse MicroProfile Configuration, therefore, you can use this configuration instead of putting the configuration directly in the code.
-```
-
-**5 That's it! Now you're ready to go with CDI and a Key-Value NoSQL database.**
+### Perform CRUD operations using the KeyValueTemplate:
 
 ```java
-public class App {
+User user = User.builder().username("otaviojava").name("Otavio").phones(Arrays.asList("234", "432")).build();
 
-  private static final User USER = User.builder()
-                                        .phones(Arrays.asList("234", "432"))
-                                        .username("username")
-                                        .name("Name")
-                                        .build();
+// Save an entity
+User userSaved = template.put(user);
+System.out.println("User saved: " + userSaved);
 
-  public static void main(String[] args) {
-
-    try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-      KeyValueTemplate template = container.select(KeyValueTemplate.class).get();
-      User userSaved = template.put(USER);
-      System.out.println("User saved: " + userSaved);
-      Optional<User> user = template.get("username", User.class);
-      System.out.println("Entity found: " + user);
-    }
-  }
-
-  private App() {
-  }
-}
+// Retrieve an entity by key
+Optional<User> retrievedUser = template.get("username", User.class);
+System.out.println("Entity found: " + retrievedUser);` 
 ```
+
+## 8. Optionally, create a repository interface using Jakarta Data:
+
 
 ```java
-public class UserService {
-
-  @Inject
-  private KeyValueTemplate template;
-
-
-  public User put(User user) {
-    return template.put(user);
-  }
-
-  public Optional<User> find(String id) {
-    return template.get(id, User.class);
-  }
-}
+@Repository
+public interface UserRepository extends CrudRepository<User, String> {}
 ```
 
-**6 Create your own repository.**
+## Inject and use the repository for CRUD operations:
 
 ```java
-public interface UserRepository extends Repository<User, String> {}
+@Inject
+UserRepository repository;
+
+User user = User.builder().username("otaviojava").name("Otavio").phones(Arrays.asList("234", "432")).build();
+
+// Save an entity
+repository.save(user);
+
+// Retrieve an entity by key
+Optional<User> retrievedUser = repository.findById("username");
+System.out.println("User found: " + retrievedUser);
+
+// Check if an entity exists
+System.out.println("The user found: " + repository.existsById("username"));
 ```
 
-Don't worry about the implementation, Eclipse JNoSQL will handle that for you.
-
-```java
-public class App2 {
-
-  private static final User USER = User.builder()
-                                        .phones(Arrays.asList("234", "432"))
-                                        .username("username")
-                                        .name("Name")
-                                        .build();
-
-  public static void main(String[] args) {
-
-    try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
-      UserRepository repository = container.select(UserRepository.class, DatabaseQualifier.ofKeyValue()).get();
-      repository.save(USER);
-      Optionaly<User> user = repository.findById("username");
-      System.out.println("User found: " + user);
-      System.out.println("The user found: " + repository.existsById("username"));
-    }
-  }
-
-  private App2() {
-  }
-}
-
-```
-
-```java
-public class UserService {
-
-  @Inject
-  @Database(DatabaseType.KEY_VALUE)
-  private UserRepository repository;
-
-
-  public User save(User user) {
-    return repository.save(user);
-  }
-
-  public Optional<User> find(String id) {
-    return repository.findById(id);
-  }
-}
-```
+Note: Keep in mind that Key-value databases have limitations on querying by fields other than the identifier.
