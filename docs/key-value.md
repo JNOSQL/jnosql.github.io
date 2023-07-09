@@ -91,6 +91,7 @@ public interface UserRepository extends CrudRepository<User, String> {}
 
 ## Inject and use the repository for CRUD operations:
 
+
 ```java
 @Inject
 UserRepository repository;
