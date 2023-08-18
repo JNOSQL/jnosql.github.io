@@ -27,7 +27,7 @@ To use a specific Key-value NoSQL database with Eclipse JNoSQL, you need to add 
 <dependency>
   <groupId>org.eclipse.jnosql.databases</groupId>
   <artifactId>jnosql-redis</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 

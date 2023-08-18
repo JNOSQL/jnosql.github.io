@@ -25,7 +25,7 @@ To use a specific Wide-column NoSQL database with Eclipse JNoSQL, you need to ad
 <dependency>
   <groupId>org.eclipse.jnosql.databases</groupId>
   <artifactId>jnosql-cassandra</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 

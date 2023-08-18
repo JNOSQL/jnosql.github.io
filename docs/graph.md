@@ -20,13 +20,23 @@ Before you start using Eclipse JNoSQL Graph API, ensure that your Java applicati
 Eclipse JNoSQL supports various Graph NoSQL databases. You can find a list of supported databases, along with their configurations and dependencies, on the [GitHub repository](https://github.com/eclipse/jnosql-extensions#graph-connections).
 
 ## 4. Adding Eclipse JNoSQL Dependency
-To use a specific Graph NoSQL database with Eclipse JNoSQL, you need to add the corresponding dependencies to your project. These dependencies include the Graph connection dependency, the Apache Tinkerpop dependency, and the database driver dependency. For example, if you want to use Neo4J as your Graph database, add the following Maven dependencies to your project's `pom.xml` file:
+To use a specific Graph NoSQL database with Eclipse JNoSQL, you need to add the corresponding dependencies to your project. Firstly, you need to add the JNoSQL Graph connection dependency:
 
 ```xml
 <dependency>
     <groupId>org.eclipse.jnosql.mapping</groupId>
     <artifactId>jnosql-graph-connections</artifactId>
-    <version>${jnosql.version}</version>
+    <version>1.0.1</version>
+</dependency>
+````
+
+Also, you need to add other dependencies: the Apache Tinkerpop dependency, and the database driver dependency. For example, if you want to use Neo4J as your Graph database, add the following Maven dependencies to your project's `pom.xml` file :
+
+```xml
+<dependency>
+    <groupId>org.eclipse.jnosql.mapping</groupId>
+    <artifactId>jnosql-graph-connections</artifactId>
+    <version>1.0.1</version>
 </dependency>
 <dependency>
     <groupId>org.apache.tinkerpop</groupId>
