@@ -64,7 +64,8 @@ Particular behavior matters. Even within the same type, each NoSQL database has 
 
 **Find out more information and get involved!**
 
+- [GitHub Repo](https://github.com/eclipse?q=Jnosql)
+- [Sample codes](https://github.com/JNOSQL?q=demo+OR+endgame+OR+jnopo&type=all&language=&sort=name)
 - [Website](http://www.jnosql.org/)
 - [Twitter](https://twitter.com/jnosql)
-- [GitHub Repo](https://github.com/eclipse?q=Jnosql)
 - [Mailing List](https://accounts.eclipse.org/mailing-list/jnosql-dev)
