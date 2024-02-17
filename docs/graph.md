@@ -26,7 +26,7 @@ To use a specific Graph NoSQL database with Eclipse JNoSQL, you need to add the 
 <dependency>
     <groupId>org.eclipse.jnosql.mapping</groupId>
     <artifactId>jnosql-graph-connections</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependency>
 ````
 
@@ -36,7 +36,7 @@ Also, you need to add other dependencies: the Apache Tinkerpop dependency, and t
 <dependency>
     <groupId>org.eclipse.jnosql.mapping</groupId>
     <artifactId>jnosql-graph-connections</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependency>
 <dependency>
     <groupId>org.apache.tinkerpop</groupId>
