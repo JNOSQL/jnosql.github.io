@@ -25,8 +25,4 @@
 {%- endcapture -%}
 
 {% comment %} debug {% endcomment %}
-{%- if site.debug -%}
-    {%- assign base = site.baseurl -%}
-{%- else -%}
-    {%- assign base = "https://cdn.jsdelivr.net/gh/rundocs/jekyll-rtd-theme@" | append: version -%}
-{%- endif -%}
+{%- assign base = site.baseurl -%}
