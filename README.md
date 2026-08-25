@@ -1,4 +1,4 @@
-# Eclipse JNoSQL
+# Eclipse JNoSQL™
 
 ![JNoSQL Logo](http://www.jnosql.org/images/home_logo.png)
 
