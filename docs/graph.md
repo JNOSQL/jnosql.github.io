@@ -2,13 +2,13 @@
 sort: 7
 ---
 
-# Getting Started with Eclipse JNoSQL Graph API
+# Getting Started with Eclipse JNoSQL™ Graph API
 
 ## 1. Introduction to Graph NoSQL Databases
 Graph NoSQL databases are a type of NoSQL database that store data in a graph structure, consisting of nodes (vertices) and relationships (edges). Each node represents an entity, and the relationships define the connections between entities. Graph databases are ideal for handling highly connected data and performing complex graph-based queries.
 
 ## 2. Minimum Requirements
-Before you start using Eclipse JNoSQL Graph API, ensure that your Java application meets the following minimum requirements:
+Before you start using Eclipse JNoSQL™ Graph API, ensure that your Java application meets the following minimum requirements:
 - Java 17
 - CDI 4.0 (Contexts and Dependency Injection)
 - JSON-B 3.0 (Java API for JSON Binding)
@@ -17,10 +17,10 @@ Before you start using Eclipse JNoSQL Graph API, ensure that your Java applicati
 - Database driver specific to the Graph database you are using
 
 ## 3. Choosing a Graph NoSQL Database
-Eclipse JNoSQL supports various Graph NoSQL databases. You can find a list of supported databases, along with their configurations and dependencies, on the [GitHub repository](https://github.com/eclipse/jnosql-extensions#graph-connections).
+Eclipse JNoSQL™ supports various Graph NoSQL databases. You can find a list of supported databases, along with their configurations and dependencies, on the [GitHub repository](https://github.com/eclipse/jnosql-extensions#graph-connections).
 
-## 4. Adding Eclipse JNoSQL Dependency
-To use a specific Graph NoSQL database with Eclipse JNoSQL, you need to add the corresponding dependencies to your project. Firstly, you need to add the JNoSQL Graph connection dependency:
+## 4. Adding Eclipse JNoSQL™ Dependency
+To use a specific Graph NoSQL database with Eclipse JNoSQL™, you need to add the corresponding dependencies to your project. Firstly, you need to add the JNoSQL Graph connection dependency:
 
 ```xml
 <dependency>
@@ -68,7 +68,7 @@ jnosql.graph.provider=org.eclipse.jnosql.mapping.graph.connections.Neo4JGraphCon
 ```
 
 ## 6. Setting up a Class with Annotations
-To map your Graph database with Eclipse JNoSQL, you need to set up a class with annotations that define it as an entity, specify which field will serve as the key, and mark other fields as persistable. For example:
+To map your Graph database with Eclipse JNoSQL™, you need to set up a class with annotations that define it as an entity, specify which field will serve as the key, and mark other fields as persistable. For example:
 
 ```java
 @Entity
@@ -94,8 +94,8 @@ public class Person {
 
 In the above example, the `@Entity` annotation marks the class as an entity, the `@Id` annotation indicates the field that will serve as the key, and the `@Column` annotation is used to mark other fields as persistable attributes.
 
-## 7. Working with Eclipse JNoSQL Graph API
-Once you have configured the necessary dependencies, credentials, and set up the entity class, you can start using Eclipse JNoSQL Graph API to interact with your database. Here are the basic steps to get started:
+## 7. Working with Eclipse JNoSQL™ Graph API
+Once you have configured the necessary dependencies, credentials, and set up the entity class, you can start using Eclipse JNoSQL™ Graph API to interact with your database. Here are the basic steps to get started:
 
 a. Inject the `GraphTemplate`:
 ```java
