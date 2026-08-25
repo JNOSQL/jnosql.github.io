@@ -4,7 +4,7 @@ sort: 1
 
 # Introduction
 
-Eclipse NoSQL has one API for each NoSQL database type. However, it uses the same annotations to map Java objects. Therefore, with just these annotations that look like JPA, there is support for more than twenty NoSQL databases.
+Eclipse JNoSQL™ is a Java framework that provides implementations of Jakarta NoSQL, the Jakarta specification and API for integrating Java applications with NoSQL databases. It has one API for each NoSQL database type while using the same annotations to map Java objects. Therefore, with just these annotations that look like JPA, there is support for more than twenty NoSQL databases.
 
 ```java
 @Entity
@@ -52,7 +52,7 @@ template.insert(diana, Duration.ofSeconds(1));
 
 **A Fluent API**
 
-Eclipse JNoSQL™ is a fluent API that makes it easier for Java developers create queries that either retrieve or delete information in a Document type, for example.
+Eclipse JNoSQL™ provides a fluent API that makes it easier for Java developers create queries that either retrieve or delete information in a Document type, for example.
 
 **Let's not reinvent the wheel: Graph**
 
@@ -60,7 +60,7 @@ The Communication Layer defines three new APIs: Key-Value, Document and Column F
 
 **Particular behavior matters in NoSQL database**
 
-Particular behavior matters. Even within the same type, each NoSQL database has a unique feature that is a considerable factor when choosing a database over another. This ‘’feature’’ might make it easier to develop, make it more scaleable or consistent from a configuration standpoint, have the desired consistency level or search engine, etc. Some examples are Cassandra and its Cassandra Query Language and consistency level, OrientDB with live queries, ArangoDB and its Arango Query Language, Couchbase with N1QL - the list goes on. Each NoSQL has a specific behavior and this behavior matters, so JNoSQL is extensible enough to capture this substantiality different feature elements.
+Particular behavior matters. Even within the same type, each NoSQL database has a unique feature that is a considerable factor when choosing a database over another. This ‘’feature’’ might make it easier to develop, make it more scaleable or consistent from a configuration standpoint, have the desired consistency level or search engine, etc. Some examples are Cassandra and its Cassandra Query Language and consistency level, OrientDB with live queries, ArangoDB and its Arango Query Language, Couchbase with N1QL - the list goes on. Each NoSQL has a specific behavior and this behavior matters, so Eclipse JNoSQL™ is extensible enough to capture this substantiality different feature elements.
 
 **Find out more information and get involved!**
 
