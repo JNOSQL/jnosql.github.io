@@ -22,7 +22,7 @@ The annotation model is to convert the entity model, a Java POJO, to/from the co
 * Embeddable
 * Convert
 
-The JNoSQL Mapping does not require the getter and setter methods to the fields, however, the Entity class must have a non-private constructor with no parameters.
+Eclipse JNoSQL™ Mapping does not require the getter and setter methods to the fields, however, the Entity class must have a non-private constructor with no parameters.
 
 ### Entity
 
