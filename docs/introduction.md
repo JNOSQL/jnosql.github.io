@@ -64,7 +64,7 @@ Particular behavior matters. Even within the same type, each NoSQL database has 
 
 **Find out more information and get involved!**
 
-Eclipse JNoSQL™ is an Eclipse Foundation project. For official project governance, releases, contributors, and project information, visit the [Eclipse JNoSQL project page](https://projects.eclipse.org/projects/technology.jnosql).
+Eclipse JNoSQL™ is an [Eclipse Foundation](https://www.eclipse.org/) project. For official project governance, releases, contributors, and project information, visit the [Eclipse JNoSQL project page](https://projects.eclipse.org/projects/technology.jnosql).
 
 - [GitHub Repo](https://github.com/eclipse?q=Jnosql)
 - [Sample codes](https://github.com/JNOSQL?q=demo+OR+endgame+OR+jnopo&type=all&language=&sort=name)
