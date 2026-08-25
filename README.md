@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Jakarta NoSQL is a Java framework that streamlines the integration of Java applications with NoSQL databases.
+Eclipse JNoSQL™ is a Java framework that streamlines the integration of Java applications with NoSQL databases and provides implementations of Jakarta NoSQL.
 
 ## Goals
 
