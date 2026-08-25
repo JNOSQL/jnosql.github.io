@@ -22,7 +22,7 @@ public class God {
 
 Another example can be found in an article that demonstrates the same annotated entity used across different NoSQL databases: Redis, Cassandra, Couchbase, Neo4J and Elasticsearch. The approach is "stick to the API": the developer can replace Redis with Hazelcast, as both implement the Key-Value API, thus avoiding vendor lock-in with one of these databases.
 
-Vendor lock-in is one of the things any Java project needs to consider when choosing NoSQL databases. If there's a need for a switch, other considerations include: time spent on the change, the learning curve of a new API to use with this database, the code that will be lost, the persistence layer that needs to be replaced, etc. Eclipse JNoSQL avoids most of these issues through the Communication APIs. It also has template classes that apply the design pattern 'template method’ to databases operations. And the Repository interface allows Java developers to create and extend interfaces, with implementation automatically provided by Eclipse JNoSQL: support method queries built by developers will automatically be implemented for them.
+Vendor lock-in is one of the things any Java project needs to consider when choosing NoSQL databases. If there's a need for a switch, other considerations include: time spent on the change, the learning curve of a new API to use with this database, the code that will be lost, the persistence layer that needs to be replaced, etc. Eclipse JNoSQL™ avoids most of these issues through the Communication APIs. It also has template classes that apply the design pattern 'template method’ to databases operations. And the Repository interface allows Java developers to create and extend interfaces, with implementation automatically provided by Eclipse JNoSQL™: support method queries built by developers will automatically be implemented for them.
 
 ```java
 @Repository
@@ -52,7 +52,7 @@ template.insert(diana, Duration.ofSeconds(1));
 
 **A Fluent API**
 
-Eclipse JNoSQL is a fluent API that makes it easier for Java developers create queries that either retrieve or delete information in a Document type, for example.
+Eclipse JNoSQL™ is a fluent API that makes it easier for Java developers create queries that either retrieve or delete information in a Document type, for example.
 
 **Let's not reinvent the wheel: Graph**
 
