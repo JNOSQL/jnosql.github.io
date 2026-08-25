@@ -1,6 +1,6 @@
 # Eclipse JNoSQL™
 
-![JNoSQL Logo](http://www.jnosql.org/images/home_logo.png)
+![JNoSQL Logo](https://www.jnosql.org/images/home_logo.png)
 
 ## Introduction
 
