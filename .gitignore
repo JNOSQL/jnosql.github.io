@@ -31,3 +31,5 @@ _sass/@primer/css/**/*.md
 changelog.report.md
 
 **/.DS_Store
+
+.idea
