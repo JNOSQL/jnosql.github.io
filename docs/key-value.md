@@ -17,11 +17,11 @@ Before you start using Eclipse JNoSQL™ Key-value API, ensure that your Java ap
 
 ## 3. Choosing a Key-value NoSQL Database
 
-Eclipse JNoSQL™ supports various Key-value NoSQL databases. You can find a list of supported databases, along with their configurations and dependencies, on the [GitHub repository](https://github.com/eclipse/jnosql-databases).
+Eclipse JNoSQL supports various Key-value NoSQL databases. You can find a list of supported databases, along with their configurations and dependencies, on the [GitHub repository](https://github.com/eclipse/jnosql-databases).
 
 ## 4. Adding Eclipse JNoSQL™ Dependency
 
-To use a specific Key-value NoSQL database with Eclipse JNoSQL™, you need to add the corresponding dependency to your project. For example, if you want to use Redis, add the following Maven dependency to your project's `pom.xml` file:
+To use a specific Key-value NoSQL database with Eclipse JNoSQL, you need to add the corresponding dependency to your project. For example, if you want to use Redis, add the following Maven dependency to your project's `pom.xml` file:
 
 ```xml
 <dependency>
