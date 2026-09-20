@@ -1,8 +1,8 @@
 .database-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: $spacer-4;
-  margin: $spacer-4 0;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: $spacer-5 $spacer-4;
+  margin: $spacer-5 0 $spacer-6;
 }
 
 .database-card {
@@ -10,39 +10,56 @@
   flex-direction: column;
   align-items: center;
   min-width: 0;
-  height: 100%;
-  padding: $spacer-4;
-  border: $border;
-  border-radius: $border-radius-3;
-  box-sizing: border-box;
   text-align: center;
 
   img {
     display: block;
     width: auto;
-    max-width: 140px;
     height: auto;
-    max-height: 80px;
+    max-width: 130px;
+    max-height: 70px;
     margin-bottom: $spacer-3;
     object-fit: contain;
   }
 
   h3 {
-    margin: 0;
+    margin: 0 0 $spacer-2;
     font-family: $head-font;
+    font-size: 1rem;
+    line-height: 1.3;
   }
 }
 
 .database-links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: $spacer-2 $spacer-3;
-  margin: auto 0 0;
-  padding-top: $spacer-3;
+  gap: $spacer-2;
+  margin: 0;
+  font-size: 0.9rem;
+
+  a {
+    white-space: nowrap;
+  }
 }
 
+/*
+ * Keep two columns on tablets and smaller screens.
+ * This avoids oversized database items when only a few
+ * databases exist in a category.
+ */
 @media (max-width: $width-sm - 1px) {
+  .database-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $spacer-4 $spacer-3;
+  }
+}
+
+/*
+ * Single column only on very small screens.
+ */
+@media (max-width: 420px) {
   .database-grid {
     grid-template-columns: minmax(0, 1fr);
   }
