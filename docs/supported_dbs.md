@@ -17,8 +17,6 @@ rel="noopener noreferrer">
 Eclipse JNoSQL Databases documentation
 </a>.
 
----
-
 ## Key-Value
 
 Key-value databases organize data as values addressed by unique keys. This model is well suited to direct lookups, caching, session data, and other access patterns where applications retrieve a value by its key.
@@ -167,11 +165,9 @@ Key-value databases organize data as values addressed by unique keys. This model
 
 </div>
 
----
+## Column
 
-## Column Family
-
-Column-family databases store related values in rows grouped into column families. They are designed for distributed, scalable access to structured or sparsely populated records.
+Column databases organize related values into rows and columns and are designed for distributed, scalable access to large datasets.
 
 <div class="database-grid">
 
@@ -205,11 +201,9 @@ Column-family databases store related values in rows grouped into column familie
 
 </div>
 
----
-
 ## Document
 
-Document databases store records as self-contained documents whose fields can be queried and evolved without requiring every record to share an identical structure.
+Document databases store data as self-contained documents. They provide flexible structures while supporting queries over document fields.
 
 <div class="database-grid">
 
@@ -355,13 +349,9 @@ Document databases store records as self-contained documents whose fields can be
 
 </div>
 
----
-
 ## Time Series
 
-Time-series databases organize observations around timestamps and are optimized for ingestion, retention, and analysis of measurements over time.
-
-The drivers in this section implement the Eclipse JNoSQL Time Series Mapping API, including `TimeSeriesTemplate` and repository integration where provided by that API. :contentReference[oaicite:1]{index=1}
+Time-series databases organize observations around timestamps and are optimized for ingestion, retention, monitoring, IoT, metrics, and analysis of data over time.
 
 <div class="database-grid">
 
@@ -409,23 +399,11 @@ The drivers in this section implement the Eclipse JNoSQL Time Series Mapping API
 
 </div>
 
----
-
-## Vector
-
-<div class="database-coming-soon">
-  <strong>Coming soon.</strong>
-</div>
-
-Vector database support is planned for a future Eclipse JNoSQL release. :contentReference[oaicite:2]{index=2}
-
----
-
 ## Graph
 
-Graph databases represent entities as vertices and their relationships as edges, enabling traversal and relationship-focused queries.
+Graph databases represent entities as vertices and relationships as edges, enabling traversal and relationship-oriented queries.
 
-Eclipse JNoSQL provides graph support through Apache TinkerPop integration and dedicated provider integrations. Apache TinkerPop is an abstraction and integration framework rather than a database. :contentReference[oaicite:3]{index=3}
+Eclipse JNoSQL provides graph support through Apache TinkerPop integration and dedicated database integrations.
 
 <div class="database-grid">
 
@@ -473,7 +451,11 @@ Eclipse JNoSQL provides graph support through Apache TinkerPop integration and d
 
 </div>
 
----
+## Vector
+
+**Coming soon.**
+
+Vector database support is planned for a future Eclipse JNoSQL release.
 
 ## Looking for implementation details?
 
