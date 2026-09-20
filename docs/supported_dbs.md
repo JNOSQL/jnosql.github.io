@@ -24,7 +24,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-key-value" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-arangodb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -33,7 +33,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchbase-key-value" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchbase/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-couchbase/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -42,7 +42,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#dynamodb-key-value" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-dynamodb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-dynamodb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -51,7 +51,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#hazelcast" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-hazelcast/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-hazelcast/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -60,7 +60,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#infinispan" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-infinispan/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-infinispan/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -69,7 +69,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#memcached" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-memcached/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-memcached/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -78,7 +78,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#oracle-nosql-key-value" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-oracle-nosql/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-oracle-nosql/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -87,7 +87,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#redis" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-redis/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-redis/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -96,7 +96,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#riak" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-riak/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-riak/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -105,7 +105,7 @@ Key-value databases organize data as values addressed by unique keys. This model
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#valkey" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-valkey/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-valkey/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
 </div>
@@ -121,7 +121,7 @@ Column databases organize related values into rows and columns and are designed 
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#cassandra" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-cassandra/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-cassandra/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -130,7 +130,7 @@ Column databases organize related values into rows and columns and are designed 
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#hbase" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-hbase/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-hbase/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
 </div>
@@ -146,7 +146,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-document" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-arangodb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -155,7 +155,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchbase-document" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchbase/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-couchbase/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -164,7 +164,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchdb" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchdb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-couchdb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -173,7 +173,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#dynamodb-document" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-dynamodb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-dynamodb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -182,7 +182,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#elasticsearch" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-elasticsearch/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-elasticsearch/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -191,7 +191,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#mongodb" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-mongodb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-mongodb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -200,7 +200,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#oracle-nosql-document" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-oracle-nosql/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-oracle-nosql/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -209,7 +209,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#orientdb" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-orientdb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-orientdb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -218,7 +218,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#ravendb" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-ravendb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-ravendb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -227,7 +227,7 @@ Document databases store data as self-contained documents, providing flexible st
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#solr" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-solr/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-solr/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
 </div>
@@ -243,7 +243,7 @@ Time-series databases organize observations around timestamps and are optimized 
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#influxdb" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-influxdb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-influxdb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -252,7 +252,7 @@ Time-series databases organize observations around timestamps and are optimized 
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#apache-iotdb" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-iotdb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-iotdb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -261,7 +261,7 @@ Time-series databases organize observations around timestamps and are optimized 
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#questdb" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-questdb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-questdb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
 </div>
@@ -277,7 +277,7 @@ Graph databases represent entities as vertices and relationships as edges, enabl
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#tinkerpop-integration" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-tinkerpop/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-tinkerpop/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -286,7 +286,7 @@ Graph databases represent entities as vertices and relationships as edges, enabl
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-graph" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-arangodb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
   <article class="database-card">
@@ -295,7 +295,7 @@ Graph databases represent entities as vertices and relationships as edges, enabl
     <p class="database-links">
       <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#neo4j" target="_blank" rel="noopener noreferrer">Documentation</a>
       <span aria-hidden="true">·</span>
-      <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-neo4j/{{ site.jnosql_databases_version }}/" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-neo4j/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
     </p>
   </article>
 </div>
