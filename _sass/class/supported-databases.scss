@@ -1,0 +1,49 @@
+.database-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: $spacer-4;
+  margin: $spacer-4 0;
+}
+
+.database-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+  padding: $spacer-4;
+  border: $border;
+  border-radius: $border-radius-3;
+  box-sizing: border-box;
+  text-align: center;
+
+  img {
+    display: block;
+    width: auto;
+    max-width: 140px;
+    height: auto;
+    max-height: 80px;
+    margin-bottom: $spacer-3;
+    object-fit: contain;
+  }
+
+  h3 {
+    margin: 0;
+    font-family: $head-font;
+  }
+}
+
+.database-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacer-2 $spacer-3;
+  margin: auto 0 0;
+  padding-top: $spacer-3;
+}
+
+@media (max-width: $width-sm - 1px) {
+  .database-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
