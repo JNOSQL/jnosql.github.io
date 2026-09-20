@@ -1,71 +1,254 @@
 ---
-
 layout: default
 title: Supported Databases
 sort: 2
--------
+---
 
 # Supported Databases
 
 Eclipse JNoSQL provides a common programming model for working with multiple NoSQL database technologies while preserving database-specific capabilities when they are needed.
 
-The supported databases are organized by their primary data model. Some databases support more than one model and therefore appear in multiple categories.
+The supported databases are organized by data model. Some databases support more than one model and therefore appear in multiple categories.
 
-For installation, configuration, examples, and database-specific features, see the [Eclipse JNoSQL Databases documentation](https://github.com/eclipse-jnosql/jnosql-databases).
+For installation, configuration, examples, and database-specific features, see the
+<a href="https://github.com/eclipse-jnosql/jnosql-databases" target="_blank" rel="noopener noreferrer">Eclipse JNoSQL Databases documentation</a>.
 
 ---
 
 ## Key-Value
 
-Key-value databases organize data as values addressed by unique keys. They are commonly used for direct lookups, caching, sessions, counters, and other access patterns where applications retrieve data by key.
+Key-value databases organize data as values addressed by unique keys. This model is well suited to direct lookups, caching, session data, and other access patterns where applications retrieve a value by its key.
 
-{:class="supported-dbs-table"}
-
-|                                                                                                                                                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                   |                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://www.jnosql.org/img/logos/ArangoDB.png" width="140px" /><br/>**ArangoDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-document) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb/latest/index.html) | <img src="https://www.jnosql.org/img/logos/couchbase.svg" width="140px" /><br/>**Couchbase**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchbase-document) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchbase/latest/index.html) | **DynamoDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#dynamodb-document) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-dynamodb/latest/index.html)                                                                                         | <img src="https://www.jnosql.org/img/logos/hazelcast.svg" width="140px" /><br/>**Hazelcast**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#hazelcast) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-hazelcast/latest/index.html) |
-| <img src="https://www.jnosql.org/img/logos/infinispan.svg" width="140px" /><br/>**Infinispan**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#infinispan) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-infinispan/latest/index.html)  | <img src="https://www.jnosql.org/img/logos/memcached.png" width="140px" /><br/>**Memcached**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#memcached) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-memcached/latest/index.html)          | <img src="https://www.jnosql.org/img/logos/oracle.png" width="140px" /><br/>**Oracle NoSQL**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#oracle-nosql-document) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-oracle-nosql/latest/index.html) | <img src="https://www.jnosql.org/img/logos/redis.png" width="140px" /><br/>**Redis**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#redis) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-redis/latest/index.html)                 |
-| <img src="https://www.jnosql.org/img/logos/basho.png" width="140px" /><br/>**Riak**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#riak) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-riak/latest/index.html)                         | <img src="https://www.jnosql.org/img/logos/valkey.png" width="140px" /><br/>**Valkey**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#valkey) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-valkey/latest/index.html)                      |                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                          |
+<table class="supported-dbs-table">
+  <tbody>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/ArangoDB.png" width="140px" alt="ArangoDB" /><br/>
+        <strong>ArangoDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-document" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/couchbase.svg" width="140px" alt="Couchbase" /><br/>
+        <strong>Couchbase</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchbase-document" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchbase" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://user-images.githubusercontent.com/6509926/70553550-f033b980-1b40-11ea-9192-759b3b1053b3.png" width="140px" alt="Amazon DynamoDB" /><br/>
+        <strong>DynamoDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#dynamodb-document" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-dynamodb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/hazelcast.svg" width="140px" alt="Hazelcast" /><br/>
+        <strong>Hazelcast</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#hazelcast" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-hazelcast" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/infinispan.svg" width="140px" alt="Infinispan" /><br/>
+        <strong>Infinispan</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#infinispan" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-infinispan" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/memcached.png" width="140px" alt="Memcached" /><br/>
+        <strong>Memcached</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#memcached" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-memcached" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/oracle.png" width="140px" alt="Oracle NoSQL" /><br/>
+        <strong>Oracle NoSQL</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#oracle-nosql-document" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-oracle-nosql" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/redis.png" width="140px" alt="Redis" /><br/>
+        <strong>Redis</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#redis" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-redis" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/basho.png" width="140px" alt="Riak" /><br/>
+        <strong>Riak</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#riak" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-riak" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/valkey.png" width="140px" alt="Valkey" /><br/>
+        <strong>Valkey</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#valkey" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-valkey" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
 ## Column Family
 
-Column-family databases organize related values into rows and column families and are designed for distributed and highly scalable workloads.
+Column-family databases store related values in rows grouped into column families. They are designed for distributed, scalable access to structured or sparsely populated records.
 
-{:class="supported-dbs-table"}
-
-|                                                                                                                                                                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://www.jnosql.org/img/logos/cassandra.png" width="160px" /><br/>**Apache Cassandra**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#cassandra) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-cassandra/latest/index.html) | <img src="https://www.jnosql.org/img/logos/hbase.png" width="160px" /><br/>**Apache HBase**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#hbase) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-hbase/latest/index.html) |
+<table class="supported-dbs-table">
+  <tbody>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/cassandra.png" width="160px" alt="Apache Cassandra" /><br/>
+        <strong>Apache Cassandra</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#cassandra" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-cassandra" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/hbase.png" width="160px" alt="Apache HBase" /><br/>
+        <strong>Apache HBase</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#hbase" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-hbase" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
 ## Document
 
-Document databases store information as self-contained documents whose fields can evolve independently. Eclipse JNoSQL provides portable entity mapping while allowing individual drivers to expose database-specific capabilities.
+Document databases store records as self-contained documents whose fields can be queried and evolved without requiring every record to share an identical structure.
 
-{:class="supported-dbs-table"}
-
-|                                                                                                                                                                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                   |                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://www.jnosql.org/img/logos/ArangoDB.png" width="140px" /><br/>**ArangoDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-document) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb/latest/index.html)      | <img src="https://www.jnosql.org/img/logos/couchbase.svg" width="140px" /><br/>**Couchbase**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchbase-document) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchbase/latest/index.html) | <img src="https://www.jnosql.org/img/logos/couchdb.png" width="140px" /><br/>**Apache CouchDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchdb) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchdb/latest/index.html)                 | **DynamoDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#dynamodb-document) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-dynamodb/latest/index.html)                                                                      |
-| <img src="https://www.jnosql.org/img/logos/elastic.svg" width="140px" /><br/>**Elasticsearch**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#elasticsearch) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-elasticsearch/latest/index.html) | <img src="https://www.jnosql.org/img/logos/mongodb.png" width="140px" /><br/>**MongoDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#mongodb) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-mongodb/latest/index.html)                  | <img src="https://www.jnosql.org/img/logos/oracle.png" width="140px" /><br/>**Oracle NoSQL**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#oracle-nosql-document) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-oracle-nosql/latest/index.html) | <img src="https://www.jnosql.org/img/logos/orientdb.png" width="140px" /><br/>**OrientDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#orientdb) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-orientdb/latest/index.html) |
-| <img src="https://www.jnosql.org/img/logos/ravendb.png" width="140px" /><br/>**RavenDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#ravendb) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-ravendb/latest/index.html)                   | <img src="https://www.jnosql.org/img/logos/solr.svg" width="140px" /><br/>**Apache Solr**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#solr) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-solr/latest/index.html)                       |                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                      |
+<table class="supported-dbs-table">
+  <tbody>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/ArangoDB.png" width="140px" alt="ArangoDB" /><br/>
+        <strong>ArangoDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-document" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/couchbase.svg" width="140px" alt="Couchbase" /><br/>
+        <strong>Couchbase</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchbase-document" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchbase" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/couchdb.png" width="140px" alt="Apache CouchDB" /><br/>
+        <strong>Apache CouchDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#couchdb" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-couchdb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://user-images.githubusercontent.com/6509926/70553550-f033b980-1b40-11ea-9192-759b3b1053b3.png" width="140px" alt="Amazon DynamoDB" /><br/>
+        <strong>DynamoDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#dynamodb-document" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-dynamodb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/elastic.svg" width="140px" alt="Elasticsearch" /><br/>
+        <strong>Elasticsearch</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#elasticsearch" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-elasticsearch" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/mongodb.png" width="140px" alt="MongoDB" /><br/>
+        <strong>MongoDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#mongodb" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-mongodb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/oracle.png" width="140px" alt="Oracle NoSQL" /><br/>
+        <strong>Oracle NoSQL</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#oracle-nosql-document" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-oracle-nosql" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/orientdb.png" width="140px" alt="OrientDB" /><br/>
+        <strong>OrientDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#orientdb" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-orientdb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/ravendb.png" width="140px" alt="RavenDB" /><br/>
+        <strong>RavenDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#ravendb" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-ravendb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/solr.svg" width="140px" alt="Apache Solr" /><br/>
+        <strong>Apache Solr</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#solr" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-solr" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
 ## Time Series
 
-Time-series databases organize observations around timestamps and are optimized for ingestion, retention, monitoring, metrics, IoT, and analysis of data over time.
+Time-series databases organize observations around timestamps and are optimized for ingestion, retention, and analysis of measurements over time.
 
-Eclipse JNoSQL provides a dedicated Time Series Mapping API, including `TimeSeriesTemplate` and Jakarta Data repository integration.
+The drivers in this section implement the Eclipse JNoSQL Time Series Mapping API, including `TimeSeriesTemplate` and repository integration where provided by that API.
 
-{:class="supported-dbs-table"}
-
-|                                                                                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://www.jnosql.org/img/logos/influxdb.png" width="160px" /><br/>**InfluxDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#influxdb) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-influxdb/latest/index.html) | <img src="https://www.jnosql.org/img/logos/apache-io-tbd.png" width="160px" /><br/>**Apache IoTDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#apache-iotdb) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-iotdb/latest/index.html) | <img src="https://www.jnosql.org/img/logos/questdb.png" width="160px" /><br/>**QuestDB**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#questdb) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-questdb/latest/index.html) |
+<table class="supported-dbs-table">
+  <tbody>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/influxdb.png" width="160px" alt="InfluxDB" /><br/>
+        <strong>InfluxDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#influxdb" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-influxdb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/apache-io-tbd.png" width="160px" alt="Apache IoTDB" /><br/>
+        <strong>Apache IoTDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#apache-iotdb" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-iotdb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/questdb.png" width="160px" alt="QuestDB" /><br/>
+        <strong>QuestDB</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#questdb" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-questdb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -75,11 +258,34 @@ Graph databases represent data as vertices and relationships as edges and are de
 
 Eclipse JNoSQL provides graph support through Apache TinkerPop integration as well as dedicated database integrations.
 
-{:class="supported-dbs-table"}
-
-|                                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://www.jnosql.org/img/logos/apache-tinkerpop.png" width="160px" /><br/>**Apache TinkerPop**<br/>Integration layer<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#tinkerpop-integration) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-tinkerpop/latest/index.html) | <img src="https://www.jnosql.org/img/logos/ArangoDB.png" width="160px" /><br/>**ArangoDB**<br/>via Apache TinkerPop<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-graph) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb/latest/index.html) | <img src="https://www.jnosql.org/img/logos/neo4j.png" width="160px" /><br/>**Neo4J**<br/>[Documentation](https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#neo4j) · [Javadoc](https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-neo4j/latest/index.html) |
+<table class="supported-dbs-table">
+  <tbody>
+    <tr>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/apache-tinkerpop.png" width="160px" alt="Apache TinkerPop" /><br/>
+        <strong>Apache TinkerPop</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#tinkerpop-integration" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-tinkerpop" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/ArangoDB.png" width="160px" alt="ArangoDB" /><br/>
+        <strong>ArangoDB</strong><br/>
+        via Apache TinkerPop<br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#arangodb-graph" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-arangodb" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+      <td align="center">
+        <img src="https://www.jnosql.org/img/logos/neo4j.png" width="160px" alt="Neo4J" /><br/>
+        <strong>Neo4J</strong><br/>
+        <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#neo4j" target="_blank" rel="noopener noreferrer">Documentation</a>
+        ·
+        <a href="https://javadoc.io/doc/org.eclipse.jnosql.databases/jnosql-neo4j" target="_blank" rel="noopener noreferrer">Javadoc</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -95,6 +301,5 @@ Vector database support is planned for a future Eclipse JNoSQL release.
 
 Each database driver has its own installation instructions, configuration properties, examples, Template API, repository support, and database-specific capabilities.
 
-[Explore the Eclipse JNoSQL Database drivers →](https://github.com/eclipse-jnosql/jnosql-databases)
-
-[Browse the API Javadocs →](https://javadoc.io/doc/org.eclipse.jnosql.databases)
+<a href="https://github.com/eclipse-jnosql/jnosql-databases" target="_blank" rel="noopener noreferrer">Explore the Eclipse JNoSQL database drivers →</a>
+<a href="https://javadoc.io/doc/org.eclipse.jnosql.databases" target="_blank" rel="noopener noreferrer">Browse the API Javadocs →</a>
