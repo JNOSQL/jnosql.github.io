@@ -125,6 +125,15 @@ Column databases organize related values into rows and columns and are designed 
     </p>
   </article>
   <article class="database-card">
+    <div class="database-logo"><img src="{{ '/img/logos/scylladb.png' | relative_url }}" alt="ScyllaDB logo" loading="lazy"></div>
+    <h3>ScyllaDB</h3>
+    <p class="database-links">
+      <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#scylladb" target="_blank" rel="noopener noreferrer">Documentation</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-scylladb/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
+    </p>
+  </article>
+  <article class="database-card">
     <div class="database-logo"><img src="{{ '/img/logos/hbase.png' | relative_url }}" alt="Apache HBase logo" loading="lazy"></div>
     <h3>Apache HBase</h3>
     <p class="database-links">
