@@ -9,7 +9,7 @@ theme: null
 #   dist: false
 #   shortcodes: true
 
-jnosql_databases_version: "1.1.18"
+jnosql_databases_version: "1.1.19"
 
 readme_index:
   with_frontmatter: true
