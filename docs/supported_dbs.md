@@ -309,9 +309,39 @@ Graph databases represent entities as vertices and relationships as edges, enabl
   </article>
 </div>
 
-## Vector — Coming soon
+## Vector
 
-Vector database support is planned for a future Eclipse JNoSQL release.
+Vector databases store embeddings and support similarity search, enabling semantic search, recommendations, and AI-driven applications.
+
+<div class="database-grid">
+  <article class="database-card">
+    <div class="database-logo"><img src="{{ '/img/logos/qdrant.png' | relative_url }}" alt="Qdrant logo" loading="lazy"></div>
+    <h3>Qdrant</h3>
+    <p class="database-links">
+      <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#qdrant" target="_blank" rel="noopener noreferrer">Documentation</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-qdrant/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
+    </p>
+  </article>
+  <article class="database-card">
+    <div class="database-logo"><img src="{{ '/img/logos/milvus.png' | relative_url }}" alt="Milvus logo" loading="lazy"></div>
+    <h3>Milvus</h3>
+    <p class="database-links">
+      <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#milvus" target="_blank" rel="noopener noreferrer">Documentation</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-milvus/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
+    </p>
+  </article>
+  <article class="database-card">
+    <div class="database-logo"><img src="{{ '/img/logos/weaviate.png' | relative_url }}" alt="Weaviate logo" loading="lazy"></div>
+    <h3>Weaviate</h3>
+    <p class="database-links">
+      <a href="https://github.com/eclipse-jnosql/jnosql-databases/blob/main/README.adoc#weaviate" target="_blank" rel="noopener noreferrer">Documentation</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://javadocs.dev/org.eclipse.jnosql.databases/jnosql-weaviate/{{ site.jnosql_databases_version }}" target="_blank" rel="noopener noreferrer">Javadoc</a>
+    </p>
+  </article>
+</div>
 
 ## Looking for implementation details?
 
