@@ -19,6 +19,7 @@ readme_index:
   with_frontmatter: true
 
 plugins:
+  - jekyll-redirect-from
   - jemoji
   - jekyll-avatar
   - jekyll-mentions
