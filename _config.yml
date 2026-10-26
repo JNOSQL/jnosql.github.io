@@ -1,4 +1,5 @@
 title: Eclipse JNoSQL™
+url: https://www.jnosql.org
 lang: en
 description: Eclipse JNoSQL™ is an open-source Java framework that simplifies NoSQL persistence through Jakarta EE standards, supporting Key-Value, Document, Wide-Column, Graph, Time Series, and Vector databases.
 

@@ -4,3 +4,4 @@
     | join: " "
     | escape
     | truncate: 150 -%}
+{%- if page.url == "/" -%}{%- assign description = site.description | escape -%}{%- endif -%}

@@ -1,7 +1,5 @@
 # Eclipse JNoSQL™ — Modern NoSQL Persistence for Enterprise Java
 
-![JNoSQL Logo](https://www.jnosql.org/images/home_logo.png)
-
 Eclipse JNoSQL™ is an open-source Java framework that simplifies NoSQL persistence through Jakarta EE standards. It provides implementations and integrations for [Jakarta Data](https://github.com/jakartaee/data) and [Jakarta NoSQL](https://github.com/jakartaee/nosql), and is aligned with [Jakarta Query](https://github.com/jakartaee/query), the common query foundation of the Jakarta persistence specifications. It brings repository abstractions, object mapping, and database-specific capabilities to enterprise Java applications.
 
 One framework covers six NoSQL database models: **Key-Value**, **Document**, **Wide-Column**, **Graph**, **Time Series**, and **Vector**. Developers keep a familiar, annotation-based and CDI-integrated programming experience, reduce persistence boilerplate, and still reach the specific features of each database instead of being limited to the lowest common denominator.
