@@ -9,3 +9,5 @@ sort: 3
 * [Jakarta JSON Binding 3.0](https://jakarta.ee/specifications/jsonb/3.0/) (JSON-B)
 * [Jakarta JSON Processing 2.1](https://jakarta.ee/specifications/jsonp/2.1/) (JSON-P)
 * [MicroProfile Config](https://microprofile.io/microprofile-config/)
+
+These requirements apply to every database model. Each database integration, and the database itself, may add its own requirements; see the [jnosql-databases repository](https://github.com/eclipse-jnosql/jnosql-databases) for provider-specific details.
