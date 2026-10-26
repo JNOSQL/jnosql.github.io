@@ -139,15 +139,16 @@ The `jnosql.cassandra.query.N` properties are still supported. Each one is execu
 jnosql.column.database=banking
 jnosql.cassandra.host.1=localhost
 jnosql.cassandra.query.1=CREATE KEYSPACE IF NOT EXISTS banking WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
-jnosql.cassandra.query.2=CREATE TABLE IF NOT EXISTS banking.bank_transaction (id text PRIMARY KEY, account_id text, amount decimal, occurred_at timestamp, description text);
-jnosql.cassandra.query.3=CREATE INDEX IF NOT EXISTS ON banking.bank_transaction (account_id);
+jnosql.cassandra.query.2=CREATE TYPE IF NOT EXISTS banking.payment_address (street text, city text, country text);
+jnosql.cassandra.query.3=CREATE TABLE IF NOT EXISTS banking.bank_transaction (id text PRIMARY KEY, account_id text, amount decimal, occurred_at timestamp, address frozen<payment_address>);
+jnosql.cassandra.query.4=CREATE INDEX IF NOT EXISTS ON banking.bank_transaction (account_id);
 ```
 
 `SimpleStrategy` with one replica is only suitable for local development. In production, manage schemas and replication with the database's own tooling. See the [Cassandra integration documentation](https://github.com/eclipse-jnosql/jnosql-databases#cassandra) for all options.
 
 ## 7. Mapping Java Entities to Wide-Column Data
 
-The following entity matches the `bank_transaction` table above. Cassandra folds unquoted identifiers to lowercase, so the mapping uses explicit lowercase names:
+The following entity matches the `bank_transaction` table above; the `address` field is explained in the next subsection. Cassandra folds unquoted identifiers to lowercase, so the mapping uses explicit lowercase names:
 
 ```java
 import jakarta.nosql.Column;
@@ -172,19 +173,19 @@ public class BankTransaction {
     @Column("occurred_at")
     private Instant occurredAt;
 
-    @Column
-    private String description;
+    @Column(udt = "payment_address")
+    private PaymentAddress address;
 
     BankTransaction() {
     }
 
     public BankTransaction(String id, String accountId, BigDecimal amount,
-                           Instant occurredAt, String description) {
+                           Instant occurredAt, PaymentAddress address) {
         this.id = id;
         this.accountId = accountId;
         this.amount = amount;
         this.occurredAt = occurredAt;
-        this.description = description;
+        this.address = address;
     }
 
     public String getId() { return id; }
@@ -195,7 +196,7 @@ public class BankTransaction {
 
     public Instant getOccurredAt() { return occurredAt; }
 
-    public String getDescription() { return description; }
+    public PaymentAddress getAddress() { return address; }
 }
 ```
 
@@ -207,6 +208,83 @@ public class BankTransaction {
 ### Important Architectural Distinction
 
 Mapping an identifier does not define the database's partition key, clustering key, or indexes. The physical schema must be compatible with the mapping. Here `id` is the whole primary key, so the table differs from the illustrative schema in Section 2, and queries by `account_id` rely on a secondary index.
+
+### Mapping Structured Data with User-Defined Types
+
+Cassandra and ScyllaDB support User-Defined Types (UDTs): named, reusable structures that group related attributes into a single column value. UDTs are useful to:
+
+* Represent structured values within a table.
+* Avoid spreading related attributes across unrelated columns.
+* Make the data model clearer and reuse one type definition in several tables.
+* Model nested domain information and composite values without additional tables.
+
+A UDT does not provide joins and does not establish relationships between entities. UDTs are a provider-specific database capability, not a requirement of Jakarta NoSQL.
+
+The Cassandra and ScyllaDB integrations map a nested Java class through the `udt` attribute of `@Column`, which names the database type. The nested class is an ordinary class whose fields are annotated with `@Column`; it needs no `@Entity` or other class-level annotation, but should have a non-private no-argument constructor like entities do:
+
+```java
+import jakarta.nosql.Column;
+
+public class PaymentAddress {
+
+    @Column
+    private String street;
+
+    @Column
+    private String city;
+
+    @Column
+    private String country;
+
+    PaymentAddress() {
+    }
+
+    public PaymentAddress(String street, String city, String country) {
+        this.street = street;
+        this.city = city;
+        this.country = country;
+    }
+
+    public String getStreet() { return street; }
+
+    public String getCity() { return city; }
+
+    public String getCountry() { return country; }
+}
+```
+
+The type must exist in the keyspace before a table can reference it, and the column and field names must match. This CQL is provider-specific, not portable Jakarta NoSQL schema syntax (the startup queries in Section 6 create it):
+
+```sql
+CREATE TYPE payment_address (
+    street text,
+    city text,
+    country text
+);
+
+CREATE TABLE bank_transaction (
+    id text PRIMARY KEY,
+    account_id text,
+    amount decimal,
+    occurred_at timestamp,
+    address frozen<payment_address>
+);
+```
+
+The `ColumnTemplate` code in Section 8 persists and reads this structure: `template.insert(transaction)` writes `address` as a `payment_address` value, and `template.find(BankTransaction.class, "tx-1")` returns an entity whose `getAddress()` is a populated `PaymentAddress`. A `List<PaymentAddress>` field mapped with the same `udt` attribute is also supported by the integration, and the database column would be a collection of frozen UDTs.
+
+**Frozen and non-frozen.** A `frozen` UDT is serialized and stored as a single value: it is read and written as a whole, and individual nested attributes cannot be updated in place. JNoSQL writes the complete `PaymentAddress` on every save, which fits this model. Non-frozen UDTs, where available in your database version, allow updating individual attributes, but support and restrictions depend on the database version and driver; check your provider's documentation. This guide has not been validated against a running Cassandra or ScyllaDB instance.
+
+**UDTs compared with other approaches:**
+
+* *Scalar columns:* simpler, but related values are scattered and cannot be reused as a type.
+* *Collections (list, set, map):* suit homogeneous values; a UDT suits a few named fields of different types.
+* *Separate tables:* needed when the data is queried or changed independently or shared between entities; Wide-Column databases have no joins, so this means a second query or duplication.
+* *Application-side composition:* keeps the database simple but forces you to encode and decode the value yourself.
+
+Use a UDT when several fields form a cohesive value object; it is not automatically the best choice for every nested structure.
+
+**Portability.** UDT behavior is not guaranteed to be identical across Wide-Column providers. A migration can require changes to physical schemas and UDT definitions, driver codecs, serialization, data migration, and query and update behavior. See the [Cassandra](https://github.com/eclipse-jnosql/jnosql-databases#cassandra) and [ScyllaDB](https://github.com/eclipse-jnosql/jnosql-databases#scylladb) integration documentation. ScyllaDB uses the `jnosql-scylladb` dependency and the `jnosql.scylladb.*` properties, and supports the same `@Column(udt = ...)` mapping.
 
 ## 8. ColumnTemplate and the Template API
 
@@ -236,14 +314,15 @@ public class TransactionService {
 
     public void crud() {
         BankTransaction transaction = new BankTransaction("tx-1", "account-123",
-                new BigDecimal("150.00"), Instant.now(), "Salary");
+                new BigDecimal("150.00"), Instant.now(),
+                new PaymentAddress("Main Street 1", "Lisbon", "Portugal"));
 
         template.insert(transaction);
 
         Optional<BankTransaction> found = template.find(BankTransaction.class, "tx-1");
 
         BankTransaction updated = new BankTransaction("tx-1", "account-123",
-                new BigDecimal("175.00"), transaction.getOccurredAt(), "Salary adjusted");
+                new BigDecimal("175.00"), transaction.getOccurredAt(), transaction.getAddress());
         template.update(updated);
 
         template.delete(BankTransaction.class, "tx-1");
@@ -394,7 +473,8 @@ BankTransactionRepository repository;
 
 public void usage() {
     repository.save(new BankTransaction("tx-1", "account-123",
-            new BigDecimal("150.00"), Instant.now(), "Salary"));
+            new BigDecimal("150.00"), Instant.now(),
+            new PaymentAddress("Main Street 1", "Lisbon", "Portugal")));
 
     Optional<BankTransaction> transaction = repository.findById("tx-1");
 
