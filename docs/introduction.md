@@ -8,14 +8,14 @@ Eclipse JNoSQL™ is a Java framework that implements [Jakarta NoSQL](https://gi
 
 ```java
 @Entity
-public class God {
+public class Product {
 
     @Id
     private String id;
     @Column
     private String name;
     @Column
-    private String power;
+    private BigDecimal price;
  //...
 }
 ```
@@ -26,17 +26,17 @@ Vendor lock-in is one of the things any Java project needs to consider when choo
 
 ```java
 @Repository
-public interface GodRepository extends CrudRepository<God, String> {
+public interface ProductRepository extends BasicRepository<Product, String> {
 
-    Optional<God> findByName(String name);
+    List<Product> findByName(String name);
 
 }
 
-GodRepository repository = ...;
-God diana = God.builder().withId("diana").withName("Diana").withPower("hunt").builder();
-repository.save(diana);
-Optional idResult = repository.findById("diana");
-Optional nameResult = repository.findByName("Diana");
+ProductRepository repository = ...;
+Product keyboard = new Product("p-1", "Keyboard", new BigDecimal("49.90"));
+repository.save(keyboard);
+Optional<Product> idResult = repository.findById("p-1");
+List<Product> nameResult = repository.findByName("Keyboard");
 ```
 
 **Beyond JPA**
@@ -44,10 +44,9 @@ Optional nameResult = repository.findByName("Diana");
 JPA is a good API for object-relationship mapping and it's already a standard in the Java world defined in JSRs. It would be great to use the same API for both SQL and NoSQL, but there are behaviors in NoSQL that SQL does not cover, such as time to live and asynchronous operations. JPA was simply not made to handle those features.
 
 ```java
-ColumnTemplate template = …;
-God diana = God.builder().withId("diana").withName("Diana").withPower("hunt").builder();
-Duration ttl = Duration.ofSeconds(1);
-template.insert(diana, Duration.ofSeconds(1));
+Template template = …;
+Product keyboard = new Product("p-1", "Keyboard", new BigDecimal("49.90"));
+template.insert(keyboard, Duration.ofSeconds(1));
 ```
 
 **A Fluent API**
