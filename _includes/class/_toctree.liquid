@@ -1,23 +1,25 @@
-{%- include reset/workdir.liquid %}
-
-{% comment %} list the root files {% endcomment %}
-<ul>
-    {%- for item in workdir_files -%}
-        {%- assign level = item.dir | append: "temp" | replace_first: "/", "" | split: "/" | size -%}
-        {%- capture current -%}
-            {%- if page.url == item.url %}current{% endif -%}
-        {%- endcapture %}
-        <li class="toc level-{{ level }} {{ current }}" data-sort="{{ item.sort }}" data-level="{{ level }}">
-            <a class="d-flex flex-items-baseline {{ current }}" href="{{ item.url | relative_url }}">
-                {%- if item.sort -%}
-                    {{ item.sort }}. {{ item.title | default: item.name }}
-                {%- else -%}
-                    {{ item.title | default: item.name }}
+{%- comment %} Grouped page navigation; no per-heading entries {% endcomment -%}
+<nav class="docs-nav" aria-label="Documentation">
+    {%- for group in site.data.navigation -%}
+        {%- assign group_pages = site_files | where: "nav_group", group.id -%}
+        {%- if group_pages.size > 0 -%}
+            <div class="nav-group">
+                {%- if group.label -%}
+                    <h2 class="nav-group-title" id="nav-{{ group.id }}">{{ group.label }}</h2>
                 {%- endif -%}
-            </a>
-        </li>
-    {%- endfor %}
-</ul>
-
-{% comment %} list the root dirs {% endcomment %}
-{%- for workdir in workdir_dirs %}{% include extend/toctree.liquid %}{% endfor -%}
+                <ul{% if group.label %} aria-labelledby="nav-{{ group.id }}"{% endif %}>
+                    {%- for item in group_pages -%}
+                        {%- assign active = false -%}
+                        {%- if item.url == page.url -%}{%- assign active = true -%}{%- endif -%}
+                        <li>
+                            <a class="nav-link{% if active %} is-active{% endif %}" href="{{ item.url | relative_url }}"{% if active %} aria-current="page"{% endif %}>
+                                {%- include icon.liquid name=item.nav_icon -%}
+                                <span>{{ item.nav_title | default: item.title }}</span>
+                            </a>
+                        </li>
+                    {%- endfor -%}
+                </ul>
+            </div>
+        {%- endif -%}
+    {%- endfor -%}
+</nav>

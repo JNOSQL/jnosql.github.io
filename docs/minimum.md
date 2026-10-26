@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Minimum Requirements
 sort: 3
+nav_title: Minimum Requirements
+nav_group: core
+nav_icon: checklist
 ---
 
 # Minimum Requirements

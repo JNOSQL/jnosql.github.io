@@ -1,0 +1,8 @@
+{%- assign repo_url = "https://github.com/" | append: site.docs_repository -%}
+{%- if page.path and page.url != "/search.html" -%}
+<ul class="page-links">
+    <li><a href="{{ repo_url }}/edit/{{ site.docs_branch }}/{{ page.path }}" rel="noopener">{% include icon.liquid name="edit" %}Edit this page</a></li>
+    <li><a href="{{ repo_url }}/blob/{{ site.docs_branch }}/{{ page.path }}" rel="noopener">{% include icon.liquid name="github" %}View source</a></li>
+    <li><a href="{{ repo_url }}/issues/new" rel="noopener">{% include icon.liquid name="issue" %}Report an issue</a></li>
+</ul>
+{%- endif -%}

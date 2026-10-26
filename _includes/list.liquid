@@ -2,7 +2,9 @@
 {%- include reset/workdir.liquid workdir=page.dir -%}
 
 {%- for item in workdir_files %}
+{%- if item.url != page.url %}
 - [{{ item.title | default: item.name }}]({{ item.url | relative_url }})
+{%- endif %}
 {%- endfor -%}
 
 {%- if include.all -%}

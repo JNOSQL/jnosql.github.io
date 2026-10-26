@@ -5,7 +5,7 @@ layout: tasks/compress
 {%- include reset/defaults.liquid -%}
 
 <!DOCTYPE html>
-<html lang="{{ lang }}" dir="{{ direction }}">
+<html lang="{{ lang }}">
     <head>
         {%- include node/metadata.liquid -%}
 
@@ -15,10 +15,14 @@ layout: tasks/compress
 
         {%- include extra/head.html -%}
     </head>
-    <body class="container">
-        {%- include class/sidebar-wrap.liquid -%}
-        {%- include class/content-wrap.liquid -%}
-        {%- include class/addons-wrap.liquid  -%}
+    <body>
+        {%- include icons.liquid -%}
+        <a class="skip-link" href="#main">Skip to content</a>
+        <div class="docs-layout">
+            {%- include class/sidebar-wrap.liquid -%}
+            <div class="sidebar-backdrop" hidden></div>
+            {%- include class/content-wrap.liquid -%}
+        </div>
 
         {%- include node/script.liquid -%}
         {%- include node/script.extension.liquid -%}

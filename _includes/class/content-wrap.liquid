@@ -1,21 +1,48 @@
 <div class="content-wrap">
-    <div class="header d-flex flex-justify-between p-2 hide-lg hide-xl" aria-label="top navigation">
-        <button id="toggle" class="btn-octicon p-2 m-0 text-white" type="button">
-            <i class="fa fa-bars"></i>
+    <header class="topbar">
+        <button id="toggle" class="icon-button" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation">
+            {%- include icon.liquid name="menu" -%}
         </button>
-        <div class="title flex-1 d-flex flex-justify-center">
-            <a class="h4 no-underline py-1 px-2 rounded-1" href="{{ site.baseurl }}/">{{ site.title }}</a>
-        </div>
-    </div>
-    <div class="content p-3 p-sm-5">
-        {% include class/_breadcrumbs.liquid %}
-        <hr>
-        <div role="main" itemscope="itemscope" itemtype="http://schema.org/Article">
+        <a class="topbar-brand" href="{{ site.baseurl }}/" title="{{ site.title }}">
+            <img src="{{ site.baseurl }}/assets/images/jnosql-logo.png" width="2172" height="724" alt="Eclipse JNoSQL">
+        </a>
+        <a class="icon-button" href="{{ site.baseurl }}/search.html" aria-label="Search docs">
+            {%- include icon.liquid name="search" -%}
+        </a>
+    </header>
+    <div class="content-grid">
+        <main class="article" id="main" itemscope="itemscope" itemtype="http://schema.org/Article">
+            {%- if page.nav_group -%}
+                {% include class/_breadcrumbs.liquid %}
+            {%- endif -%}
+            {%- assign has_h1 = false -%}
+            {%- if content contains "<h1" -%}{%- assign has_h1 = true -%}{%- endif -%}
+            {%- if page.title and page.nav_group and has_h1 == false -%}
+                <h1 class="page-title" itemprop="headline">{{ page.title }}</h1>
+            {%- endif -%}
+            {%- if page.nav_group -%}
+            <details class="toc-inline" hidden>
+                <summary>On this page</summary>
+                <ol></ol>
+            </details>
+            {%- endif -%}
             <div class="markdown-body" itemprop="articleBody">
                 {{ content }}
             </div>
-        </div>
-        {% include class/_footer.liquid %}
-        {% include extra/footer.html %}
+            {%- if page.nav_group -%}
+                <div class="below-wide-only">{% include class/_page-links.liquid %}</div>
+            {%- endif -%}
+            {% include class/_footer.liquid %}
+            {% include extra/footer.html %}
+        </main>
+        {%- if page.nav_group -%}
+        <aside class="page-aside" aria-label="On this page">
+            <nav class="page-toc" aria-labelledby="toc-title" hidden>
+                <h2 class="toc-title" id="toc-title">On this page</h2>
+                <ol></ol>
+            </nav>
+            {% include class/_page-links.liquid %}
+        </aside>
+        {%- endif -%}
     </div>
 </div>

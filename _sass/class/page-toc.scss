@@ -1,0 +1,99 @@
+.page-aside {
+  display: none;
+
+  @include wide-up {
+    display: block;
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    max-height: calc(100vh - 48px);
+    padding-bottom: 24px;
+    overflow-y: auto;
+    font-size: $fs-small;
+  }
+}
+
+.page-toc {
+  &[hidden] {
+    display: none;
+  }
+
+  .toc-title {
+    margin: 0 0 12px;
+    font-size: $fs-base;
+    font-weight: 600;
+    color: $text-heading;
+  }
+
+  ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border-left: 1px solid $border-color;
+  }
+
+  a {
+    display: block;
+    padding: 5px 0 5px 14px;
+    margin-left: -1px;
+    line-height: 1.4;
+    color: $text-secondary;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    overflow-wrap: anywhere;
+
+    &:hover {
+      color: $link-blue;
+    }
+
+    &.is-active {
+      font-weight: 600;
+      color: $link-blue;
+      border-left-color: $brand-blue;
+    }
+  }
+
+  ol ol {
+    border-left: 0;
+
+    a {
+      padding-left: 28px;
+      font-size: $fs-caption;
+    }
+  }
+}
+
+.page-links {
+  padding-top: 16px;
+  margin: 20px 0 0;
+  list-style: none;
+  border-top: 1px solid $border-color;
+
+  li + li {
+    margin-top: 2px;
+  }
+
+  a {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 6px 0;
+    color: $text-secondary;
+    text-decoration: none;
+
+    .icon {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+
+    &:hover {
+      color: $link-blue;
+    }
+  }
+}
+
+.below-wide-only {
+  @include wide-up {
+    display: none;
+  }
+}

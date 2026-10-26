@@ -2,6 +2,9 @@
 layout: default
 title: Supported Databases
 sort: 2
+nav_title: Supported Databases
+nav_group: core
+nav_icon: database
 ---
 
 # Supported Databases

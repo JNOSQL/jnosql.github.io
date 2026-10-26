@@ -11,6 +11,9 @@ theme: null
 
 jnosql_databases_version: "1.1.20"
 
+docs_repository: JNOSQL/jnosql.github.io
+docs_branch: main
+
 readme_index:
   with_frontmatter: true
 

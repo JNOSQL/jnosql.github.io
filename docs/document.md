@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Document Databases
 sort: 6
+nav_title: Document
+nav_group: models
+nav_icon: file
 ---
 
 ## 1. Introduction to Document NoSQL Databases

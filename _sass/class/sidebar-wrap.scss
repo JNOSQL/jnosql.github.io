@@ -1,99 +1,160 @@
-.sidebar {
-  color: $theme-white;
-  background: $theme-menu-background;
+.sidebar-wrap {
+  background: $bg-page;
+  border-right: 1px solid $border-color;
 
-  a {
-    text-decoration: none;
+  // drawer on small screens
+  @include below-tablet {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    width: min(86vw, 320px);
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease, visibility 0.2s;
+
+    &.is-open {
+      visibility: visible;
+      transform: none;
+      box-shadow: $shadow-md;
+    }
   }
 
-  li {
+  @include tablet-up {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+}
+
+.sidebar {
+  height: 100%;
+  padding: 20px 16px 32px 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.sidebar-brand {
+  display: block;
+  margin: 0 0 8px -8px;
+  line-height: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    // the official logo is an opaque image on a near-white background
+    mix-blend-mode: multiply;
+    filter: brightness(1.04);
+  }
+
+  &:focus-visible {
+    border-radius: $radius-sm;
+  }
+}
+
+.sidebar-search {
+  position: relative;
+  margin: 4px 0 24px;
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    width: 1.1rem;
+    height: 1.1rem;
+    color: $text-secondary;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  input[type="search"] {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px 0 38px;
+    font: inherit;
+    font-size: $fs-nav;
+    color: $text-primary;
+    background: $bg-page;
+    border: 1px solid $border-strong;
+    border-radius: $radius-md;
+    box-shadow: $shadow-sm;
+    appearance: none;
+
+    &::placeholder {
+      color: $text-secondary;
+    }
+
+    &:focus {
+      border-color: $brand-blue;
+      outline: 2px solid rgba(10, 132, 255, 0.35);
+      outline-offset: 0;
+    }
+  }
+}
+
+.docs-nav {
+  font-size: $fs-nav;
+
+  ul {
+    padding: 0;
+    margin: 0;
     list-style: none;
   }
-  .version {
-    color: rgba(255, 255, 255, 0.3);
-  }
-}
 
-.toctree {
-  a {
-    color: $theme-white;
-    padding: 0.5em;
+  .nav-group + .nav-group {
+    margin-top: 22px;
   }
 
-  .caption {
-    color: lighten($theme-blue, 15%);
-    font-weight: $font-weight-bold;
-    line-height: 32px;
+  .nav-group-title {
+    padding: 0 12px;
+    margin: 0 0 6px;
+    font-size: $fs-small;
+    font-weight: 700;
+    color: $text-heading;
   }
 
-  .fa {
-    margin-right: 2px;
-  }
+  .nav-link {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    min-height: 40px;
+    padding: 6px 12px;
+    color: $text-primary;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    border-radius: 0 $radius-sm $radius-sm 0;
 
-  > ul {
-    // the first level links
-    > .toc > a {
-      padding-left: $spacer-4 / 2;
+    .icon {
+      width: 1.3rem;
+      height: 1.3rem;
+      color: $text-secondary;
     }
 
-    // the first level links not current
-    > .toc:not(.current) > a {
-      &:hover {
-        background: $theme-mask-white;
-      }
-      &:active {
-        background: $theme-menu-active-background;
+    &:hover {
+      color: $link-blue;
+      background: $bg-subtle;
+
+      .icon {
+        color: $link-blue;
       }
     }
 
-    .toc.current {
-      // all expanded links
-      a {
-        color: #404040;
-
-        &:hover {
-          background: $theme-mask-white;
-        }
-        &.current {
-          font-weight: bold;
-          background: $theme-white;
-          border-top: 1px solid var(--toc-2);
-          border-bottom: 1px solid var(--toc-2);
-        }
-      }
-      // parent links
-      > a {
-        .fa-plus-square-o {
-          @extend .fa-minus-square-o;
-        }
-      }
+    &:focus-visible {
+      outline-offset: -2px;
     }
-    // fixed level-1's hover mask
-    > .toc.current {
-      background: var(--toc-1);
-    }
-  }
-}
 
-// toc layout
-.toc {
-  > ul {
-    @extend .d-none;
-  }
-  @for $level from 1 through 11 {
-    &.level-#{$level}.current {
-      > a {
-        padding-left: $spacer-4 * ($level - 1 + 0.5);
-        background: var(--toc-#{$level});
-      }
+    &.is-active {
+      font-weight: 600;
+      color: $link-blue;
+      background: $bg-active;
+      border-left-color: $brand-blue;
 
-      > ul {
-        @extend .d-block;
-        background: var(--toc-#{$level + 1});
-      }
-
-      .level-#{$level + 1} > a {
-        padding-left: $spacer-4 * ($level + 0.5);
+      .icon {
+        color: $link-blue;
       }
     }
   }

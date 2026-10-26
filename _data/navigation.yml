@@ -1,0 +1,9 @@
+# Sidebar groups in display order. Pages join a group with `nav_group` in
+# their front matter; `sort` orders pages inside a group.
+- id: intro
+- id: core
+  label: Core
+- id: models
+  label: Database Models
+- id: reference
+  label: Reference

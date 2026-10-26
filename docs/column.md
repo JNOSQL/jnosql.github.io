@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Wide-Column Databases
 sort: 5
+nav_title: Wide-Column
+nav_group: models
+nav_icon: columns
 ---
 
 ## 1. Introduction to Wide-Column NoSQL Databases

@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Mapping Annotations Reference
 sort: 10
+nav_title: Mapping Annotations
+nav_group: reference
+nav_icon: code
 ---
 
 # Mapping Annotations Reference

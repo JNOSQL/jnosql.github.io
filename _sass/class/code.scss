@@ -1,0 +1,207 @@
+// Code blocks: .highlighter-rouge is wrapped by theme.js with a header bar
+.markdown-body {
+  div.highlighter-rouge {
+    margin: 0 0 1.4em;
+    overflow: hidden;
+    color: #e6edf7;
+    background: $bg-code;
+    border: 1px solid #1f2f57;
+    border-radius: $radius-md;
+    box-shadow: $shadow-sm;
+
+    .highlight {
+      margin: 0;
+      background: transparent;
+    }
+
+    pre,
+    pre.highlight {
+      padding: 16px 18px;
+      margin: 0;
+      overflow-x: auto;
+      font-family: $font-mono;
+      font-size: $fs-code;
+      line-height: 1.65;
+      color: #e6edf7;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      tab-size: 4;
+    }
+
+    code {
+      padding: 0;
+      font-size: inherit;
+      color: inherit;
+      background: transparent;
+      border: 0;
+      white-space: pre;
+    }
+  }
+
+  .code-header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px 6px 16px;
+    font-family: $font-mono;
+    font-size: $fs-caption;
+    color: #b8c6e3;
+    background: $bg-code-header;
+    border-bottom: 1px solid #1f2f57;
+  }
+
+  .code-copy {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    padding: 4px 10px;
+    font: inherit;
+    color: #d5e0f5;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: $radius-sm;
+
+    .icon {
+      width: 0.95rem;
+      height: 0.95rem;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &:focus-visible {
+      outline-color: #8cc4ff;
+    }
+
+    &.is-copied {
+      color: #8be0b0;
+    }
+
+    &.is-error {
+      color: #ffb3a8;
+    }
+  }
+
+  // pre outside rouge (unhighlighted fences)
+  > pre {
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-family: $font-mono;
+    font-size: $fs-code;
+    line-height: 1.65;
+    color: #e6edf7;
+    background: $bg-code;
+    border: 1px solid #1f2f57;
+    border-radius: $radius-md;
+
+    code {
+      padding: 0;
+      color: inherit;
+      background: transparent;
+      border: 0;
+    }
+  }
+}
+
+// syntax palette (Rouge token classes) tuned for the dark background
+.markdown-body .highlight {
+  .c,
+  .cm,
+  .c1,
+  .cs,
+  .cd {
+    font-style: italic;
+    color: #8fa0c4;
+  }
+
+  .k,
+  .kd,
+  .kn,
+  .kp,
+  .kr,
+  .kc,
+  .kv {
+    color: #c9a0ff;
+  }
+
+  .kt,
+  .nc,
+  .no,
+  .nn {
+    color: #7cc7ff;
+  }
+
+  .s,
+  .sb,
+  .sc,
+  .sd,
+  .s2,
+  .se,
+  .sh,
+  .si,
+  .sx,
+  .sr,
+  .s1,
+  .ss {
+    color: #a6e3a1;
+  }
+
+  .m,
+  .mf,
+  .mh,
+  .mi,
+  .il,
+  .mo {
+    color: #ffab70;
+  }
+
+  .nf,
+  .fm,
+  .nx {
+    color: #8ab4ff;
+  }
+
+  .nd,
+  .na {
+    color: #ffd479;
+  }
+
+  .nt,
+  .nb {
+    color: #ff8f9e;
+  }
+
+  .nv,
+  .vc,
+  .vg,
+  .vi {
+    color: #e6edf7;
+  }
+
+  .o,
+  .ow {
+    color: #89ddff;
+  }
+
+  .p,
+  .pi {
+    color: #c3cee3;
+  }
+
+  .err {
+    color: #ffb3a8;
+    background: transparent;
+  }
+
+  .gi {
+    color: #a6e3a1;
+  }
+
+  .gd {
+    color: #ffb3a8;
+  }
+}

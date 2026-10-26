@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Vector Databases
 sort: 9
+nav_title: Vector
+nav_group: models
+nav_icon: vector
 ---
 
 > **Upcoming release.** The Vector Mapping API (`jnosql-mapping-vector`, `VectorTemplate`, `DenseVector`, `SparseVector`, `MultiVector`) is documented on the development (`main`) branch of [Eclipse JNoSQL](https://github.com/eclipse-jnosql/jnosql), currently `2.0.0-SNAPSHOT`. At the time of writing, no `jnosql-mapping-vector` artifact has been published to Maven Central, and the Vector drivers in [jnosql-databases](https://github.com/eclipse-jnosql/jnosql-databases) are documented as `1.1.21-SNAPSHOT`. Everything on this page requires that upcoming release.

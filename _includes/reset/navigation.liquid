@@ -1,14 +1,20 @@
 {%- include reset/workdir.liquid workdir=page.dir -%}
 
-{% comment %} prev and next {% endcomment %}
+{% comment %} prev and next: sidebar order for navigated pages, none otherwise {% endcomment %}
+{%- if page.nav_group -%}
+    {%- assign nav_files = site_files | where_exp: "item", "item.nav_group" -%}
+{%- else -%}
+    {%- assign nav_files = "" | split: "" -%}
+{%- endif -%}
+
 {%- assign index = 0 -%}
-{%- for item in workdir_files %}
+{%- for item in nav_files %}
     {%- if item.url == page.url %}
         {%- assign index = forloop.index -%}
     {%- endif %}
 {%- endfor -%}
 
-{%- for item in workdir_files -%}
+{%- for item in nav_files -%}
     {%- assign index_prev = index | minus: 1 -%}
     {%- assign index_next = index | plus: 1 -%}
     {%- if forloop.index == index_prev -%}

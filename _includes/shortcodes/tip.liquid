@@ -1,9 +1,9 @@
-<div class="toasts tip mb-4">
-    <div class="title px-2 py-1">
-        <i class="fa fa-check-circle"></i>
-        {{ __.tip | default: "Tip" }}
+<div class="toasts tip" role="note">
+    <div class="title">
+        {% include icon.liquid name="tip" %}
+        <span>{{ __.tip | default: "Tip" }}</span>
     </div>
-    <div class="content px-2 py-3">
+    <div class="content">
         {{ codes | markdownify | strip_newlines -}}
     </div>
 </div>

@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Introduction
 sort: 1
+nav_title: Introduction
+nav_group: intro
+nav_icon: home
 ---
 
 # Introduction

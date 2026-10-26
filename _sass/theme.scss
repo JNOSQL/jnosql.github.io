@@ -6,33 +6,21 @@
 @import "root";
 
 @import "lib/@primer/css/base";
-@import "lib/@primer/css/breadcrumb";
 @import "lib/@primer/css/buttons";
 @import "lib/@primer/css/forms";
 @import "lib/@primer/css/loaders";
 @import "lib/@primer/css/markdown";
-@import "lib/rouge/github";
-
-// fonts
-@import "font-face";
-@import "lib/font-awesome/variables";
-@import "lib/font-awesome/icons";
 
 // theme
 @import "layout";
 @import "reset";
-@import "class/container";
 @import "class/sidebar-wrap";
-@import "class/addons-wrap";
 @import "class/content-wrap";
-@import "class/header";
-@import "class/title";
+@import "class/page-toc";
 @import "class/markdown-body";
-@import "class/supported-databases";
+@import "class/code";
 @import "class/toasts";
-
-// improved
-@import "direction";
+@import "class/supported-databases";
 
 // utilities
 @import "lib/@primer/css/utilities";

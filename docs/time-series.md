@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Time Series Databases
 sort: 8
+nav_title: Time Series
+nav_group: models
+nav_icon: chart
 ---
 
 > **Upcoming release.** The temporal Fluent API (`since`, `until`, `last`, `latest`, `earliest`) is documented in the development (`main`) branch of [Eclipse JNoSQL](https://github.com/eclipse-jnosql/jnosql) and is **not** part of the released `1.1.20` artifacts: in `1.1.20`, `TimeSeriesTemplate` has no temporal query methods. Examples that depend on it are marked **(upcoming release)**. The common operations (`insert`, `find`, regular `select`) work with the released module.

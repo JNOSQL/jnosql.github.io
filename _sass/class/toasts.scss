@@ -1,53 +1,96 @@
+// Callouts produced by the note / tip / warning / danger shortcodes
 .toasts {
-  // fixed note
-  font-size: $h4-size;
-  // mdl
-  @include shadow-2dp();
+  --callout: #{$note-color};
+  --callout-bg: #{$note-bg};
+  margin: 0 0 1.4em;
+  background: var(--callout-bg);
+  border: 1px solid var(--callout);
+  border-left-width: 4px;
+  border-radius: $radius-md;
 
   .title {
-    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.14);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 16px 0;
+    font-weight: 700;
+    color: var(--callout);
+
+    .icon {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
   }
 
-  // fixed
   .content {
-    :first-child {
+    padding: 6px 16px 12px;
+
+    > :first-child {
       margin-top: 0;
     }
 
-    :last-child {
+    > :last-child {
       margin-bottom: 0;
     }
   }
 
-  &.note {
-    background-color: lighten($theme-blue, 50%);
-
-    .title {
-      background: lighten($theme-blue, 20%);
-    }
-  }
-
   &.tip {
-    background-color: lighten($theme-green, 50%);
-
-    .title {
-      background: lighten($theme-green, 0%);
-    }
+    --callout: #{$tip-color};
+    --callout-bg: #{$tip-bg};
   }
 
   &.warning {
-    background-color: lighten($theme-orange, 40%);
-
-    .title {
-      background: lighten($theme-orange, 20%);
-    }
+    --callout: #{$warning-color};
+    --callout-bg: #{$warning-bg};
   }
 
   &.danger {
-    background-color: lighten($theme-red, 40%);
+    --callout: #{$danger-color};
+    --callout-bg: #{$danger-bg};
+  }
+}
 
-    .title {
-      background: lighten($theme-red, 20%);
+// Mermaid diagrams
+.markdown-body .mermaid-wrap {
+  margin: 0 0 1.6em;
+  overflow: hidden;
+  background: $bg-page;
+  border: 1px solid $border-color;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+
+  .mermaid {
+    padding: 20px;
+    overflow-x: auto;
+    text-align: center;
+
+    // source text shown until Mermaid renders it
+    &:not([data-processed]) {
+      font-family: $font-mono;
+      font-size: $fs-caption;
+      text-align: left;
+      white-space: pre;
     }
+
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.markdown-body .mermaid {
+  .edgeLabel,
+  .edgeLabel rect,
+  .labelBkg {
+    background-color: $bg-page;
+    fill: $bg-page;
+    opacity: 1;
+  }
+
+  .label,
+  .edgeLabel {
+    font-family: $font-body;
+    color: $text-primary;
   }
 }

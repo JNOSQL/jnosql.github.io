@@ -60,14 +60,14 @@ function search(data) {
           max = page.content.length;
         }
         result.push(
-          `<p class="text-gray">${prefix}${slice(
+          `<p class="search-snippet">${prefix}${slice(
             page.content,
             min,
             max
           )}${suffix}</p>`
         );
       }
-      results.push(`<li class="border-top py-4">${result.join("")}</li>`);
+      results.push(`<li class="search-result-item">${result.join("")}</li>`);
     }
   }
   if (results.length > 0 && text.length > 0) {
@@ -80,68 +80,6 @@ function search(data) {
     $(".search-results .summary").html(ui.i18n.search_results_not_found);
   }
   $(".search-results h2").html(ui.i18n.search_results);
-}
-
-function initialize(name) {
-  let link = $(".toctree").find(`[href="${decodeURI(name)}"]`);
-
-  if (link.length > 0) {
-    $(".toctree .current").removeClass("current");
-    link.addClass("current");
-    link.closest(".level-1").parent().addClass("current");
-    for (let i = 1; i <= 11; i++) {
-      link.closest(`.level-${i}`).addClass("current");
-    }
-  }
-}
-
-function toggleCurrent(link) {
-  let closest = link.closest("li");
-  closest.siblings("li.current").removeClass("current");
-  closest.siblings().find("li.current").removeClass("current");
-  closest.find("> ul li.current").removeClass("current");
-  closest.toggleClass("current");
-}
-
-function toc() {
-  $(".toctree li.current")
-    .append('<ul class="content-toc"></ul>')
-    .html(function () {
-      let level = parseInt(this.dataset.level);
-      let temp = 0;
-      let stack = [$(this).find(".content-toc")];
-
-      $(".markdown-body")
-        .find("h2,h3,h4,h5,h6")
-        .each(function () {
-          let anchor = $("<a/>")
-            .addClass("d-flex flex-items-baseline")
-            .text($(this).text())
-            .attr("href", `#${this.id}`);
-          let tagLevel = parseInt(this.tagName.slice(1)) - 1;
-
-          if (tagLevel > temp) {
-            let parent = stack[0].children("li:last")[0];
-            if (parent) {
-              stack.unshift($("<ul/>").appendTo(parent));
-            }
-          } else {
-            stack.splice(
-              0,
-              Math.min(temp - tagLevel, Math.max(stack.length - 1, 0))
-            );
-          }
-          temp = tagLevel;
-
-          $("<li/>")
-            .addClass(`toc level-${level + tagLevel}`)
-            .append(anchor)
-            .appendTo(stack[0]);
-        });
-      if (!stack[0].html()) {
-        stack[0].remove();
-      }
-    });
 }
 
 function set(name, value) {
@@ -195,50 +133,230 @@ function highlight() {
         return html.replace(text, `<span class="bg-yellow">${text}</span>`);
       });
     });
-    $(".search input").val(text);
+    $(".sidebar-search input").val(text);
   }
 }
 
-$(window).bind("hashchange", () =>
-  initialize(location.hash || location.pathname)
-);
 
-$(document).on("scroll", function () {
-  let start = $(this).scrollTop() + 5;
-  let items = [];
+const icon = (name) =>
+  `<svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-${name}"></use></svg>`;
 
-  $(".markdown-body")
-    .find("h1,h2,h3,h4,h5,h6")
-    .each(function () {
-      items.push({
-        offset: $(this).offset().top,
-        id: this.id,
-        level: parseInt(this.tagName.slice(1)),
-      });
+/* mobile drawer */
+function setupDrawer() {
+  const sidebar = document.getElementById("sidebar");
+  const toggle = document.getElementById("toggle");
+  const backdrop = document.querySelector(".sidebar-backdrop");
+  if (!sidebar || !toggle || !backdrop) return;
+
+  function setOpen(open) {
+    sidebar.classList.toggle("is-open", open);
+    backdrop.hidden = !open;
+    document.body.classList.toggle("drawer-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    if (open) {
+      const active = sidebar.querySelector(".is-active") || sidebar.querySelector("input,a");
+      if (active) active.focus();
+    } else if (document.activeElement && sidebar.contains(document.activeElement)) {
+      toggle.focus();
+    }
+  }
+
+  toggle.addEventListener("click", () => setOpen(!sidebar.classList.contains("is-open")));
+  backdrop.addEventListener("click", () => setOpen(false));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && sidebar.classList.contains("is-open")) setOpen(false);
+  });
+  window.matchMedia("(min-width: 768px)").addEventListener("change", (e) => {
+    if (e.matches) setOpen(false);
+  });
+}
+
+/* heading anchors */
+function setupAnchors() {
+  document.querySelectorAll(".markdown-body :is(h2,h3,h4,h5,h6)[id]").forEach((h) => {
+    const a = document.createElement("a");
+    a.className = "anchor";
+    a.href = `#${h.id}`;
+    a.setAttribute("aria-label", `Link to "${h.textContent.trim()}"`);
+    a.innerHTML = icon("link");
+    h.appendChild(a);
+  });
+}
+
+/* "On this page" with scroll spy */
+function setupToc() {
+  const body = document.querySelector(".markdown-body");
+  const panels = document.querySelectorAll(".page-toc, .toc-inline");
+  if (!body || panels.length === 0) return;
+
+  const heads = [...body.querySelectorAll("h2[id], h3[id]")].filter(
+    (h) => !h.closest(".toasts")
+  );
+  if (heads.length < 2) return;
+
+  const label = (h) => {
+    const c = h.cloneNode(true);
+    c.querySelectorAll(".anchor").forEach((n) => n.remove());
+    return c.textContent.trim();
+  };
+
+  let html = "";
+  let open = false;
+  heads.forEach((h) => {
+    const sub = h.tagName === "H3";
+    if (sub && !open) {
+      html += "<ol>";
+      open = true;
+    } else if (!sub && open) {
+      html += "</ol></li>";
+      open = false;
+    } else if (!sub && html) {
+      html += "</li>";
+    }
+    html += `<li><a href="#${h.id}">${label(h).replace(/</g, "&lt;")}</a>`;
+    if (sub) html += "</li>";
+  });
+  if (open) html += "</ol></li>";
+  else html += "</li>";
+
+  panels.forEach((p) => {
+    p.querySelector("ol").innerHTML = html;
+    p.hidden = false;
+  });
+
+  const links = [...document.querySelectorAll(".page-toc a")];
+  const byId = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+  let current = null;
+
+  function update() {
+    let active = heads[0];
+    for (const h of heads) {
+      if (h.getBoundingClientRect().top <= 120) active = h;
+    }
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+      active = heads[heads.length - 1];
+    }
+    if (active === current) return;
+    current = active;
+    links.forEach((a) => {
+      a.classList.remove("is-active");
+      a.removeAttribute("aria-current");
     });
-  for (let i = 0; i < items.length; i++) {
-    if (start > items[i].offset) {
-      if (i < items.length - 1) {
-        if (start < items[i + 1].offset) {
-          if (items[i].level == 1) {
-            initialize(location.pathname);
-          } else {
-            initialize("#" + items[i].id);
-          }
-        }
-      } else {
-        initialize("#" + items[i].id);
+    const link = byId.get(active.id);
+    if (link) {
+      link.classList.add("is-active");
+      link.setAttribute("aria-current", "location");
+      const box = link.closest(".page-aside");
+      if (box && box.scrollHeight > box.clientHeight) {
+        const r = link.getBoundingClientRect();
+        const b = box.getBoundingClientRect();
+        if (r.top < b.top || r.bottom > b.bottom) link.scrollIntoView({ block: "nearest" });
       }
     }
   }
-});
 
-$("#toggle").click(function () {
-  $(".sidebar-wrap,.content-wrap,.addons-wrap").toggleClass("shift");
-});
-$(".status").click(function () {
-  $(".addons").toggleClass("d-none");
-});
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      update();
+    });
+  }, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+}
+
+/* code blocks: header with language label and copy button */
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  }
+  return new Promise((resolve, reject) => {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    try {
+      document.execCommand("copy") ? resolve() : reject(new Error("copy failed"));
+    } catch (e) {
+      reject(e);
+    } finally {
+      area.remove();
+    }
+  });
+}
+
+const LANG_LABELS = {
+  java: "Java", xml: "XML", json: "JSON", properties: "Properties", sql: "SQL",
+  yaml: "YAML", yml: "YAML", bash: "Shell", shell: "Shell", sh: "Shell",
+  plaintext: "Text", text: "Text", cypher: "Cypher", groovy: "Groovy",
+  kotlin: "Kotlin", html: "HTML", javascript: "JavaScript", js: "JavaScript",
+  cql: "CQL", gremlin: "Gremlin", mermaid: "Mermaid", toml: "TOML",
+};
+
+function setupCodeBlocks() {
+  document.querySelectorAll(".markdown-body div.highlighter-rouge").forEach((block) => {
+    const m = block.className.match(/language-([\w+-]+)/);
+    const lang = m ? m[1] : "";
+    const pre = block.querySelector("pre");
+    if (!pre) return;
+    pre.tabIndex = 0;
+    pre.setAttribute("role", "region");
+    pre.setAttribute("aria-label", `${LANG_LABELS[lang] || lang || "Code"} code`);
+
+    const header = document.createElement("div");
+    header.className = "code-header";
+    const name = document.createElement("span");
+    name.textContent = LANG_LABELS[lang] || lang || "Code";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "code-copy";
+    button.innerHTML = `${icon("copy")}<span>Copy</span>`;
+    button.setAttribute("aria-label", `Copy ${name.textContent} code to clipboard`);
+
+    let timer;
+    const flash = (cls, text) => {
+      button.classList.remove("is-copied", "is-error");
+      button.classList.add(cls);
+      button.querySelector("span").textContent = text;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        button.classList.remove(cls);
+        button.querySelector("span").textContent = "Copy";
+      }, 2000);
+    };
+    button.addEventListener("click", () => {
+      const code = pre.querySelector("code") || pre;
+      Promise.resolve()
+        .then(() => copyText(code.innerText.replace(/\n$/, "")))
+        .then(() => flash("is-copied", "Copied"))
+        .catch(() => flash("is-error", "Copy failed"));
+    });
+
+    header.append(name, button);
+    block.insertBefore(header, block.firstChild);
+  });
+}
+
+/* make wide tables scroll inside their own container */
+function setupTables() {
+  document.querySelectorAll(".markdown-body table").forEach((table) => {
+    if (table.parentElement.classList.contains("table-wrap")) return;
+    const wrap = document.createElement("div");
+    wrap.className = "table-wrap";
+    wrap.tabIndex = 0;
+    wrap.setAttribute("role", "region");
+    wrap.setAttribute("aria-label", "Scrollable table");
+    table.parentNode.insertBefore(wrap, table);
+    wrap.appendChild(table);
+  });
+}
 
 if (location.pathname == `${ui.baseurl}/search.html`) {
   $.ajax(`${ui.baseurl}/pages.json`)
@@ -246,47 +364,16 @@ if (location.pathname == `${ui.baseurl}/search.html`) {
     .fail((xhr, message) => debug(message));
 }
 
-toc();
-initialize(location.pathname);
-initialize(location.hash);
+setupDrawer();
+setupAnchors();
+setupCodeBlocks();
+setupTables();
+setupToc();
 restore();
 highlight();
-
-/* nested ul */
-$(".toc ul")
-  .siblings("a")
-  .each(function () {
-    let link = $(this);
-    let expand = $('<i class="fa fa-plus-square-o"></i>');
-
-    expand.on("click", function (e) {
-      e.stopPropagation();
-      toggleCurrent(link);
-      return false;
-    });
-    link.prepend(expand);
-  });
-
-$(".markdown-body :header").append(function () {
-  return `<a href="#${this.id}" class="anchor"><i class="octicon-link fa fa-link text-blue"></i></a>`;
-});
-
-$("div.highlighter-rouge").each(function () {
-  const match = $(this)
-    .attr("class")
-    .match(/language-(\w+)/);
-  if (match) {
-    $(this).attr("data-lang", match[1]);
-  }
-});
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register(`${ui.baseurl}/sw.caches.js`);
 } else {
   debug("Service Worker not supported!");
 }
-
-ui.collect.searchParams.append("host", location.host);
-ui.collect.searchParams.append("user_lang", navigator.language);
-ui.collect.searchParams.append("platform", navigator.platform);
-$.getJSON(ui.collect.toString(), (data) => $("#counter").html(data.count));

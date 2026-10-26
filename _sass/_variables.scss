@@ -1,34 +1,90 @@
-// fonts
-$body-font: "Lato", BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
-$mono-font: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-$head-font: "Roboto-Slab", sans-serif;
+// Design tokens. SCSS variables feed the stylesheets; the same values are
+// exposed as CSS custom properties in _root.scss for runtime use.
 
-// theme color
-$theme-blue: #2980b9;
-$theme-red: #e74c3c;
-$theme-green: #1abc9c;
-$theme-orange: #e67e22;
+// brand
+$brand-blue: #0a84ff;
+$brand-navy: #0b2a5b;
+$link-blue: #0a5fd1;
+$link-blue-hover: #0846a0;
 
-$theme-white: lighten($black, 99%);
-$theme-black: lighten($black, 15%);
+// text
+$text-primary: #2b3a55;
+$text-secondary: #566580;
+$text-heading: $brand-navy;
 
-// theme link
-$theme-link: $blue;
-$theme-link-hover: lighten($blue, 10%);
-$theme-link-visited: lighten($purple, 10%);
+// surfaces
+$bg-page: #ffffff;
+$bg-subtle: #f6f8fc;
+$bg-active: #e8f1fe;
+$bg-code: #0f1b33;
+$bg-code-header: #16254a;
+$border-color: #e1e7f0;
+$border-strong: #c9d3e3;
+$focus-ring: #0a84ff;
+$inline-code: #b4234f;
 
-// theme code
-$theme-code: $theme-black;
-$theme-code-background: $bg-gray;
-$theme-code-inline: $theme-red;
-$theme-code-inline-background: darken($theme-white, 2%);
+// callouts
+$note-color: #0a5fd1;
+$note-bg: #eef5ff;
+$tip-color: #0f7a4f;
+$tip-bg: #edf9f3;
+$warning-color: #9a5b00;
+$warning-bg: #fff6e5;
+$danger-color: #b42318;
+$danger-bg: #fff0ee;
 
-// theme mask
-$theme-mask-white: transparentize($theme-white, 0.9);
-$theme-mask-black: transparentize($theme-black, 0.9);
+// typography
+$font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, "Noto Sans",
+  Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
+  "Liberation Mono", monospace;
+$head-font: $font-body;
+$mono-font: $font-mono;
 
-// theme menu
-$theme-menu-width-sm: 85%;
-$theme-menu-width: 300px;
-$theme-menu-background: darken($theme-black, 10%);
-$theme-menu-active-background: darken($theme-blue, 15%);
+$fs-base: 1rem;
+$fs-nav: 0.9375rem;
+$fs-small: 0.875rem;
+$fs-caption: 0.8125rem;
+$fs-code: 0.875rem;
+$fs-h1: 2.5rem;
+$fs-h2: 1.75rem;
+$fs-h3: 1.3rem;
+$fs-h4: 1.1rem;
+$lh-body: 1.7;
+$lh-heading: 1.25;
+
+// shape
+$radius-sm: 6px;
+$radius-md: 10px;
+$shadow-sm: 0 1px 2px rgba(11, 42, 91, 0.06);
+$shadow-md: 0 4px 14px rgba(11, 42, 91, 0.08);
+
+// layout
+$sidebar-width: 280px;
+$toc-width: 240px;
+$article-max: 980px;
+$content-max: 1320px;
+$header-height: 56px;
+$bp-tablet: 768px;
+$bp-wide: 1280px;
+
+@mixin tablet-up {
+  @media (min-width: #{$bp-tablet}) {
+    @content;
+  }
+}
+@mixin wide-up {
+  @media (min-width: #{$bp-wide}) {
+    @content;
+  }
+}
+@mixin below-tablet {
+  @media (max-width: #{$bp-tablet - 1px}) {
+    @content;
+  }
+}
+@mixin below-wide {
+  @media (max-width: #{$bp-wide - 1px}) {
+    @content;
+  }
+}

@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Key-Value Databases
 sort: 4
+nav_title: Key-Value
+nav_group: models
+nav_icon: key
 ---
 
 ## 1. Introduction to Key-Value NoSQL Databases

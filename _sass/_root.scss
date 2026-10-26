@@ -1,9 +1,22 @@
 :root {
-  @for $level from 1 through 12 {
-    @if $level % 4 == 0 {
-      --toc-#{$level}: #{darken($theme-white, 4 * 8.8%)};
-    } @else {
-      --toc-#{$level}: #{darken($theme-white, $level % 4 * 8.8%)};
-    }
-  }
+  --brand: #{$brand-blue};
+  --brand-navy: #{$brand-navy};
+  --link: #{$link-blue};
+  --link-hover: #{$link-blue-hover};
+  --text: #{$text-primary};
+  --text-muted: #{$text-secondary};
+  --heading: #{$text-heading};
+  --bg: #{$bg-page};
+  --bg-subtle: #{$bg-subtle};
+  --bg-active: #{$bg-active};
+  --border: #{$border-color};
+  --border-strong: #{$border-strong};
+  --focus: #{$focus-ring};
+  --radius: #{$radius-md};
+  --shadow: #{$shadow-md};
+  --sidebar-width: #{$sidebar-width};
+  --toc-width: #{$toc-width};
+  --header-height: #{$header-height};
+  --font-body: #{$font-body};
+  --font-mono: #{$font-mono};
 }

@@ -1,5 +1,10 @@
 ---
+layout: default
+title: Graph Databases
 sort: 7
+nav_title: Graph
+nav_group: models
+nav_icon: graph
 ---
 
 ## 1. Introduction to Graph Databases
