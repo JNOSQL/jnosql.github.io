@@ -82,27 +82,27 @@ Jakarta Query is a specification-level foundation, not an extra runtime service.
 ### Architecture
 
 ```mermaid
-flowchart TB
+graph TB
     APP["Java applications"]
 
-    subgraph SPEC["Specification layer"]
-        direction LR
+    subgraph SPEC ["Specification layer"]
         DATA["Jakarta Data"]
         NOSQL["Jakarta NoSQL"]
-        QUERY["Jakarta Query<br/>(common query foundation)"]
-        DATA -.-> QUERY
-        NOSQL -.-> QUERY
+        QUERY["Jakarta Query - integration under development"]
     end
 
-    subgraph IMPL["Implementation layer"]
-        JNOSQL["Eclipse JNoSQL<br/>mapping, templates, repositories, communication"]
+    subgraph IMPL ["Implementation layer"]
+        JNOSQL["Eclipse JNoSQL"]
     end
 
-    DB["Database integrations<br/>Key-Value · Document · Wide-Column · Graph · Time Series · Vector"]
+    DB["Database integrations"]
 
     APP --> DATA
     APP --> NOSQL
-    SPEC --> JNOSQL
+    DATA -.-> QUERY
+    NOSQL -.-> QUERY
+    DATA --> JNOSQL
+    NOSQL --> JNOSQL
     JNOSQL --> DB
 ```
 
