@@ -199,12 +199,11 @@ This JSON shows the conceptual structure, not the exact physical representation 
 
 ## 7. DocumentTemplate and the Template API
 
-Jakarta NoSQL defines `jakarta.nosql.Template` as the common persistence abstraction. `DocumentTemplate` (`org.eclipse.jnosql.mapping.document.DocumentTemplate`) is the specialization for Document persistence: it extends `SemiStructuredTemplate`, which in turn extends `Template`.
+Jakarta NoSQL defines `jakarta.nosql.Template` as the common persistence abstraction. `DocumentTemplate` (`org.eclipse.jnosql.mapping.document.DocumentTemplate`) is the specialization for Document persistence and builds on `Template`.
 
 | Interface | Role |
 |-----------|------|
 | `Template` | Common operations: insert, update, find by identifier, delete, and query. |
-| `SemiStructuredTemplate` | Operations shared by the semi-structured models (Document, Wide-Column, Graph, Time Series, Vector), such as `count`, `findAll`, and `singleResult`. |
 | `DocumentTemplate` | The Document-specific entry point to inject; it keeps the familiar `Template` concepts while allowing document-oriented capabilities. |
 
 Inject it with CDI:
