@@ -4,7 +4,15 @@ sort: 1
 
 # Introduction
 
-Eclipse JNoSQL™ is a Java framework that implements [Jakarta NoSQL](https://github.com/jakartaee/nosql) and [Jakarta Data](https://github.com/jakartaee/data), and is aligned with [Jakarta Query](https://github.com/jakartaee/query) (integration under development). It supports six NoSQL models — Key-Value, Document, Wide-Column, Graph, Time Series, and Vector — with one API per model while using the same annotations to map Java objects. Therefore, with just these annotations that look like JPA, there is support for more than twenty NoSQL databases.
+Eclipse JNoSQL™ is a Java framework that implements [Jakarta NoSQL](https://github.com/jakartaee/nosql) and [Jakarta Data](https://github.com/jakartaee/data), with integration of [Jakarta Query](https://github.com/jakartaee/query) under development. It supports six NoSQL database models: **Key-Value**, **Document**, **Wide-Column**, **Graph**, **Time Series**, and **Vector**.
+
+Standardized Java APIs let an application use several kinds of NoSQL databases (polyglot persistence) with a consistent programming model: CDI-based injection, entity mapping, repositories, and templates. Not every database supports the same query operations or persistence semantics, so JNoSQL provides a common foundation plus model-specific APIs rather than a single universal interface.
+
+New to the requirements? See the [Minimum Requirements](/docs/minimum.html).
+
+## Object Mapping
+
+Jakarta NoSQL defines its own mapping semantics for NoSQL databases. Entities are plain Java classes described with a small set of annotations:
 
 ```java
 @Entity
@@ -12,61 +20,248 @@ public class Product {
 
     @Id
     private String id;
+
     @Column
     private String name;
+
     @Column
     private BigDecimal price;
- //...
+
+    // constructors, getters, and setters
 }
 ```
 
-Another example can be found in an article that demonstrates the same annotated entity used across different NoSQL databases: Redis, Cassandra, Couchbase, Neo4J and Elasticsearch. The approach is "stick to the API": the developer can replace Redis with Hazelcast, as both implement the Key-Value API, thus avoiding vendor lock-in with one of these databases.
+* `@Entity` marks the class as persistable.
+* `@Id` identifies the attribute used as the entity's identifier (the key, in a Key-Value database).
+* `@Column` marks an attribute to be persisted.
 
-Vendor lock-in is one of the things any Java project needs to consider when choosing NoSQL databases. If there's a need for a switch, other considerations include: time spent on the change, the learning curve of a new API to use with this database, the code that will be lost, the persistence layer that needs to be replaced, etc. Eclipse JNoSQL avoids most of these issues through the Communication APIs. It also has template classes that apply the design pattern 'template method’ to databases operations. And the Repository interface allows Java developers to create and extend interfaces, with implementation automatically provided by Eclipse JNoSQL: support method queries built by developers will automatically be implemented for them.
+This abstraction lets the same entity be persisted across supported database implementations, subject to provider capabilities and the differences between data models. See [Annotations](/docs/annotations.html) for the complete list.
+
+## Jakarta Data Repositories
+
+A Jakarta Data repository is an interface whose implementation is provided by Eclipse JNoSQL:
 
 ```java
 @Repository
 public interface ProductRepository extends BasicRepository<Product, String> {
 
     List<Product> findByName(String name);
-
 }
-
-ProductRepository repository = ...;
-Product keyboard = new Product("p-1", "Keyboard", new BigDecimal("49.90"));
-repository.save(keyboard);
-Optional<Product> idResult = repository.findById("p-1");
-List<Product> nameResult = repository.findByName("Keyboard");
 ```
-
-**Beyond JPA**
-
-JPA is a good API for object-relationship mapping and it's already a standard in the Java world defined in JSRs. It would be great to use the same API for both SQL and NoSQL, but there are behaviors in NoSQL that SQL does not cover, such as time to live and asynchronous operations. JPA was simply not made to handle those features.
 
 ```java
-Template template = …;
-Product keyboard = new Product("p-1", "Keyboard", new BigDecimal("49.90"));
-template.insert(keyboard, Duration.ofSeconds(1));
+@Inject
+ProductRepository repository;
+
+repository.save(new Product("p-1", "Keyboard", new BigDecimal("49.90")));
+
+Optional<Product> byId = repository.findById("p-1");
+List<Product> byName = repository.findByName("Keyboard");
 ```
 
-**A Fluent API**
+`BasicRepository` provides common operations such as `save`, `findById`, and `deleteById`, while `findByName` is a derived query built from the method name. Support for queries beyond lookup by identifier depends on the capabilities of the underlying database model and provider; a Key-Value database, for instance, does not generally support querying by arbitrary attributes.
 
-Eclipse JNoSQL provides a fluent API that makes it easier for Java developers create queries that either retrieve or delete information in a Document type, for example.
+## The Template API
 
-**Let's not reinvent the wheel: Graph**
+`jakarta.nosql.Template` is the common foundation for persistence operations in Jakarta NoSQL:
 
-The Communication Layer defines three new APIs: Key-Value, Document and Column Family. It does not have new Graph API, because a very good one already exists. Apache TinkerPop is a graph computing framework for both graph databases (OLTP) and graph analytic systems (OLAP). Using Apache TinkerPop as Communication API for Graph databases, the Mapping API has a tight integration with it.
+```java
+@Inject
+Template template;
 
-**Particular behavior matters in NoSQL database**
+Product product = new Product("p-1", "Keyboard", new BigDecimal("49.90"));
 
-Particular behavior matters. Even within the same type, each NoSQL database has a unique feature that is a considerable factor when choosing a database over another. This ‘’feature’’ might make it easier to develop, make it more scaleable or consistent from a configuration standpoint, have the desired consistency level or search engine, etc. Some examples are Cassandra and its Cassandra Query Language and consistency level, OrientDB with live queries, ArangoDB and its Arango Query Language, Couchbase with N1QL - the list goes on. Each NoSQL has a specific behavior and this behavior matters, so Eclipse JNoSQL is extensible enough to capture this substantiality different feature elements.
+template.insert(product);
 
-**Find out more information and get involved!**
+Optional<Product> result = template.find(Product.class, "p-1");
+```
 
-Eclipse JNoSQL™ is an [Eclipse Foundation](https://www.eclipse.org/) project. For official project governance, releases, contributors, and project information, visit the [Eclipse JNoSQL project page](https://projects.eclipse.org/projects/technology.jnosql).
+Eclipse JNoSQL provides specialized templates that expose model-specific capabilities without forcing every database model into one universal interface:
 
-- [GitHub Repo](https://github.com/eclipse?q=Jnosql)
-- [Sample codes](https://github.com/JNOSQL?q=demo+OR+endgame+OR+jnopo&type=all&language=&sort=name)
+| Template | Model | Relationship |
+|---|---|---|
+| `KeyValueTemplate` | Key-Value | extends `Template` |
+| `DocumentTemplate` | Document | extends `SemiStructuredTemplate` |
+| `ColumnTemplate` | Wide-Column | extends `SemiStructuredTemplate` |
+| `GraphTemplate` | Graph | extends `SemiStructuredTemplate` |
+| `TimeSeriesTemplate` | Time Series | extends `SemiStructuredTemplate` |
+| `VectorTemplate` | Vector | extends `SemiStructuredTemplate` |
+
+`SemiStructuredTemplate` itself extends `Template`, so every template shares the common operations. The hierarchies are not identical: `KeyValueTemplate` extends `Template` directly.
+
+## Fluent Queries
+
+Templates can also build queries through fluent Java operations:
+
+```java
+List<Product> products = template.select(Product.class)
+        .where("name").eq("Keyboard")
+        .result();
+```
+
+These APIs complement Jakarta Data repositories:
+
+* **Repository methods** are declarative persistence operations.
+* **Templates** offer explicit persistence operations and fluent queries.
+* **Specialized templates** offer operations suited to individual database models.
+
+Jakarta Query is intended as a common query foundation for Jakarta persistence technologies. Its integration in Eclipse JNoSQL is under development, and the fluent APIs above should not be read as implementations of Jakarta Query. Which query operations are available also depends on the database model and provider.
+
+## NoSQL-Specific Capabilities
+
+NoSQL databases expose capabilities that generic repository abstractions may not represent. Time to live (TTL) is a concise example:
+
+```java
+template.insert(product, Duration.ofMinutes(10));
+```
+
+Expiration is useful for caching and temporary application data. However, TTL behavior depends on the provider, and databases do not implement expiration in the same way. Some capabilities require specialized templates or extensions; for example, `KeyValueTemplate` offers `put(entity, ttl)`.
+
+## Six Database Models in Action
+
+The examples below are intentionally short. Each model has its own guide or section for details.
+
+### Key-Value
+
+Key-Value databases associate a unique key with a value and are accessed by identifier. They are useful for caching, sessions, and fast lookups.
+
+```java
+@Inject
+KeyValueTemplate template;
+
+template.put(session);
+Optional<UserSession> found = template.get("s-1", UserSession.class);
+template.deleteByKey("s-1");
+```
+
+Read more in the [Key-Value guide](/docs/key-value.html).
+
+### Document
+
+Document databases persist flexible, document-oriented data such as product catalogs, content, and user profiles.
+
+```java
+@Inject
+DocumentTemplate template;
+
+template.insert(product);
+List<Product> keyboards = template.select(Product.class)
+        .where("name").eq("Keyboard")
+        .result();
+```
+
+Read more in the [Document guide](/docs/document.html).
+
+### Wide-Column
+
+Wide-column databases store data in distributed column families, suited to large datasets and high-throughput workloads.
+
+```java
+@Inject
+ColumnTemplate template;
+
+template.insert(product);
+Optional<Product> found = template.find(Product.class, "p-1");
+```
+
+Query capabilities vary between Cassandra-style databases and other column-oriented integrations. Read more in the [Wide-Column guide](/docs/column.html).
+
+### Graph Persistence
+
+Eclipse JNoSQL provides `GraphTemplate` and graph-oriented mapping for relationship-oriented data, such as recommendations or fraud analysis. Relationships are modeled as edges between entities:
+
+```java
+@Inject
+GraphTemplate graphTemplate;
+
+Edge<Person, Book> edge = Edge.source(person)
+        .label("READS")
+        .target(book)
+        .property("since", 2026)
+        .build();
+
+graphTemplate.edge(edge);
+```
+
+[Apache TinkerPop](https://tinkerpop.apache.org/) is an important graph technology in this ecosystem, but it is not the whole of the Graph architecture: JNoSQL can integrate with different graph database providers, whose capabilities may vary. Read more in the [Graph guide](/docs/graph.html) and the [supported databases](/docs/supported_dbs.html).
+
+### Time Series
+
+`TimeSeriesTemplate` supports time-indexed data, valuable for monitoring, financial operations, and event processing.
+
+```java
+@Entity
+public class SensorReading {
+
+    @Id
+    private Instant timestamp;
+
+    @Column
+    private String sensor;
+
+    @Column
+    private double value;
+}
+
+@Inject
+TimeSeriesTemplate template;
+
+template.insert(reading);
+Optional<SensorReading> found = template.find(SensorReading.class, reading.getTimestamp());
+```
+
+See the [Time Series section](https://github.com/eclipse-jnosql/jnosql/blob/main/README.adoc#time-series) of the Eclipse JNoSQL README.
+
+### Vector
+
+`VectorTemplate` adds vector similarity search to the regular Jakarta NoSQL operations. Vectors can represent semantic embeddings or other numerical feature representations, with `DenseVector`, `SparseVector`, and `MultiVector` available. The framework handles persistence and search integration; it does not generate embeddings.
+
+```java
+@Inject
+VectorTemplate vectorTemplate;
+
+Vector queryVector = DenseVector.of(0.10F, 0.42F, 0.80F);
+
+List<Article> articles = vectorTemplate.search(Article.class)
+        .vector(queryVector)
+        .limit(Limit.of(10))
+        .result();
+```
+
+Here `Article` is an entity with a persisted attribute of type `Vector`. See the [Vector Database section](https://github.com/eclipse-jnosql/jnosql/blob/main/README.adoc#vector-database) of the Eclipse JNoSQL README for entity mapping and configuration.
+
+## Database Flexibility Without Hiding Differences
+
+Eclipse JNoSQL reduces unnecessary coupling between your application and specific database drivers. Providers can still differ in:
+
+* Serialization
+* Query capabilities
+* Consistency
+* Transactions
+* TTL support
+* Indexing
+* Performance characteristics
+* Database-native operations
+
+Changing providers may therefore require configuration changes, data migration, and application adjustments. JNoSQL lets applications use standardized abstractions where appropriate while retaining access to provider-specific features through specialized templates and extensions.
+
+The [jnosql-databases](https://github.com/eclipse-jnosql/jnosql-databases) repository is the reference for the supported database integrations, their dependencies, and configuration.
+
+## Jakarta EE Specifications
+
+* **[Jakarta Data](https://github.com/jakartaee/data)** — standardized repository-oriented persistence.
+* **[Jakarta NoSQL](https://github.com/jakartaee/nosql)** — standardized NoSQL mapping and persistence APIs.
+* **[Jakarta Query](https://github.com/jakartaee/query)** — a common query foundation for Jakarta persistence technologies. Its integration with Eclipse JNoSQL is under development.
+
+The specifications are complementary, not interchangeable: Jakarta NoSQL defines mapping and templates for NoSQL, Jakarta Data defines repositories, and Jakarta Query is intended to provide the query concepts they can share.
+
+## Community and Further Reading
+
+Eclipse JNoSQL™ is an [Eclipse Foundation](https://www.eclipse.org/) project. For governance, releases, and contributors, visit the [Eclipse JNoSQL project page](https://projects.eclipse.org/projects/technology.jnosql).
+
+- [Eclipse JNoSQL source](https://github.com/eclipse-jnosql/jnosql)
+- [Database integrations](https://github.com/eclipse-jnosql/jnosql-databases)
+- [Example applications](https://github.com/JNOSQL/demos-se) ([Jakarta EE demos](https://github.com/JNOSQL/demos-ee))
+- [Contributing guide](https://github.com/eclipse-jnosql/jnosql/blob/main/CONTRIBUTING.adoc)
+- [Mailing list](https://accounts.eclipse.org/mailing-list/jnosql-dev)
 - [Website](https://www.jnosql.org/)
-- [Twitter](https://twitter.com/jnosql)
-- [Mailing List](https://accounts.eclipse.org/mailing-list/jnosql-dev)
