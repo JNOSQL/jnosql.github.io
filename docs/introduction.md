@@ -78,16 +78,16 @@ Optional<Product> result = template.find(Product.class, "p-1");
 
 Eclipse JNoSQL provides specialized templates that expose model-specific capabilities without forcing every database model into one universal interface:
 
-| Template | Model | Relationship |
-|---|---|---|
-| `KeyValueTemplate` | Key-Value | extends `Template` |
-| `DocumentTemplate` | Document | extends `SemiStructuredTemplate` |
-| `ColumnTemplate` | Wide-Column | extends `SemiStructuredTemplate` |
-| `GraphTemplate` | Graph | extends `SemiStructuredTemplate` |
-| `TimeSeriesTemplate` | Time Series | extends `SemiStructuredTemplate` |
-| `VectorTemplate` | Vector | extends `SemiStructuredTemplate` |
+| Template | Model |
+|---|---|
+| `KeyValueTemplate` | Key-Value |
+| `DocumentTemplate` | Document |
+| `ColumnTemplate` | Wide-Column |
+| `GraphTemplate` | Graph |
+| `TimeSeriesTemplate` | Time Series |
+| `VectorTemplate` | Vector |
 
-`SemiStructuredTemplate` itself extends `Template`, so every template shares the common operations. The hierarchies are not identical: `KeyValueTemplate` extends `Template` directly.
+Every template shares the common `Template` operations and adds the capabilities of its database model.
 
 ## Fluent API: Simplifying NoSQL Queries
 
