@@ -25,12 +25,11 @@ This removes most of the persistence boilerplate:
 
 ```java
 @Repository
-public interface GodRepository extends BasicRepository<God, String> {
+public interface ProductRepository extends BasicRepository<Product, String> {
 
-    Optional<God> findByName(String name);
+    List<Product> findByName(String name);
 
-    @Find
-    List<God> byPower(@By("power") String power);
+    List<Product> findByPriceLessThan(BigDecimal price);
 }
 ```
 
@@ -40,7 +39,7 @@ public interface GodRepository extends BasicRepository<God, String> {
 
 * **Entity mapping** — `@Entity`, `@Id`, `@Column`, `@Embeddable`, and `@Convert`, among others.
 * **Database-specific persistence models** — Key-Value, Document, and Wide-Column in the specification, extended by JNoSQL with Graph, Time Series, and Vector.
-* **Templates** — `Template` and model-specific templates for operations beyond conventional CRUD, such as time to live.
+* **Templates** — `Template` and model-specific templates for operations beyond conventional CRUD, such as time to live (`template.insert(entity, Duration)`).
 * **CDI integration** — entities, templates, and repositories are discovered and injected through CDI.
 * **Provider flexibility** — the same mapping works across databases of the same model.
 
@@ -48,19 +47,25 @@ Jakarta NoSQL provides abstractions suited to NoSQL databases rather than treati
 
 ```java
 @Entity
-public class God {
+public class Product {
 
     @Id
     private String id;
 
     @Column
     private String name;
+
+    @Column
+    private BigDecimal price;
+
+    // constructors, getters, and setters
 }
 
 @Inject
 Template template;
 
-template.insert(new God("diana", "Diana"), Duration.ofSeconds(10));
+template.insert(new Product("p-1", "Keyboard", new BigDecimal("49.90")));
+Optional<Product> product = template.find(Product.class, "p-1");
 ```
 
 ### Jakarta Query
@@ -120,6 +125,34 @@ Use the right NoSQL model for your application while keeping a familiar, standar
 | **Time Series** | Time-indexed data storage and retrieval. | Metrics, financial events, monitoring, IoT |
 | **Vector** | High-dimensional vector persistence and similarity-oriented retrieval. | Semantic search, recommendations, embeddings, AI-assisted applications, RAG |
 
+### Time series
+
+Financial events and other time-indexed records are mapped as regular entities, using the `jnosql-mapping-timeseries` module and `TimeSeriesTemplate`:
+
+```java
+@Entity
+public class BankTransaction {
+
+    @Id
+    private Instant timestamp;
+
+    @Column
+    private String account;
+
+    @Column
+    private BigDecimal amount;
+
+    // constructors, getters, and setters
+}
+
+@Inject
+TimeSeriesTemplate template;
+
+List<BankTransaction> recent = template.select(BankTransaction.class)
+        .where("account").eq("acc-1")
+        .latest(10);
+```
+
 ### Vector databases
 
 Vector persistence is a general database capability: similarity search, recommendations, and retrieval over embeddings are only some of its uses. The `jnosql-mapping-vector` module adds:
@@ -131,12 +164,27 @@ Vector persistence is a general database capability: similarity search, recommen
 * `MultiVector` — one logical value represented by several dense vectors.
 
 ```java
+@Entity
+public class ProductEmbedding {
+
+    @Id
+    private String id;
+
+    @Column
+    private String description;
+
+    @Column
+    private Vector embedding;
+
+    // constructors, getters, and setters
+}
+
 @Inject
 VectorTemplate template;
 
 Vector queryVector = DenseVector.of(0.10F, 0.42F, 0.80F);
 
-List<Article> articles = template.search(Article.class)
+List<ProductEmbedding> similar = template.search(ProductEmbedding.class)
         .vector(queryVector)
         .limit(Limit.of(10))
         .result();
