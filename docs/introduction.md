@@ -89,23 +89,95 @@ Eclipse JNoSQL provides specialized templates that expose model-specific capabil
 
 `SemiStructuredTemplate` itself extends `Template`, so every template shares the common operations. The hierarchies are not identical: `KeyValueTemplate` extends `Template` directly.
 
-## Fluent Queries
+## Fluent API: Simplifying NoSQL Queries
 
-Templates can also build queries through fluent Java operations:
+Querying NoSQL databases becomes complicated when an application uses more than one technology. Each database exposes its own query language, driver, query builder, and operational semantics, so without a common abstraction developers must learn and maintain a different query-construction mechanism per integration.
+
+Eclipse JNoSQL addresses this with a fluent Java query API integrated with Jakarta NoSQL's `Template`. Its main benefits are:
+
+* **Expressiveness:** queries are readable Java method chains.
+* **Consistency:** familiar operations are reused across supported NoSQL integrations.
+* **Productivity:** less boilerplate than building database-specific query objects.
+* **Composability:** filters, ordering, limits, and other supported operations can be combined.
+* **Integration:** you query mapped Java entities instead of converting results into domain objects by hand.
+* **Extensibility:** specialized, database-specific operations remain available when needed.
+
+The Fluent API simplifies development; it does not make all NoSQL query languages interchangeable.
+
+### Selecting entities
+
+```java
+@Inject
+Template template;
+
+List<Product> products = template.select(Product.class)
+        .where("price").gte(new BigDecimal("100.00"))
+        .orderBy("name").asc()
+        .limit(10)
+        .result();
+```
+
+This query selects `Product` entities, filters them by price, orders the results by name, limits the result size, and returns mapped `Product` instances.
+
+### Composing conditions
 
 ```java
 List<Product> products = template.select(Product.class)
+        .where("name").like("Keyboard%")
+        .and("price").lte(new BigDecimal("150.00"))
+        .result();
+```
+
+Conditions are combined with `and` and `or`. The available operators (`eq`, `gt`, `gte`, `lt`, `lte`, `like`, `between`, `in`, among others) are defined by Jakarta NoSQL, but which of them a database can execute, and how, depends on the provider.
+
+### Deleting entities
+
+```java
+template.delete(Product.class)
+        .where("price").lt(new BigDecimal("10.00"))
+        .execute();
+```
+
+The same style retrieves and deletes data. Bulk operations may have different semantics and limitations across providers.
+
+### Relationship with Jakarta Data
+
+Jakarta Data repositories and the Fluent API are complementary; neither universally replaces the other.
+
+**Jakarta Data repository** — ideal for declaring common operations on an interface:
+
+```java
+List<Product> findByName(String name);
+```
+
+**Jakarta NoSQL Fluent API** — useful when the application needs explicit query construction:
+
+```java
+template.select(Product.class)
         .where("name").eq("Keyboard")
         .result();
 ```
 
-These APIs complement Jakarta Data repositories:
+Repositories favor declarative persistence, while the Fluent API gives direct control over supported query construction. Templates also cover model-specific operations through specialized templates.
 
-* **Repository methods** are declarative persistence operations.
-* **Templates** offer explicit persistence operations and fluent queries.
-* **Specialized templates** offer operations suited to individual database models.
+### Database abstraction
 
-Jakarta Query is intended as a common query foundation for Jakarta persistence technologies. Its integration in Eclipse JNoSQL is under development, and the fluent APIs above should not be read as implementations of Jakarta Query. Which query operations are available also depends on the database model and provider.
+Applications express query intent through Java APIs, and the implementation adapts the supported operations to the underlying database. Document and Wide-Column databases, for instance, may use different native query mechanisms, and not every operation is available for every database type. Many Key-Value databases primarily support identifier-based operations rather than filtering by arbitrary attributes.
+
+### Specialized fluent operations
+
+The fluent style also appears in specialized models. The Vector API adds similarity-oriented operations:
+
+```java
+List<Article> articles = vectorTemplate.search(Article.class)
+        .vector(queryVector)
+        .limit(Limit.of(10))
+        .result();
+```
+
+The common style keeps the API familiar while allowing model-specific capabilities. See [Six Database Models in Action](#vector) for the Vector API.
+
+Jakarta Query is intended as a common query foundation for Jakarta persistence technologies, and its integration in Eclipse JNoSQL is under development. The fluent APIs above are not implementations of Jakarta Query.
 
 ## NoSQL-Specific Capabilities
 
