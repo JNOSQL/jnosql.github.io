@@ -37,66 +37,66 @@ JNoSQL relies on Jakarta EE and MicroProfile technologies instead of inventing i
 
 Applications are made of components that depend on each other. Constructing them by hand, including every template, repository, and connection setting, is repetitive and hard to change. With CDI, the runtime creates, configures, injects, and manages these components, and you declare what you need.
 
+JNoSQL integrates with CDI so that its persistence components are available as beans. There are two entry points:
+
+- **`Template`** — the common Jakarta NoSQL persistence abstraction (`jakarta.nosql.Template`) for programmatic operations such as insert, update, find, and delete.
+- **Jakarta Data repositories** — interfaces annotated with `@Repository` that give a repository-based programming model, with JNoSQL providing the implementation.
+
+Do not instantiate these CDI-managed components manually. Ask the container for them. A repository must be a valid declaration, and a JNoSQL implementation and database integration must be available for it. The container resolves the corresponding persistence implementation according to its discovery and lifecycle rules.
+
+### Specialized Templates
+
+`Template` is common to all models. JNoSQL also provides model-specific templates that add capabilities beyond the common abstraction: `KeyValueTemplate`, `DocumentTemplate`, `ColumnTemplate`, `GraphTemplate`, `TimeSeriesTemplate`, and `VectorTemplate`. They are injected the same way, for example:
+
 ```java
-@ApplicationScoped
-public class ProductService {
-
-    @Inject
-    ProductRepository repository;
-
-    public void save(Product product) {
-        repository.save(product);
-    }
-}
+@Inject
+DocumentTemplate template;
 ```
 
-- `@ApplicationScoped` declares a CDI-managed component with application scope: one instance for the application.
-- `@Inject` asks the CDI container for a dependency.
-- JNoSQL integrates with CDI so that supported templates and repositories can be injected. Do not instantiate these CDI-managed components manually.
-
-The injected repository must be a valid repository declaration, and a JNoSQL implementation and database integration must be available for it. The container resolves and manages dependencies according to its discovery and lifecycle rules.
+See the model guides for detailed usage: [Key-Value](key-value.html), [Wide-Column](column.html), [Document](document.html), [Graph](graph.html), [Time Series](time-series.html), and [Vector](vector.html).
 
 ## Running CDI in Java SE and Jakarta EE
 
-Eclipse JNoSQL works in both environments with the same persistence programming model. The difference is who starts and manages CDI. Java SE applications can be enterprise-grade too; the distinction concerns runtime integration, not the importance or scalability of the application.
-
-### Java SE
-
-A standalone application must provide a CDI implementation (for example, Weld SE or Apache OpenWebBeans). The CDI API dependency alone does not provide a working CDI runtime. The application initializes and closes the container itself:
-
-```java
-import jakarta.enterprise.inject.se.SeContainer;
-import jakarta.enterprise.inject.se.SeContainerInitializer;
-
-public class App {
-
-    public static void main(String[] args) {
-        try (SeContainer container =
-                SeContainerInitializer.newInstance().initialize()) {
-
-            ProductService service =
-                    container.select(ProductService.class).get();
-
-            service.save(new Product());
-        }
-    }
-}
-```
+Eclipse JNoSQL works in both environments with the same persistence programming model. The difference is who starts and manages CDI: Java SE applications explicitly start CDI and retrieve JNoSQL components, while Jakarta EE applications typically receive the same components through `@Inject`. Java SE applications can be enterprise-grade too; the distinction concerns runtime integration, not the importance or scalability of the application.
 
 ### Jakarta EE
 
-In a compatible Jakarta EE runtime, the container initializes and manages CDI, so components use `@Inject` without calling `SeContainerInitializer`:
+In a compatible Jakarta EE runtime, the container initializes and manages CDI, so you can inject the components directly:
 
 ```java
-@ApplicationScoped
-public class ProductService {
+@Inject
+Template template;
+```
 
-    @Inject
-    ProductRepository repository;
-}
+```java
+@Inject
+ProductRepository repository;
 ```
 
 You still need the JNoSQL modules and the database integration on the application classpath, unless the selected runtime supplies them.
+
+### Java SE
+
+A standalone application must provide a CDI implementation (for example, Weld SE or Apache OpenWebBeans). The CDI API dependency alone does not provide a working CDI runtime. The application starts the container, looks up the component, and closes the container when done:
+
+```java
+try (SeContainer container =
+        SeContainerInitializer.newInstance().initialize()) {
+
+    Template template = container.select(Template.class).get();
+}
+```
+
+A Jakarta Data repository is obtained the same way:
+
+```java
+ProductRepository repository =
+        container.select(ProductRepository.class).get();
+```
+
+The imports are `jakarta.enterprise.inject.se.SeContainer`, `jakarta.enterprise.inject.se.SeContainerInitializer`, and `jakarta.nosql.Template`.
+
+**Note:** The JNoSQL model templates are registered as default beans, so `Template` resolves without a qualifier when exactly one model module (for example, only the Document module) is on the classpath. If several model modules are present, `Template` is ambiguous, and you should select the specific type, such as `DocumentTemplate`, instead.
 
 ### Comparison
 
