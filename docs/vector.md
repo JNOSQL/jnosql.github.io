@@ -7,8 +7,6 @@ nav_group: models
 nav_icon: vector
 ---
 
-> **Upcoming release.** The Vector Mapping API (`jnosql-mapping-vector`, `VectorTemplate`, `DenseVector`, `SparseVector`, `MultiVector`) is documented on the development (`main`) branch of [Eclipse JNoSQL](https://github.com/eclipse-jnosql/jnosql), currently `2.0.0-SNAPSHOT`. At the time of writing, no `jnosql-mapping-vector` artifact has been published to Maven Central, and the Vector drivers in [jnosql-databases](https://github.com/eclipse-jnosql/jnosql-databases) are documented as `1.1.21-SNAPSHOT`. Everything on this page requires that upcoming release.
-
 ## 1. Introduction to Vector NoSQL Databases
 
 A Vector database stores and searches numerical representations of information. A **vector** is an ordered collection of numerical values that represent features or characteristics of some data. Vectors are frequently produced by machine learning models, but their usefulness is not limited to generative AI.
@@ -108,15 +106,15 @@ The [jnosql-databases](https://github.com/eclipse-jnosql/jnosql-databases) repos
 </dependency>
 ```
 
-Set `jnosql.version` in your build to a release that contains the Vector Mapping module. The development branch is `2.0.0-SNAPSHOT`. The released `1.1.20` does not provide it. This website does not define a JNoSQL core version variable (only `jnosql_databases_version`, currently `{{ site.jnosql_databases_version }}`), so the version is not hardcoded here.
+Set `jnosql.version` in your build to `{{ site.jnosql_databases_version }}` or later, which contains the Vector Mapping module.
 
-You also need a database integration, which is a separate dependency. For example, for Qdrant, as documented by the driver (the version is a snapshot until a release is published):
+You also need a database integration, which is a separate dependency. For example, for Qdrant:
 
 ```xml
 <dependency>
     <groupId>org.eclipse.jnosql.databases</groupId>
     <artifactId>jnosql-qdrant</artifactId>
-    <version>${jnosql.databases.version}</version>
+    <version>{{ site.jnosql_databases_version }}</version>
 </dependency>
 ```
 
