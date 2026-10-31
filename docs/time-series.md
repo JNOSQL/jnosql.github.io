@@ -7,8 +7,6 @@ nav_group: models
 nav_icon: chart
 ---
 
-> **Upcoming release.** The temporal Fluent API (`since`, `until`, `last`, `latest`, `earliest`) is documented in the development (`main`) branch of [Eclipse JNoSQL](https://github.com/eclipse-jnosql/jnosql) and is **not** part of the released `1.1.20` artifacts: in `1.1.20`, `TimeSeriesTemplate` has no temporal query methods. Examples that depend on it are marked **(upcoming release)**. The common operations (`insert`, `find`, regular `select`) work with the released module.
-
 ## 1. Introduction to Time Series NoSQL Databases
 
 A Time Series database stores and queries information organized around time. Every observation carries a timestamp, so time is a fundamental part of the data model, not just another attribute.
@@ -138,7 +136,7 @@ The mapping module is `jnosql-mapping-timeseries`:
 </dependency>
 ```
 
-Use a release that contains the temporal Fluent API for the **(upcoming release)** examples; the development branch is currently `2.0.0-SNAPSHOT`. The released `1.1.20` supports only the common operations. This website defines no JNoSQL core version variable, only `jnosql_databases_version` (`{{ site.jnosql_databases_version }}`), so set `jnosql.version` in your own build.
+Use Eclipse JNoSQL `{{ site.jnosql_databases_version }}` or later to get the temporal Fluent API, and set `jnosql.version` accordingly in your build.
 
 Distinguish two layers:
 
@@ -153,7 +151,7 @@ Distinguish two layers:
 </dependency>
 ```
 
-Drivers released alongside `{{ site.jnosql_databases_version }}` use the mapping module from that release, so the temporal operations are available only with a driver release built on the upcoming mapping version.
+Drivers released alongside `{{ site.jnosql_databases_version }}` use the mapping module from that release, so the temporal operations are available with them. The operations a database can execute still depend on the driver.
 
 ## 6. Configuring a Time Series Database
 
@@ -210,7 +208,7 @@ CRUD alone does not express common temporal questions naturally: records within 
 
 ## 8. Temporal Fluent API: Expressive Time-Based Queries
 
-Time Series databases have their own query languages, range operators, and time-window functions. Without a common Java abstraction, applications become coupled to database-specific query construction. JNoSQL extends the familiar fluent query API with five temporal operations, all applied to the `@Id` attribute. **(upcoming release)**
+Time Series databases have their own query languages, range operators, and time-window functions. Without a common Java abstraction, applications become coupled to database-specific query construction. JNoSQL extends the familiar fluent query API with five temporal operations, all applied to the `@Id` attribute.
 
 | Operation | Kind | Semantics |
 |-----------|------|-----------|
@@ -423,4 +421,4 @@ This guide introduces the JNoSQL Time Series programming model. For concrete imp
 * [Jakarta NoSQL](https://github.com/jakartaee/nosql)
 * [Jakarta Data](https://github.com/jakartaee/data)
 * [Supported Databases](/docs/supported_dbs.html)
-* Release notes for the upcoming release, when available, on the [Eclipse JNoSQL releases page](https://github.com/eclipse-jnosql/jnosql/releases).
+* [Eclipse JNoSQL releases page](https://github.com/eclipse-jnosql/jnosql/releases) for release notes.
